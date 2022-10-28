@@ -1,0 +1,42 @@
+.marginBtn {
+  margin-left: 15px;
+}
+.CardImg {
+  width: 100%;
+  height: 100%;
+  margin: 32px 0;
+}
+.containerCardImg {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.containerCardImg .blockCardImg:not(:last-child) {
+  margin: 0 1.5% 0 0;
+}
+.titleCardImg {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  color: #3B3B3B;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 20px;
+  margin: 0 0 2% 0;
+}
+.blockCardImg {
+  height: 100%;
+}
+.imageCardImg {
+  position: relative;
+}
+.iconBtnCardImg {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.textCardImg {
+  font-size: 12px;
+  font-weight: 400;
+  color: #3B3B3B;
+}

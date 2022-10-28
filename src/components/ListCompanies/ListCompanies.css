@@ -1,0 +1,32 @@
+.listValues {
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+.title_ListValues {
+  text-align: center;
+  color: #82B284;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: start;
+}
+.list_ListValues {
+  list-style-type: decimal;
+  padding: 5px 0 0 17px;
+}
+.list_ListValues li {
+  padding: 5px;
+  cursor: pointer;
+}
+.list_ListValues li:hover {
+  color: #3b3b3ba4;
+}
+span {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #222222;
+}

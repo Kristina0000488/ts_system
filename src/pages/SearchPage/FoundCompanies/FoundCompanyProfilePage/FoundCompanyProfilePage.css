@@ -1,0 +1,17 @@
+.foundCompanyProfileContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow-y: hidden;
+}
+.foundCompanyProfile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100%;
+}
+.block_foundCompanyProfile {
+  padding: 26px 40px;
+  border-bottom: 1px solid #e5e5e59c;
+}

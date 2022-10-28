@@ -1,0 +1,9 @@
+.SettingsPage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 40px;
+}
+.SettingsPage .btnBtnBase {
+  width: auto;
+}

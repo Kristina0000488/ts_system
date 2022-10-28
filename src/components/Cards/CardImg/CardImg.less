@@ -1,0 +1,47 @@
+@import '../../../styles/varibles.less';
+@import '../../../styles/mixins.less';
+
+
+.marginBtn {
+    margin-left: 15px;
+}
+
+.CardImg {
+    width: 100%;
+    height: 100%;
+    margin: 32px 0;
+}
+
+.containerCardImg {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .blockCardImg:not(:last-child) {
+        margin: 0 1.5% 0 0;
+    }
+}
+
+.titleCardImg {
+    .titleCard();
+}
+
+.blockCardImg {
+    height: 100%;
+}
+
+.imageCardImg {
+    position: relative;
+}
+
+.iconBtnCardImg {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.textCardImg {
+    font-size: 12px;
+    font-weight: 400;
+    color: @color-black75;
+}

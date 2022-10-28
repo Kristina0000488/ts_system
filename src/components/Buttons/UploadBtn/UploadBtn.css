@@ -1,0 +1,12 @@
+.uploadBtn {
+  width: 100%;
+  position: relative;
+}
+.uploadBtn .icon {
+  position: absolute;
+  top: 16px;
+  left: 13px;
+}
+.uploadBtn:hover .icon {
+  filter: opacity(90%);
+}

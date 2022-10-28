@@ -1,0 +1,35 @@
+@import '../../styles/varibles.less';
+@import '../../styles/mixins.less';
+
+
+.listValues {
+    //.paddingCommon();
+    .overflowBlock();
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.title_ListValues {
+    .titleText();
+    text-align: start;
+}
+
+.list_ListValues {
+    list-style-type: decimal;
+    padding: 5px 0 0 17px;
+    
+    li {        
+        padding: 5px;
+        cursor: pointer;
+        
+        &:hover {
+            color: @color-black50;
+        }
+    }
+}
+
+span {        
+    .boldFont();
+}

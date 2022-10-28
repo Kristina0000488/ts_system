@@ -1,0 +1,34 @@
+@import '../../../styles/varibles.less';
+@import '../../../styles/mixins.less';
+
+
+.btnBtnBase {
+    width: auto; //100%
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 12px;
+    color: @color-green;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: inherit;
+
+    &:hover {        
+        background-color: @color-black10;
+    }
+}
+
+.iconContainer {
+    margin: 3px 11px 0 0;
+}
+
+.clickedBtnBtnBase {
+    background-color: @color-black10 !important;
+}
+

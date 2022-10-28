@@ -1,0 +1,33 @@
+@import '../../../styles/varibles.less';
+@import '../../../styles/mixins.less';
+
+
+.addingNewCompanyContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.addingNewCompany {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    //padding: 0 !important;
+    .overflowBlock();
+    //.paddingCommon();
+}
+
+.block_AddingNewCompany {
+    .paddingCommon();
+    .border-bottom();
+}
+
+.progress_AddingNewCompany {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}

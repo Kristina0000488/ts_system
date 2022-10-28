@@ -1,0 +1,7 @@
+.SearchInput input {
+  width: 100%;
+  border: none;
+}
+.SearchInput input::placeholder {
+  font-size: 14px;
+}

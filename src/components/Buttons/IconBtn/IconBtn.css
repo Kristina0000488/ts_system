@@ -1,0 +1,20 @@
+.iconBtn {
+  width: 100%;
+  cursor: pointer;
+  background: #82B284;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+.iconBtn:hover {
+  background: #A4C7A5;
+}
+.clickedIconBtn {
+  background: #A4C7A5;
+}
+.noBackground {
+  background: inherit;
+}
+.noBackground:hover {
+  background: inherit;
+}

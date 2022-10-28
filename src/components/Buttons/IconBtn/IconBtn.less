@@ -1,0 +1,28 @@
+@import '../../../styles/varibles.less';
+@import '../../../styles/mixins.less';
+
+
+.iconBtn {
+    width: 100%;
+    cursor: pointer;
+    background: @color-green;
+    border: none;
+    outline: none;
+    padding: 0;
+
+    &:hover { 
+        background: @color-lightGreen;
+    }
+}
+
+.clickedIconBtn {
+    background: @color-lightGreen;
+}
+
+.noBackground {
+    background: inherit;
+
+    &:hover {
+        background: inherit;
+    }
+}

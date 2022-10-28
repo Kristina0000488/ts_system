@@ -1,0 +1,9 @@
+.editTitle {
+  display: flex;
+}
+.marginBtn {
+  margin-left: 15px;
+}
+.MuiOutlinedInput-root .fieldset {
+  border-color: 'red';
+}

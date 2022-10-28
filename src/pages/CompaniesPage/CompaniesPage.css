@@ -1,0 +1,18 @@
+.progress_companiesPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding: 26px 40px;
+}
+.companiesPage {
+  padding: 26px 40px;
+  position: relative;
+  width: 100%;
+}
+.btnAddingCompany {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}

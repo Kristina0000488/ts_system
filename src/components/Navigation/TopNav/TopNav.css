@@ -1,0 +1,33 @@
+.topNav {
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  color: #82B284;
+  font-size: 16px;
+  font-weight: 600;
+  align-items: center;
+}
+.iConBtnContainer {
+  margin: 0 10px 0 0;
+}
+.blockTopNav {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+}
+.blockTopNav .iconBtn {
+  width: auto;
+}
+.blockTopNav:last-child {
+  justify-content: flex-end;
+}
+.blockTopNav:last-child .iconBtn {
+  padding: 0 5px;
+}
+.blockTopNav:last-child .iconBtn:last-child {
+  padding: 0 0 0 5px;
+}

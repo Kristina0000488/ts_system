@@ -1,0 +1,15 @@
+.BaseTitle {
+  display: flex;
+  flex-direction: row;
+}
+.boldFont {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #222222;
+}
+.mediumFont {
+  font-size: 16px;
+  font-weight: 300;
+  color: #3B3B3B;
+}
