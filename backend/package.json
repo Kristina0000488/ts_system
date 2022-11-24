@@ -1,7 +1,10 @@
 {
   "dependencies": {
     "fastify": "^4.10.2",
+    "fastify-auth": "^1.2.0",
+    "fastify-knex": "^0.1.1",
     "fastify-plugin": "^4.3.0",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^2.3.0",
     "sqlite3": "^5.1.2"
   }

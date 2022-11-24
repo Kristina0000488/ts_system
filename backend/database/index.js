@@ -28,13 +28,6 @@ let db = new sqlite3.Database( path.resolve(__dirname, 'db.main'), sqlite3.OPEN_
     });
 });*/
 
-/*
-  await db.all(sql,params,(err, rows ) => {
-    // process rows here    
-}); 
-*/
-
-
 async function writeUser(name, password, role, created_at) {
   await db.serialize(() => {
     return db.run('CREATE TABLE IF NOT EXISTS Users(USR_ID INTEGER PRIMARY KEY AUTOINCREMENT, USR_NAME VARCHAR(50) NOT NULL UNIQUE, USR_PASSWORD VARCHAR(255) NOT NULL, USR_ROLE NOT NULL, USR_CREATEDAT VARCHAR(150) NOT NULL)')
@@ -49,7 +42,7 @@ async function writeUser(name, password, role, created_at) {
   });
 }
 
-writeUser()
+//writeUser()
 
 db.close((err) => {
     if (err) {

@@ -47,7 +47,7 @@ class WrapedApi
 
             if ( secured )
             {
-                headers['Authorization'] = await this.getAuth( );
+                //headers['Authorization'] = await this.getAuth( );
             }
                 
             let response = await this.api(options);
