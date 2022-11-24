@@ -1,0 +1,46 @@
+{
+    "users": {
+        "1": {
+                "name": "user",
+                "password": "user",
+                "id": 1, 
+                "role": "user",
+                "createdAt": "2020-11-27T08:03:00Z"
+        },
+        "2": {
+                "name": "admin",
+                "password": "admin",
+                "id": 2, 
+                "role": "admin",
+                "createdAt": "2020-11-21T08:03:00Z"
+        },
+        "3":{
+            "name": "user2",
+            "password": "1234",
+            "id": 3, 
+            "role": "user",
+            "createdAt": "2020-11-25T08:03:00Z"
+        },
+        "4":{
+            "name": "usertest",
+            "password": "1234",
+            "id": 4, 
+            "role": "user",
+            "createdAt": "2018-11-25T08:03:00Z"
+        },
+        "5": {
+            "name": "usertest2",
+            "password": "1234",
+            "id": 5, 
+            "role": "user",
+            "createdAt": "2019-11-25T08:03:00Z"
+        },
+        "6":{
+            "name": "usertest3",
+            "password": "1234",
+            "id": 6, 
+            "role": "user",
+            "createdAt": "2018-08-25T08:03:00Z"
+        }
+    }
+}
