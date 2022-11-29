@@ -64,10 +64,24 @@ const getAdminsHandler = async (req, reply) => {
     }
 }
 
+const getUsersHandler = async (req, reply) => {    
+    let result = null;
+
+    try {
+        result = await knex("users")
+            .select("id", "name", "role", "createdat")
+
+        reply.send({ result, status: 200 });
+    } catch (err) {
+      fastify.log.error(err);
+    }
+}
+
 
 module.exports = {
     addUserHandler,
     updateUserHandler,
     deleteUserHandler,
-    getAdminsHandler
+    getAdminsHandler,
+    getUsersHandler
 };

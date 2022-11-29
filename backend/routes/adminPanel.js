@@ -8,11 +8,9 @@ const {
     addUserHandler,
     updateUserHandler,
     deleteUserHandler,
-    getAdminsHandler
+    getAdminsHandler,
+    getUsersHandler
 } = require('../controllers/handlers/adminPanel.js');
-
-const customJwtAuth = require('../plugins/authJwt');
-
 
 const addUserOpts = {
     schema: addUserSchema,
@@ -28,19 +26,12 @@ const deleteUserOpts = {
     schema: deleteUserSchema,
     handler: deleteUserHandler,
 };
-/*
-const adminPanelRoutes = (fastify, opts, done) => {
-    fastify
-      .register(require('@fastify/auth'))
-      .after(() => privateAdminPanelRoutes(fastify));
-  
-    done();
-};*/
-  
+
+
 async function privateAdminPanelRoutes (fastify) {
     // create an user
     fastify.post('/admin-panel/users/new', {
-      preHandler: [fastify.authenticate],//  [fastify.authenticate],//fastify.getAuth([fastify.verifyToken]),
+      preHandler: [fastify.authenticate],
       schema: addUserSchema,
       handler: addUserHandler,
       //...addUserOpts
@@ -48,7 +39,7 @@ async function privateAdminPanelRoutes (fastify) {
   
     // update an user
     fastify.put('/admin-panel/users/edit/:id', {
-      preHandler: [fastify.authenticate], //preHandler: [fastify.authenticate],//([fastify.verifyToken]),
+      preHandler: [fastify.authenticate], 
       schema: updateUserSchema,
       handler: updateUserHandler,
       //...updateUserOpts
@@ -56,7 +47,7 @@ async function privateAdminPanelRoutes (fastify) {
   
     // delete an user
     fastify.delete('/admin-panel/users/:id', {
-      preHandler: [fastify.authenticate],//preHandler: fastify.authenticate(), // [fastify.authenticate],//fastify.getAuth([fastify.verifyToken]),
+      preHandler: [fastify.authenticate],
       schema: deleteUserSchema,
       handler: deleteUserHandler,
       //...deleteUserOpts
@@ -64,19 +55,10 @@ async function privateAdminPanelRoutes (fastify) {
 };
 
 module.exports = async function (fastify) {
-  fastify.get(
-    '/admin-panel/users/:id',
-    {
-      onRequest: [fastify.authenticate],
-    },
-    async function (request, reply) {
-      // the user's id is in request.user
-      return { read: request.params.document };
-    },
-  );
+  
   // create an user
   fastify.post('/admin-panel/users/new', {
-    onRequest: [fastify.authenticate],//  [fastify.authenticate],//fastify.getAuth([fastify.verifyToken]),
+    onRequest: [fastify.verifyToken],
     schema: addUserSchema,
     handler: addUserHandler,
     //...addUserOpts
@@ -84,7 +66,7 @@ module.exports = async function (fastify) {
 
   // update an user
   fastify.put('/admin-panel/users/edit/:id', {
-    onRequest: [fastify.verifyToken], //preHandler: [fastify.authenticate],//([fastify.verifyToken]),
+    onRequest: [fastify.verifyToken], 
     schema: updateUserSchema,
     handler: updateUserHandler,
     //...updateUserOpts
@@ -92,7 +74,7 @@ module.exports = async function (fastify) {
 
   // delete an user
   fastify.delete('/admin-panel/users/:id', {
-    onRequest: [fastify.verifyToken],//preHandler: fastify.authenticate(), // [fastify.authenticate],//fastify.getAuth([fastify.verifyToken]),
+    onRequest: [fastify.verifyToken],
     schema: deleteUserSchema,
     handler: deleteUserHandler,
     //...deleteUserOpts
@@ -102,8 +84,13 @@ module.exports = async function (fastify) {
     onRequest: [fastify.verifyToken],
     handler: getAdminsHandler,
   });
+
+  fastify.get("/admin-panel/users", {
+    onRequest: [fastify.verifyToken],
+    handler: getUsersHandler,
+  });
 };;
-   // adminPanelRoutes
+
 
 /*
 module.exports = async function (fastify, opts) {
@@ -111,6 +98,17 @@ module.exports = async function (fastify, opts) {
     '/admin-panel/users/:id',
     {
       preHandler: [fastify.authenticate],
+    },
+    async function (request, reply) {
+      // the user's id is in request.user
+      return { read: request.params.document };
+    },
+  );
+
+  fastify.get(
+    '/admin-panel/users/:id',
+    {
+      onRequest: [fastify.authenticate],
     },
     async function (request, reply) {
       // the user's id is in request.user

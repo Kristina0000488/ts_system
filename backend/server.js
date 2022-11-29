@@ -42,7 +42,7 @@ function getToken() {
 (async () => {
   try {
     const knex = require("knex")(development);
-
+    // test
     fastify.get('/', async (req, reply) => {
       //const aCookieValue = req.cookies.cookieName;
       //const bCookie = req.unsignCookie(req.cookies.cookieSigned);
@@ -55,7 +55,8 @@ function getToken() {
           path: '/',
           secure: true, // send cookie over HTTPS only
           httpOnly: true,
-          sameSite: true // alternative CSRF protection
+          sameSite: true, // alternative CSRF protection
+          expiresIn: new Date(Date.now() + 1)
         })
         .code(200)
         .send('Cookie sent')
@@ -88,8 +89,6 @@ function getToken() {
             })
             .code(200)
             .send('Cookie sent')
-
-          //return { result, status: 200, token };
         }
       } catch (err) {
         fastify.log.error(err);
@@ -99,18 +98,6 @@ function getToken() {
     fastify.get('/verifycookie', (request, reply) => {
       reply.send({ code: 'OK', message: 'it works!' })
     })
-    
-    fastify.get("/users", async (req, res) => {
-      let result = null;
-      try {
-        result = await knex("users")
-          .select("id", "name", "role", "createdat")
-      } catch (err) {
-        fastify.log.error(err);
-      }
-      return { result, status: 200 };
-    });
-
 
     await fastify.listen({ port: 3001 }, (err) => { if (err) throw err });
   } catch (err) {
