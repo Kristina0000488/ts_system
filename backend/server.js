@@ -112,7 +112,6 @@ function getToken() {
     });
 
 
-
     await fastify.listen({ port: 3001 }, (err) => { if (err) throw err });
   } catch (err) {
     fastify.log.error(err);
