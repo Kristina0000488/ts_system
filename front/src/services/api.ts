@@ -19,7 +19,14 @@ class WrapedApi
         private token?: string 
     ) { }
 
-    private async request<T, D extends Object>(method: string, postfix: string, data?: D, secured?: boolean, allowStatuses: number[ ] = [ 200 ], postfile?: boolean) : Promise<T>
+    private async request<T, D extends Object>(
+        method: string, 
+        postfix: string, 
+        data?: D, 
+        secured?: boolean, 
+        allowStatuses: number[ ] = [ 200 ], 
+        postfile?: boolean
+    ) : Promise<T>
     {         
         const dispatch = useAppDispatch();
 
@@ -45,14 +52,20 @@ class WrapedApi
                 } as AxiosRequestHeaders; 
             }            
 
-            if ( secured )
+            /*if ( secured )
             {
-                //headers['Authorization'] = await this.getAuth( );
-            }
+                headers['Authorization'] = await this.getAuth( );
+            }*/
                 
             let response = await this.api(options);
 
             if ( !(response.status in allowStatuses) ) {
+                
+                if (response.authorization)
+                {
+                    headers['Authorization'] = response['authorization'] 
+                }
+
                 return response.data;
             } else {
                 dispatch( redux.setError( { message: 'Error response', statusCode: response.status } as ResponseStatusCode ));
@@ -108,6 +121,13 @@ class WrapedApi
             throw error;
         } 
     }
+
+    async toLogin(name: string, password: string) : Promise<TypeResponseGetInfoCompany>
+    {
+        const data = { name, password };
+
+        return await this.post( `login`, data, false, true );    
+    }
         
     async getInfoCompany(id: number) : Promise<TypeResponseGetInfoCompany>
     {
@@ -135,12 +155,12 @@ class WrapedApi
     }
 
     async addImageCompany(id: number, img: File) : Promise<object>
-    { console.log(img)
+    { //console.log(img)
         const formData = new FormData();
         await formData.append(
             "image",
             img
-          );
+        );
 
         return await this.post( `companies/${ id }/image`, formData, true, true );    
     } //`file=@${image}`

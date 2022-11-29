@@ -1,9 +1,14 @@
 {
   "dependencies": {
+    "@fastify/auth": "^4.1.0",
+    "@fastify/cookie": "^8.3.0",
+    "@fastify/jwt": "^5.0.0",
     "fastify": "^4.10.2",
-    "fastify-auth": "^1.2.0",
+    "fastify-autoload": "^3.13.0",
+    "fastify-jwt": "^4.2.0",
     "fastify-knex": "^0.1.1",
     "fastify-plugin": "^4.3.0",
+    "fastify-swagger": "^5.2.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.3.0",
     "sqlite3": "^5.1.2"
