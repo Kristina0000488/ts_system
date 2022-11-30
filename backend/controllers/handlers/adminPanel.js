@@ -113,7 +113,7 @@ const getAllUsersTableHandler = async (req, reply) => {
 
                 if (page ===  page) break;
             } preparedRes
-            console.log(res);
+            
             await reply.send({ page, amountPages, rowAmount, amountUsers, result: res[ page ], statusCode: 200 });
         }        
     } catch (err) {
