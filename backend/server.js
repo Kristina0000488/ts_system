@@ -42,24 +42,19 @@ function getToken() {
 (async () => {
   try {
     const knex = require("knex")(development);
-    // test
+    // REST
     fastify.get('/', async (req, reply) => {
-      const token = await getToken();
-      
-      reply
-        .setCookie('token', token, {
-          //domain: 'your.domain',
-          path: '/',
-          secure: true, // send cookie over HTTPS only
-          httpOnly: true,
-          sameSite: true, // alternative CSRF protection
-          expiresIn: new Date(Date.now() + 1)
-        })
-        .code(200)
-        .send('Cookie sent')
+      if ( [fastify.verifyToken] ) {
+        reply
+          .code(200)
+          .send({ statusCode: 200, message: 'Valid token' })
+      } else {
+        reply
+          .code(404)
+          .send({ statusCode: 404, message: 'Invalid token' });
+      }     
     })
-
-    //REST
+    
     fastify.post("/login", async (req, res) => {
       let result = null;
       
@@ -67,27 +62,37 @@ function getToken() {
         const { name, password } = req.body;
 
         result = await knex("users")
-          .select("name", "password", "id")
+          .select("name", "password", "id", "role", "createdat")
           .where({ 'name': name, 'password': password });
-
-        if (!result) {
-          res.send({ status: 404, message: 'Invalid' });
+        //console.log(result, 111)
+        if (result.length === 0) {
+          res
+            .code(404)
+            .send({ statusCode: 404, message: 'Invalid' });
 
           return fastify.log.error();
         } else {
           // sign a token          
           let token = await getToken();
 
+          const readyResult = result[0];
+          const readyResp = { 
+            id: readyResult.id, 
+            name: readyResult.name, 
+            role: readyResult.role, 
+            createdat: readyResult.createdat 
+          }
+
           res
             .setCookie('token', token, {
-              domain: 'your.domain',
+              domain: '',
               path: '/',
               secure: true, // send cookie over HTTPS only
               httpOnly: true,
               sameSite: true // alternative CSRF protection
             })
             .code(200)
-            .send('Cookie sent')
+            .send({ statusCode: 200, message: 'Valid', result: readyResp })
         }
       } catch (err) {
         fastify.log.error(err);
@@ -108,7 +113,7 @@ function getToken() {
 
       //const aCookieValue = req.cookies.cookieName;
       //const bCookie = req.unsignCookie(req.cookies.cookieSigned);
-      
+
 /*
     fastify.get('/cookies', async (request, reply) => {
       const token = await reply.jwtSign({

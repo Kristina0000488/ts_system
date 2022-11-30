@@ -28,7 +28,7 @@ class WrapedApi
         postfile?: boolean
     ) : Promise<T>
     {         
-        const dispatch = useAppDispatch();
+       // const dispatch = useAppDispatch();
 
         try {
             let headers = {
@@ -62,13 +62,13 @@ class WrapedApi
             if ( !(response.status in allowStatuses) ) {
                 return response.data;
             } else {
-                dispatch( redux.setError( { message: 'Error response', statusCode: response.status } as ResponseStatusCode ));
+               // dispatch( redux.setError( { message: 'Error response', statusCode: response.status } as ResponseStatusCode ));
 
                 throw new Error( `Bad response ${response.status}`);
             }
         } catch ( error: unknown ) {
             console.error( error );
-            dispatch( redux.setError( { message: 'Error' } as ResponseStatusCode ));
+           // dispatch( redux.setError( { message: 'Error' } as ResponseStatusCode ));
 
             throw error;
         }
@@ -116,11 +116,18 @@ class WrapedApi
         } 
     }*/
 
-    async toLogin(name: string, password: string) : Promise<TypeResponseGetInfoCompany>
+    async login(name: string, password: string) : Promise<any>//!
     {
         const data = { name, password };
 
         return await this.post( `login`, data, false, true );    
+    }
+
+    async getAllUsersForTable(page: number, rowAmount: number) : Promise<any> ///!
+    {
+        const data = { page, rowAmount };
+
+        return await this.post( `admin-panel/allUsersTable`, data, false, true );    
     }
         
     async getInfoCompany(id: number) : Promise<TypeResponseGetInfoCompany>

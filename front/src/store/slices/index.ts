@@ -18,8 +18,8 @@ interface SliceState
   companiesList: types.CompaniesList[],
   clickedBtnId : number,
   error        : types.TypeErrorState[],
-  user         : types.CommonValidUser,
-  allUsers     : types.Users,
+  user         : types.ValidUser,
+  allUsers     : types.ValidUser[],
   usersCount   : number,
 };
 
@@ -34,7 +34,7 @@ const initialState: SliceState =
   error: [] as types.TypeErrorState[],
   isDone: false,
   user: { } as types.CommonValidUser,
-  allUsers: [ ] as types.Users,
+  allUsers: [ ] as types.ValidUser[],
   usersCount: 0 as number,
 }
 
@@ -132,11 +132,11 @@ export const indexSlice = createSlice({
     {  
       state.isDone = !state.isDone;
     },
-    checkUser(state: SliceState, action: PayloadAction<types.CheckUser>) 
+    loginUser(state: SliceState, action: PayloadAction<types.LoginUser>) 
     {  
       state.isLoading = !state.isLoading;
     },
-    setUser(state: SliceState, action: PayloadAction<types.CommonValidUser>) 
+    setUser(state: SliceState, action: PayloadAction<types.ValidUser>) 
     {  
       state.isLoading = false;
       state.user      = action.payload;
@@ -154,7 +154,7 @@ export const indexSlice = createSlice({
     {  
      state.isLoading = !state.isLoading;       
     },
-    setAllUsers(state: SliceState, action: PayloadAction<types.Users>) 
+    setAllUsers(state: SliceState, action: PayloadAction<types.ValidUser[]>) 
     {  
       state.isLoading = false;
       state.allUsers  = action.payload;      
@@ -198,7 +198,7 @@ export const {
   setError,
   removeError,
   setIsDone,
-  checkUser,
+  loginUser,
   setUser, 
   exit,
   getAllUsers,
@@ -214,16 +214,15 @@ export const {
 export const selectErrors = (state: RootState) : types.TypeErrorState[] => {
   return state.index.error;
 };
-export const selectUser = (state: RootState) : { role: types.RoleUser, user: string, noValid: boolean, id: number} | 
-{ role: types.RoleUser, noValid: boolean } => {
+export const selectUser = (state: RootState) : { role: types.RoleUser, user: string, noValid: boolean, id: number} | { role: types.RoleUser, noValid: boolean } => {
   if ( state.index.user && state.index.user.userName )
-  {
+  { 
     return {
       ...state.index.user,
       noValid: false
     }
   }
-
+  
   return {
     role: 'guest',
     noValid: true,
@@ -244,7 +243,7 @@ export const selectClickedBtnId = (state: RootState) : { masterBtnId: number, ch
 export const selectAllUsers = (state: RootState) => {
   if ( state.index.allUsers.length > 0 )
   { 
-    const newValues: types.AllUsersForTable = [ ...state.index.allUsers ].map( ( user: types.CommonValidUser ) => {
+    const newValues: types.AllUsersForTable = [ ...state.index.allUsers ].map( ( user: types.ValidUser ) => {
       const { role, createdAt, updatedAt='', ...simple } = user;
 
       return { 

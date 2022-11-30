@@ -78,7 +78,7 @@ export const Router: React.FC = () =>
     const user      = useAppSelector(redux.selectUser);
     const role      = user.role;
     const isValided = !user.noValid;
-   
+    
     return (
         <React.Suspense fallback={ <Progress /> }>
             <Routes>                

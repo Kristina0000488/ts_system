@@ -1,4 +1,6 @@
-import * as types       from '../types';
+export {}
+
+/*import * as types       from '../types';
 import { getRandomInt, copyObj } from '../utils';
 
 
@@ -336,4 +338,4 @@ function getPromise <T extends Object>( object: T, time: number = 1000, isError:
             resolve( object );            
         }, time );
     } );
-}
+}*/

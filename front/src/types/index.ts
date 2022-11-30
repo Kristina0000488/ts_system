@@ -152,25 +152,33 @@ export interface CollectionOnClickIconsRight {
 };
 
 export interface ResponseStatusCode {
-    statusCode: 204 | 400,
+    statusCode: 204 | 200 | 400,
     message: string,
 }
+
+export type ResponseAllUsersTable = {
+    result: ValidUser[];
+    page: number;
+    amountPages: number;
+    rowAmount: number; 
+    amountUsers: number;
+} & ResponseStatusCode;
 
 export interface TypeErrorState extends ResponseStatusCode {
     id: number;
 }
 
-export interface CheckUser {
+export interface LoginUser {
     userName: string,
     password: string,
 }
 
-export interface ResponseCheckUser extends CheckUser, ResponseStatusCode { };
+export interface ResponseLoginUser extends LoginUser, ResponseStatusCode { };
 
 export type RoleUser   = 'user' | 'admin' | 'guest' | 'moderator';
 export type TypeUIElem = 'choice' | 'date' | 'choiceImages';
 
-export interface ExtendedUser<Role, TimeStamp, Icon> extends CheckUser
+export interface ExtendedUser<Role, TimeStamp, Icon> extends LoginUser
 {
     id: number,
     role: Role, 
@@ -180,6 +188,14 @@ export interface ExtendedUser<Role, TimeStamp, Icon> extends CheckUser
 }
 
 export type CommonValidUser = ExtendedUser<RoleUser, string, TypeIcons>;
+export type ValidUser = Omit<ExtendedUser<RoleUser, string, TypeIcons>, 'password'>;
+export type ValidUserBack = {
+    id: number,
+    name: string,
+    role: RoleUser, 
+    createdat: string, 
+    updatedat?: string,
+};
 
 export type Users = CommonValidUser[];
 

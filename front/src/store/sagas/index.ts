@@ -3,7 +3,7 @@ import { takeLatest, call, put } from "redux-saga/effects";
 import { PayloadAction }         from '@reduxjs/toolkit';
 
 import * as reducer              from '../slices';
-//import { client }              from '../../services/api';
+import { client }                from '../../services/api';
 import * as types                from '../../types';
 import * as mocks                from '../../services/mocks';
 import { toNavigate }            from '../../routes/methods';
@@ -123,18 +123,31 @@ export function* handleRemoveCompany(action: PayloadAction<types.PayloadId<strin
     }
 }
 
-export function* handleCheckUser(action: PayloadAction<types.CheckUser>) 
+export function* handleLoginUser(action: PayloadAction<types.LoginUser>) 
 {
     try {  
-      const response: types.CommonValidUser & types.ResponseStatusCode = yield call( mocks.authorizationUser, action.payload.userName, action.payload.password );
-      
-      if ( response.statusCode === 204 ) {
-        const { id, userName, password, role, createdAt, updatedAt='' } = response;
+      //const response: types.ValidUser & types.ResponseStatusCode = yield call( mocks.authorizationUser, action.payload.userName, action.payload.password );
+      const response: { result: types.ValidUserBack } & types.ResponseStatusCode = yield call( 
+        client.login.bind( client ), 
+        action.payload.userName, 
+        action.payload.password 
+      );
 
-        yield put( reducer.setUser({ id, userName, password, role, createdAt, updatedAt }));
+      if ( response.statusCode === 200 ) {
+        const { id, name, role, createdat, updatedat='' } = response.result;
+
+        yield put( reducer.setUser(
+          { id, 
+            userName: name, 
+            role, 
+            createdAt: createdat, 
+            updatedAt: updatedat 
+          }
+        ) );
         yield toNavigate(Paths.index);
       } else { 
         yield put( reducer.setError(response) );
+        yield toNavigate(Paths.login);
       }
 
     } catch (e) {
@@ -161,11 +174,17 @@ export function* handleGetAllUsers()
 export function* handleGetUsersForTable(action: PayloadAction<types.PayloadUsersForTable>) 
 {
     try {  
-      const response: types.Users      = yield call( mocks.getUsersForTable, action.payload.page, action.payload.rowAmount );
-      const responseUsersCount: number = yield call( mocks.getUsersCount );
+      //const response: types.Users      = yield call( mocks.getUsersForTable, action.payload.page, action.payload.rowAmount );
+      //const responseUsersCount: number = yield call( mocks.getUsersCount );
 
-      yield put( reducer.setAllUsers( response ) );
-      yield put( reducer.setUsersCount( responseUsersCount ) );
+      const response: types.ResponseAllUsersTable = yield call( 
+        client.getAllUsersForTable.bind( client ), 
+        action.payload.page, 
+        action.payload.rowAmount 
+      );
+        console.log(response)
+      yield put( reducer.setAllUsers( response.result ) );
+      yield put( reducer.setUsersCount( response.amountUsers ) );
 
     } catch (e) {
       //yield put( reducer.setError(e) );
@@ -247,7 +266,7 @@ export default function* watcherSaga()
     yield takeLatest(reducer.addImg.type,                handleAddImgCompany        );
     yield takeLatest(reducer.searchCompany.type,         handleSearchCompany        );
     yield takeLatest(reducer.removeCompany.type,         handleRemoveCompany        );
-    yield takeLatest(reducer.checkUser.type,             handleCheckUser            );
+    yield takeLatest(reducer.loginUser.type,             handleLoginUser            );
     yield takeLatest(reducer.getAllUsers.type,           handleGetAllUsers          );
     yield takeLatest(reducer.getUsersForTable.type,      handleGetUsersForTable     );
     yield takeLatest(reducer.updateAllUsers.type,        handleUpdateAllUsers       );

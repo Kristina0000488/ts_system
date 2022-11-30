@@ -60,6 +60,22 @@ const addUserSchema = {
     },
 };
 
+const getAllUsersTablerSchema = {
+  headers: headerSchema,
+  body: {
+    type: 'object',
+    required: ['title', 'body'],
+    properties: {
+      title: { type: typeString },
+      body: { type: typeString }
+    },
+  },
+  response: {
+    200: { type: typeString },
+    result: user // sending a simple message as string
+  },
+};
+
 const updateUserSchema = {
   body: {
     type: 'object',

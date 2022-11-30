@@ -2,7 +2,7 @@ import history from './history';
 
 
 export function toNavigate( param: number | string, modeProps: boolean = false ) : void 
-{   
+{  
     let location: string = getLocation();
 
     let pathname: string = `${ param }`;

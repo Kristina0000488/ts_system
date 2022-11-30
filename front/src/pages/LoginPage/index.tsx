@@ -12,10 +12,15 @@ import BtnBase               from '../../components/Buttons/BtnBase';
 import './LoginPage.css';
 
 
+type State = {
+    userName: string;
+    password: string;
+}
+
 export const LoginPage: React.FC<types.CommonPropsPage> = ({ idBtn=0 }) =>
 {
-    const [ userName, setUserName ] = useState<string>('admin'); //!test
-    const [ password, setPassword ] = useState<string>('admin');
+    const [ userName, setUserName ] = useState<string>(''); 
+    const [ password, setPassword ] = useState<string>('');
 
     const dispatch = useAppDispatch();
 
@@ -36,7 +41,7 @@ export const LoginPage: React.FC<types.CommonPropsPage> = ({ idBtn=0 }) =>
 
     const onSubmit = () : void => {
         if ( userName.length > 0 && password.length > 0 )
-            dispatch( redux.checkUser({ userName, password }) );
+            dispatch( redux.loginUser({ userName, password }) );
     }
 
     return (

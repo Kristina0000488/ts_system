@@ -4,6 +4,7 @@ const {
     getAdminsSchema,
     getUsersSchema,
     deleteUserSchema,
+    getAllUsersTablerSchema
 } = require('../controllers/schemas/adminPanel.js');
 
 const {
@@ -11,7 +12,8 @@ const {
     updateUserHandler,
     deleteUserHandler,
     getAdminsHandler,
-    getUsersHandler
+    getUsersHandler,
+    getAllUsersTableHandler
 } = require('../controllers/handlers/adminPanel.js');
 
 
@@ -49,6 +51,12 @@ module.exports = async function (fastify) {
     schema: getUsersSchema,
     handler: getUsersHandler,
   });
+
+  fastify.post('/admin-panel/allUsersTable', {
+    onRequest: [fastify.verifyToken],
+    schema: getAllUsersTablerSchema,
+    handler: getAllUsersTableHandler,
+  },);
 };;
 
 
