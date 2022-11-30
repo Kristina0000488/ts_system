@@ -44,9 +44,6 @@ function getToken() {
     const knex = require("knex")(development);
     // test
     fastify.get('/', async (req, reply) => {
-      //const aCookieValue = req.cookies.cookieName;
-      //const bCookie = req.unsignCookie(req.cookies.cookieSigned);
-
       const token = await getToken();
       
       reply
@@ -70,10 +67,12 @@ function getToken() {
         const { name, password } = req.body;
 
         result = await knex("users")
-        .select("name", "password", "id")
-        .where({'name': name, 'password': password});
+          .select("name", "password", "id")
+          .where({ 'name': name, 'password': password });
 
         if (!result) {
+          res.send({ status: 404, message: 'Invalid' });
+
           return fastify.log.error();
         } else {
           // sign a token          
@@ -106,6 +105,10 @@ function getToken() {
   }
 })();
 
+
+      //const aCookieValue = req.cookies.cookieName;
+      //const bCookie = req.unsignCookie(req.cookies.cookieSigned);
+      
 /*
     fastify.get('/cookies', async (request, reply) => {
       const token = await reply.jwtSign({

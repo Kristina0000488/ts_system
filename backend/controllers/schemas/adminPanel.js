@@ -16,25 +16,35 @@ const user = {
     body: typeString,
   },
 };
-/*
-const getUsersSchema = {
+
+const admin = {
+  type: 'object',
+  properties: {
+    id: { type: 'number' },
+    title: typeString,
+    body: typeString,
+  },
+};
+
+
+const getAdminsSchema = {
   response: {
     200: {
       type: 'array',
-      items: user,
+      items: admin,
     },
   },
 };
 
-const getUserSchema = {
-  params: {
+const getUsersSchema = {
+  /*params: {
     id: { type: 'number' },
-  },
+  },*/
   response: {
     200: user,
   },
 };
-*/
+
 const addUserSchema = {
     headers: headerSchema,
     body: {
@@ -80,4 +90,6 @@ module.exports = {
   addUserSchema,
   updateUserSchema,
   deleteUserSchema,
+  getAdminsSchema,
+  getUsersSchema
 };

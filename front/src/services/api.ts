@@ -23,7 +23,7 @@ class WrapedApi
         method: string, 
         postfix: string, 
         data?: D, 
-        secured?: boolean, 
+        //secured?: boolean, 
         allowStatuses: number[ ] = [ 200 ], 
         postfile?: boolean
     ) : Promise<T>
@@ -60,12 +60,6 @@ class WrapedApi
             let response = await this.api(options);
 
             if ( !(response.status in allowStatuses) ) {
-                
-                if (response.authorization)
-                {
-                    headers['Authorization'] = response['authorization'] 
-                }
-
                 return response.data;
             } else {
                 dispatch( redux.setError( { message: 'Error response', statusCode: response.status } as ResponseStatusCode ));
@@ -82,25 +76,25 @@ class WrapedApi
 
     private async get<T>(url: string, secured: boolean = false, allowStatuses: number[ ] = [ 200 ]): Promise<T> 
     {
-        return await this.request( 'get', url, undefined, secured, allowStatuses );
+        return await this.request( 'get', url, undefined, allowStatuses );
     }
 
     private async patch<T, D extends Object>( url: string, data: D, secured: boolean = false ) : Promise<T> 
     { 
-        return await this.request( 'patch', url, data, secured )  
+        return await this.request( 'patch', url, data )  
     }
     
     private async post<T, D extends Object>( url: string, data: D, secured: boolean = false, postfile: boolean = false) : Promise<T> 
     {
-        return await this.request( 'post', url, data, secured, undefined, postfile )  
+        return await this.request( 'post', url, data, undefined, postfile )  
     }
 
-    private async delete<T, D extends Object>( url: string,  secured: boolean = false ) : Promise<T> 
+    private async delete<T, D extends Object>( url: string,  /*secured: boolean = false*/ ) : Promise<T> 
     {
-        return await this.request( 'delete', url, undefined, secured )  
+        return await this.request( 'delete', url, undefined )  
     }
    
-    async getAuth( update: boolean = true ) : Promise<string>  
+    /*async getAuth( update: boolean = true ) : Promise<string>  
     {
         try {
             if ( update || !this.token ) 
@@ -120,7 +114,7 @@ class WrapedApi
 
             throw error;
         } 
-    }
+    }*/
 
     async toLogin(name: string, password: string) : Promise<TypeResponseGetInfoCompany>
     {
@@ -151,7 +145,7 @@ class WrapedApi
 
     async deleteImageCompany(id: number, imageName: string) : Promise<object>
     {
-        return await this.delete( `companies/${ id }/image/${ imageName }`, true );    
+        return await this.delete( `companies/${ id }/image/${ imageName }` );    
     }
 
     async addImageCompany(id: number, img: File) : Promise<object>
