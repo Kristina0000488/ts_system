@@ -43,8 +43,9 @@ function getToken() {
   try {
     const knex = require("knex")(development);
     // REST
-    fastify.get('/', async (req, reply) => {
+    fastify.get('/verifycookie', async (req, reply) => {
       if ( [fastify.verifyToken] ) {
+        console.log('okkkk')
         reply
           .code(200)
           .send({ statusCode: 200, message: 'Valid token' })
@@ -62,7 +63,7 @@ function getToken() {
         const { name, password } = req.body;
 
         result = await knex("users")
-          .select("name", "password", "id", "role", "createdat")
+          .select("name", "password", "id", "role", "createdat", "updatedat", "token")
           .where({ 'name': name, 'password': password });
         //console.log(result, 111)
         if (result.length === 0) {
@@ -83,6 +84,10 @@ function getToken() {
             createdat: readyResult.createdat 
           }
 
+          //await knex("users")
+          //.update({ token })
+          //.where({ 'name': name, 'password': password });
+
           res
             .setCookie('token', token, {
               domain: '',
@@ -98,10 +103,6 @@ function getToken() {
         fastify.log.error(err);
       }
     });
-    
-    fastify.get('/verifycookie', (request, reply) => {
-      reply.send({ code: 'OK', message: 'it works!' })
-    })
 
     await fastify.listen({ port: 3001 }, (err) => { if (err) throw err });
   } catch (err) {

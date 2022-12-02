@@ -10,6 +10,8 @@ exports.up = function(knex) {
     tbl.text("password", 250).notNullable();
     tbl.text("role", 250).notNullable();
     tbl.text("createdat", 250).notNullable();   
+    tbl.text("updatedat", 250);  
+    tbl.text("token", 400);
   })
 };
 
