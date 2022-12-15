@@ -137,7 +137,40 @@ export function* handleLoginUser(action: PayloadAction<types.LoginUser>)
         const { id, name, role, createdat, updatedat='' } = response.result;
 
         yield put( reducer.setUser(
-          { id, 
+          { 
+            id, 
+            userName: name, 
+            role, 
+            createdAt: createdat, 
+            updatedAt: updatedat 
+          }
+        ) );
+        yield toNavigate(Paths.index);
+      } else { 
+        yield put( reducer.setError(response) );
+        yield toNavigate(Paths.login);
+      }
+
+    } catch (e) {
+      //yield put( reducer.setError(e) );
+      
+      console.log(e);
+    }
+}
+
+export function* handleCheckUser() 
+{
+    try {  
+      const response: { result: types.ValidUserBack } & types.ResponseStatusCode = yield call( 
+        client.checkUser.bind( client )
+      );
+
+      if ( response.statusCode === 200 ) {
+        const { id, name, role, createdat, updatedat='' } = response.result;
+        
+        yield put( reducer.setUser(
+          { 
+            id, 
             userName: name, 
             role, 
             createdAt: createdat, 
@@ -182,7 +215,7 @@ export function* handleGetUsersForTable(action: PayloadAction<types.PayloadUsers
         action.payload.page, 
         action.payload.rowAmount 
       );
-        console.log(response)
+      
       yield put( reducer.setAllUsers( response.result ) );
       yield put( reducer.setUsersCount( response.amountUsers ) );
 
@@ -238,7 +271,14 @@ export function* handleRemoveUser(action: PayloadAction<types.PayloadId<number>>
 export function* handleAddUser(action: PayloadAction<types.PayloadAddUser<string>>) 
 {
     try {  
-      const response: types.ResponseStatusCode = yield call( mocks.addUser, action.payload );
+      //const response: types.ResponseStatusCode = yield call( mocks.addUser, action.payload );
+
+      const response: types.ResponseStatusCode = yield call( 
+        client.addUser.bind( client ), 
+        action.payload.userName,
+        action.payload.password,
+        action.payload.role,
+      );
 
       const responseUsers: types.Users = yield call( mocks.getUsersForTable, 0, 5 );
         
@@ -267,6 +307,7 @@ export default function* watcherSaga()
     yield takeLatest(reducer.searchCompany.type,         handleSearchCompany        );
     yield takeLatest(reducer.removeCompany.type,         handleRemoveCompany        );
     yield takeLatest(reducer.loginUser.type,             handleLoginUser            );
+    yield takeLatest(reducer.checkUser.type,             handleCheckUser            );
     yield takeLatest(reducer.getAllUsers.type,           handleGetAllUsers          );
     yield takeLatest(reducer.getUsersForTable.type,      handleGetUsersForTable     );
     yield takeLatest(reducer.updateAllUsers.type,        handleUpdateAllUsers       );

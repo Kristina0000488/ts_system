@@ -30,7 +30,7 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
 
     const [ userName,    setUserName ] = useState<string>( '' );
     const [ password,    setPassword ] = useState<string>( '' );
-    const [ role,        setRole     ] = useState<string>( '' );
+    const [ role,        setRole     ] = useState<types.RoleUser>( '' as types.RoleUser );
     const [ iconUser,    setIconUser ] = useState<types.IconsUser>( 'add' as types.IconsUser );
 
     const [ page,        setPage        ] = React.useState<number>(0);
@@ -161,7 +161,7 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
                                     if ( state === 'password') {
                                         setPassword( value );
                                     } else if ( state === 'role') {
-                                        setRole( value );
+                                        setRole( value as types.RoleUser );
                                     } else if ( state === 'image') {
                                         setIconUser( value as types.IconsUser );
                                     }  else {
@@ -176,7 +176,7 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
                                         setShowFormAdd( false );
                                         setPassword( '' );
                                         setUserName( '' );
-                                        setRole( '' );
+                                        setRole( '' as types.RoleUser);
                                         setIconUser( 'add' as types.IconsUser );
                                     }
                                 } }

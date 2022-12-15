@@ -23,6 +23,10 @@ export const App: React.FC = () =>
     const errors          = useAppSelector(redux.selectErrors);
     
     const dispatch        = useAppDispatch();
+
+    React.useEffect( () => {
+        dispatch( redux.checkUser() )
+    }, [] );
     
     return (
         <div className="app">

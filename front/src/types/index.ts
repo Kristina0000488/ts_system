@@ -97,7 +97,7 @@ export interface PayloadImgFile extends PayloadId<string> {
 export interface PayloadAddUser <T> {
     password: T;
     userName: T;
-    role: T;
+    role: RoleUser;
     iconUser?: IconsUser;
 }
 

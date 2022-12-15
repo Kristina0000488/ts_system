@@ -3,7 +3,9 @@
  * @returns { Promise<void> }
  */
  exports.up = function(knex) {
-
+  /*  return knex.schema.dropTable("users", table => {
+        //table.text("token", 400);
+    }) */
 };
 
 /**
@@ -11,5 +13,7 @@
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-
+   /* return knex.schema.table("users", table => {
+        //table.dropTable('token');
+    })*/
 };

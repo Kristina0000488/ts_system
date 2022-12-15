@@ -7,8 +7,7 @@ const adminPanelRoutes = require('./routes/adminPanel');
 const verifyToken = (req, reply, done) => {
   const { token } = req.cookies;
   
-  jwt.verify(token, 'my_jwt_secret', (err, decoded) => {
-    
+  jwt.verify(token, 'my_jwt_secret', (err, decoded) => {    
     if (err) {
       done(new Error('Unauthorized'));
     }
@@ -45,10 +44,16 @@ function getToken() {
     // REST
     fastify.get('/verifycookie', async (req, reply) => {
       if ( [fastify.verifyToken] ) {
-        console.log('okkkk')
+        //console.log('okkkk')
+        const { token } = req.cookies;
+        
+        const result = await knex("users")
+          .select("name", "id", "role", "createdat", "updatedat")
+          .where({ 'token': token });
+
         reply
           .code(200)
-          .send({ statusCode: 200, message: 'Valid token' })
+          .send({ statusCode: 200, message: 'Valid token', result: result[0] });
       } else {
         reply
           .code(404)
@@ -81,12 +86,12 @@ function getToken() {
             id: readyResult.id, 
             name: readyResult.name, 
             role: readyResult.role, 
-            createdat: readyResult.createdat 
+            createdat: readyResult.createdat, 
           }
 
-          //await knex("users")
-          //.update({ token })
-          //.where({ 'name': name, 'password': password });
+          await knex("users")
+          .update({ token })
+          .where({ 'name': name, 'password': password });
 
           res
             .setCookie('token', token, {

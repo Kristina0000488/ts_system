@@ -6,10 +6,10 @@ const knex = require("knex")(development);
 
 
 const addUserHandler = async (req, reply) => {
-    try {
-        const { name, password, role, createdat } = req.body;
+    try { console.log(req.body)
+        const { name, password, role } = req.body;
 
-        const result = await knex("users").insert({ name, password, role, createdat });
+        await knex("users").insert({ name: name, password: password, role: role, createdat: '2015-03-12T00:00:00Z' /*new Date().toDateString() */});
         
         reply.send({ result: "success", statusCode: 200 });
     } catch (err) {

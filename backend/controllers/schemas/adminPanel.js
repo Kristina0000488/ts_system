@@ -43,20 +43,21 @@ const getUsersSchema = {
   response: {
     200: user,
   },
-};
+}; 
 
 const addUserSchema = {
-    headers: headerSchema,
+    //headers: headerSchema,
     body: {
       type: 'object',
-      required: ['title', 'body'],
+      required: ['name', 'password', 'role'],
       properties: {
-        title: { type: 'number' },// typeString,
-        body: { type: 'number' }// typeString, typeString,
+        name: { type: 'string' },
+        password: { type: 'string' },
+        role: { type: 'string' },
       },
     },
     response: {
-      200: { type: 'number' }, // sending a simple message as string
+      200: { type: 'number' }, // sending a simple message as number
     },
 };
 

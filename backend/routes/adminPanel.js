@@ -34,7 +34,7 @@ module.exports = async function (fastify) {
   },);
 
   // delete an user
-  fastify.delete('/admin-panel/users/:id', {
+  fastify.delete('/admin-panel/users/delete/:id', {
     onRequest: [fastify.verifyToken],
     schema: deleteUserSchema,
     handler: deleteUserHandler,

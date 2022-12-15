@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestHeaders } from "axios";
-import { TypeResponseGetInfoCompany, TypeResponseGetContactsCompany, ResponseStatusCode } from "../types";
+import * as types from "../types";
 
 import { useAppDispatch } from '../store/hooks';
  import * as redux        from '../store/slices';
@@ -123,6 +123,18 @@ class WrapedApi
         return await this.post( `login`, data, false, true );    
     }
 
+    async checkUser() : Promise<any>//!
+    {
+        return await this.get( `verifycookie`, true, [ 200, 304 ] );    
+    }
+
+    async addUser(name: string, password: string, role: types.RoleUser) : Promise<any>//!
+    {
+        const data = { name, password, role };
+
+        return await this.post( `admin-panel/users/new`, data, false, true );    
+    }
+
     async getAllUsersForTable(page: number, rowAmount: number) : Promise<any> ///!
     {
         const data = { page, rowAmount };
@@ -130,7 +142,7 @@ class WrapedApi
         return await this.post( `admin-panel/allUsersTable`, data, false, true );    
     }
         
-    async getInfoCompany(id: number) : Promise<TypeResponseGetInfoCompany>
+    async getInfoCompany(id: number) : Promise<types.TypeResponseGetInfoCompany>
     {
         return await this.get( `companies/${ id }`, true, [ 200, 304 ] );    
     }
@@ -140,7 +152,7 @@ class WrapedApi
         return await this.patch( `companies/${ id }`, data, true );    
     }
 
-    async getContactsCompany(id: number) : Promise<TypeResponseGetContactsCompany>
+    async getContactsCompany(id: number) : Promise<types.TypeResponseGetContactsCompany>
     {
         return await this.get( `contacts/${ id }`, true, [ 200, 304 ] );    
     }

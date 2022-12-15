@@ -137,9 +137,13 @@ export const indexSlice = createSlice({
       state.isLoading = !state.isLoading;
     },
     setUser(state: SliceState, action: PayloadAction<types.ValidUser>) 
-    {  
+    { 
       state.isLoading = false;
       state.user      = action.payload;
+    },
+    checkUser(state: SliceState,) 
+    {  
+      state.isLoading = true;
     },
     exit(state: SliceState) 
     {  
@@ -199,6 +203,7 @@ export const {
   removeError,
   setIsDone,
   loginUser,
+  checkUser,
   setUser, 
   exit,
   getAllUsers,
