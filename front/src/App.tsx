@@ -25,7 +25,7 @@ export const App: React.FC = () =>
     const dispatch        = useAppDispatch();
 
     React.useEffect( () => {
-        dispatch( redux.checkUser() )
+        dispatch( redux.checkUser() );
     }, [] );
     
     return (

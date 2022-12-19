@@ -6,10 +6,10 @@ const knex = require("knex")(development);
 
 
 const addUserHandler = async (req, reply) => {
-    try { console.log(req.body)
+    try { 
         const { name, password, role } = req.body;
 
-        await knex("users").insert({ name: name, password: password, role: role, createdat: '2015-03-12T00:00:00Z' /*new Date().toDateString() */});
+        await knex("users").insert({ name: name, password: password, role: role, createdat: new Date().toDateString() });
         
         reply.send({ result: "success", statusCode: 200 });
     } catch (err) {
@@ -22,13 +22,13 @@ const updateUserHandler = async (req, reply) => {
         const { name, password, role, createdat } = req.body;
         const { id } = req.params;
 
-        const result = await knex("users")
+        await knex("users")
           .update({
             name, password, role, createdat
           })
           .where('id', id);
         
-          reply.send({ result: "success", statusCode: 200 });
+        reply.send({ result: "success", statusCode: 200 });
     } catch (err) {
         fastify.log.error(err);
     }
@@ -37,12 +37,10 @@ const updateUserHandler = async (req, reply) => {
 };
 
 const deleteUserHandler = async (req, reply) => {    
-    let result = null;
-
     try {
-        result = await knex("users")
-        .delete()
-        .whereIn("id", [ ...req.params.id ]);
+        await knex("users")
+            .delete()
+            .whereIn("id", [ ...req.params.id ]);
         
         reply.send({ result: "success", statusCode: 200 });
     } catch (err) {
@@ -82,7 +80,7 @@ const getAllUsersTableHandler = async (req, reply) => {
 
     try {
         result = await knex("users")
-            .select("id", "name", "role", "createdat");
+            .select("id", "name", "role", "createdat", "updatedat");
 
         if (result.length > 0)
         {
@@ -91,36 +89,38 @@ const getAllUsersTableHandler = async (req, reply) => {
             let amountUsers = result.length;
             let amountPages = Math.ceil( amountUsers / rowAmount );
 
-            let preparedRes = await [ ...result ].map( item => {
+            const preparedRes = await [ ...result ].map( item => {
                 return {
                     id: item.id,
                     userName: item.name,
                     role: item.role,
-                    createdAt: item.createdat
+                    createdAt: item.createdat || '',
+                    updatedAt: item.updatedat || ''
                 }
             } ) ;
-                       
-            if (rowAmount === 0) { 
-                await reply.send({ page, amountPages, rowAmount, amountUsers, result: preparedRes, statusCode: 200 });
-            }
+                    
+            if (rowAmount === -1) { 
+                amountPages = 0;
 
+                await reply.send({ page: 0, amountPages, rowAmount, amountUsers, result: preparedRes, statusCode: 200 });
+            }
+            
             const res = [];
 
-            for (let i = 0, page = 0; i < amountUsers; i += rowAmount, page += 1) {                
+            for (let i = 0, _page = 0; i <= amountUsers; i += rowAmount, _page += 1) {                
                 const chunk = await preparedRes.slice(i, i + rowAmount);
-
+                
                 await res.push(chunk);
 
-                if (page ===  page) break;
-            } preparedRes
+                if (_page === page) break;
+            } 
             
-            await reply.send({ page, amountPages, rowAmount, amountUsers, result: res[ page ], statusCode: 200 });
+            await reply.send({ page, amountPages, rowAmount, amountUsers, result: [ ...res ][ page ], statusCode: 200 });
         }        
     } catch (err) {
       fastify.log.error(err);
     }
 }
-
 
 
 module.exports = {

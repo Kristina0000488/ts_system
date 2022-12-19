@@ -226,10 +226,10 @@ export function* handleGetUsersForTable(action: PayloadAction<types.PayloadUsers
     }
 }
 
-export function* handleUpdateAllUsers(action: PayloadAction<types.Users>) 
+export function* handleUpdateUser(action: PayloadAction<types.Users>) 
 {
     try {  
-      const response: types.ResponseStatusCode = yield call( mocks.updateAllUsers, action.payload );
+      //const response: types.ResponseStatusCode = yield call( mocks.updateAllUsers, action.payload );
       
       if ( response.statusCode === 204 ) {
         yield put( reducer.setIsDone() );
@@ -251,12 +251,21 @@ export function* handleUpdateAllUsers(action: PayloadAction<types.Users>)
 export function* handleRemoveUser(action: PayloadAction<types.PayloadId<number>>) 
 {
     try {  
-      const response: types.ResponseStatusCode = yield call( mocks.removeUser, action.payload.id );
+      //const response: types.ResponseStatusCode = yield call( mocks.removeUser, action.payload.id );
+
+      const response: types.ResponseStatusCode = yield call( 
+        client.removeUser.bind( client ), 
+        action.payload.id, 
+      );
       
-      if ( response.statusCode === 204 ) {
-        const response: types.Users = yield call( mocks.getAllUsers );
+      if ( response.statusCode === 200 ) {
+        const response: types.ResponseAllUsersTable = yield call( 
+          client.getAllUsersForTable.bind( client ), 
+          0, 
+          5
+        );
         
-        yield put( reducer.setAllUsers( response ) );
+        yield put( reducer.setAllUsers( response.result ) );
       } else { 
         yield put( reducer.setError(response) );
       }
@@ -310,7 +319,7 @@ export default function* watcherSaga()
     yield takeLatest(reducer.checkUser.type,             handleCheckUser            );
     yield takeLatest(reducer.getAllUsers.type,           handleGetAllUsers          );
     yield takeLatest(reducer.getUsersForTable.type,      handleGetUsersForTable     );
-    yield takeLatest(reducer.updateAllUsers.type,        handleUpdateAllUsers       );
+    yield takeLatest(reducer.updateUser.type,            handleUpdateUser           );
     yield takeLatest(reducer.removeUser.type,            handleRemoveUser           );
     yield takeLatest(reducer.addUser.type,               handleAddUser              );
 }

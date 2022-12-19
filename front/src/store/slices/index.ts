@@ -168,7 +168,7 @@ export const indexSlice = createSlice({
       state.isLoading  = false;
       state.usersCount = action.payload;      
     },
-    updateAllUsers(state: SliceState, action: PayloadAction<types.Users>) 
+    updateUser(state: SliceState, action: PayloadAction<types.CommonValidUser>) 
     {  
       state.isLoading = !state.isLoading;
     },
@@ -210,7 +210,7 @@ export const {
   getUsersForTable,
   setAllUsers,
   setUsersCount,
-  updateAllUsers,
+  updateUser,
   removeUser,
   addUser,
 } = indexSlice.actions;

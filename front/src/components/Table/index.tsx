@@ -17,7 +17,7 @@ interface TableProps {
     items: types.AllUsersForTable | null,
     edit?: boolean,
     titles?: Array<string>,
-    onSubmit?: ( values: types.AllUsersForTable ) => void,
+    onSubmit?: ( value: types.BackendUser ) => void, //( values: types.AllUsersForTable ) => void,
     onClickRemove?: ( id: number ) => void,
     itemsSelect?: types.ItemsSelectRolesUsers[],
     onClickTr?: ( user: types.BackendUser ) => void,
@@ -28,6 +28,7 @@ export default function Table(props: TableProps)
 {       
     const [ editMode, setEditMode ] = useState<boolean>(false);
     const [ values, setValues     ] = useState<types.AllUsersForTable>([ ]); 
+    const [ value, setValue     ] = useState<types.BackendUser>({ } as types.BackendUser); 
 
     const { 
         items, 
@@ -45,17 +46,18 @@ export default function Table(props: TableProps)
     }, [ items ] );
 
 
-    const onChange = ( value: types.BackendUser, idx: number ): void => 
+    const onChange = ( value: types.BackendUser, id: number ): void => 
     {
         const newDate: Date = new Date();
 
-        let newValues = [ ...values ];
+        //let newValues = [ ...values ];
+        let newValue = { ...value };
 
         value.updatedAt = { type: 'date', value: getFullDate( newDate.toDateString() ) }; //! to set to array with idx of updated values
 
-        newValues[ idx ] = value;
-        
-        setValues( newValues );
+        //newValues[ idx ] = value;
+        console.log( newValue );
+        setValue( newValue ); //value
     }
     
     return (
@@ -75,7 +77,7 @@ export default function Table(props: TableProps)
                             setEditMode={ () => setEditMode( !editMode ) } 
                             item={ user } 
                             onClickRemove={ () => onClickRemove( user.id ) } 
-                            onChange={ (value: types.BackendUser) => onChange( value, idx ) }
+                            onChange={ (value: types.BackendUser) => onChange( value, user.id ) }
                             itemsSelect={ itemsSelect }
                         />
                     }) : <td>Нет данных</td> }
@@ -83,7 +85,7 @@ export default function Table(props: TableProps)
             </table>
             { editMode && <button onClick={ () => { 
                 setEditMode(false); 
-                onSubmit( values ) 
+                onSubmit( value ) 
             } }>
                 Save
             </button> }

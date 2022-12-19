@@ -79,9 +79,9 @@ class WrapedApi
         return await this.request( 'get', url, undefined, allowStatuses );
     }
 
-    private async patch<T, D extends Object>( url: string, data: D, secured: boolean = false ) : Promise<T> 
+    private async put<T, D extends Object>( url: string, data: D, secured: boolean = false ) : Promise<T> 
     { 
-        return await this.request( 'patch', url, data )  
+        return await this.request( 'put', url, data )  
     }
     
     private async post<T, D extends Object>( url: string, data: D, secured: boolean = false, postfile: boolean = false) : Promise<T> 
@@ -133,6 +133,18 @@ class WrapedApi
         const data = { name, password, role };
 
         return await this.post( `admin-panel/users/new`, data, false, true );    
+    }
+
+    async updateUser(user: types.BackendUser ) : Promise<any>//!
+    {
+        const data = { ...user };
+
+        return await this.put( `admin-panel/users/edit/${ data.id }`, data );    
+    }
+
+    async removeUser(id: number) : Promise<any>//!
+    {
+        return await this.delete( `admin-panel/users/delete/${ id }` );    
     }
 
     async getAllUsersForTable(page: number, rowAmount: number) : Promise<any> ///!

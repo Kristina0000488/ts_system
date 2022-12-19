@@ -48,18 +48,16 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
     const allUsers   = usersData ? usersData.users : [];
     const usersCount = usersData ? usersData.count : 0;
 
-    const onSubmitTable = ( values: types.AllUsersForTable ) : void =>
+    const onSubmitUser = ( value: types.BackendUser ) : void =>
     { 
-        let newValues: types.Users = [ ...values ].map( (newValue: types.BackendUser) => {
-            return {
-                ...newValue,
-                role: newValue.role.value as types.RoleUser,
-                createdAt: newValue.createdAt.value as string, 
-                updatedAt: newValue.updatedAt ? newValue.updatedAt.value : '',
-            } as types.CommonValidUser
-        } );
+        let newValue: types.CommonValidUser = {
+            ...value,
+            role: value.role.value as types.RoleUser,
+            createdAt: value.createdAt.value as string, 
+            updatedAt: value.updatedAt ? value.updatedAt.value : '',
+        } as types.CommonValidUser;
         
-        dispatch( redux.updateAllUsers(newValues as types.Users) );
+        dispatch( redux.updateUser(newValue as types.CommonValidUser) );
     }
 
     const elemsForm: { 
@@ -130,7 +128,7 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
                                 titles={[ 'ID', 'Имя пользователя', 'Роль', 'Дата создания', 'Дата изменения', 'Действия' ]} 
                                 items={ allUsers } 
                                 edit
-                                onSubmit={ ( values: types.AllUsersForTable ) => onSubmitTable( values ) }
+                                onSubmit={ ( value: types.BackendUser ) => onSubmitUser( value ) }
                                 onClickRemove={ ( idUser: number ) => dispatch( redux.removeUser({ id: idUser }) ) }
                                 itemsSelect={ RolesUsers as types.ItemsSelectRolesUsers[] }
                                 onClickTr={ ( user: types.BackendUser ) => {

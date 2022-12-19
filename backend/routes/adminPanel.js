@@ -17,26 +17,25 @@ const {
 } = require('../controllers/handlers/adminPanel.js');
 
 
-module.exports = async function (fastify) {
-  
+module.exports = async function (fastify) {  
   // create an user
   fastify.post('/admin-panel/users/new', {
     onRequest: [fastify.verifyToken],
-    schema: addUserSchema,
+    //schema: addUserSchema,
     handler: addUserHandler,
   },);
 
   // update an user
   fastify.put('/admin-panel/users/edit/:id', {
     onRequest: [fastify.verifyToken], 
-    schema: updateUserSchema,
+    //schema: updateUserSchema,
     handler: updateUserHandler,
   },);
 
   // delete an user
   fastify.delete('/admin-panel/users/delete/:id', {
     onRequest: [fastify.verifyToken],
-    schema: deleteUserSchema,
+    //schema: deleteUserSchema,
     handler: deleteUserHandler,
   },);
 
