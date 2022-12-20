@@ -41,19 +41,19 @@ module.exports = async function (fastify) {
 
   fastify.get("/admin-panel/admins", {
     onRequest: [fastify.verifyToken],
-    schema: getAdminsSchema,
+    //schema: getAdminsSchema,
     handler: getAdminsHandler,
   });
 
   fastify.get("/admin-panel/users", {
     onRequest: [fastify.verifyToken],
-    schema: getUsersSchema,
+    //schema: getUsersSchema,
     handler: getUsersHandler,
   });
 
   fastify.post('/admin-panel/allUsersTable', {
     onRequest: [fastify.verifyToken],
-    schema: getAllUsersTablerSchema,
+    //schema: getAllUsersTablerSchema,
     handler: getAllUsersTableHandler,
   },);
 };;

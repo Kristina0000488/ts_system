@@ -11,6 +11,7 @@ import * as types from '../../types';
 import { getFullDate } from '../../utils';
 
 import './Table.css';
+import { idText } from 'typescript';
 
 
 interface TableProps {
@@ -46,18 +47,19 @@ export default function Table(props: TableProps)
     }, [ items ] );
 
 
-    const onChange = ( value: types.BackendUser, id: number ): void => 
+    const onChange = ( value: types.BackendUser, id: number, idx: number ) : void => 
     {
         const newDate: Date = new Date();
 
-        //let newValues = [ ...values ];
+        let newValues = [ ...values ];
         let newValue = { ...value };
 
         value.updatedAt = { type: 'date', value: getFullDate( newDate.toDateString() ) }; //! to set to array with idx of updated values
 
-        //newValues[ idx ] = value;
+        newValues[ idx ] = value;
         console.log( newValue );
         setValue( newValue ); //value
+        setValues( newValues );
     }
     
     return (
@@ -77,7 +79,7 @@ export default function Table(props: TableProps)
                             setEditMode={ () => setEditMode( !editMode ) } 
                             item={ user } 
                             onClickRemove={ () => onClickRemove( user.id ) } 
-                            onChange={ (value: types.BackendUser) => onChange( value, user.id ) }
+                            onChange={ (value: types.BackendUser) => onChange( value, user.id, idx ) }
                             itemsSelect={ itemsSelect }
                         />
                     }) : <td>Нет данных</td> }

@@ -108,7 +108,7 @@ export default function TrBody(props: TrBodyProps)
     
     return ( <>
         { item && <tr key={ item.id } onClick={ onClickTr } >
-            { renderTdTr( item.id, 'id', editMode ) }
+            { renderTdTr( item.id, 'id', false ) }
             { renderTdTr( item.userName, 'userName', editMode ) }
             { renderTdTr( item.role.value, 'role', editMode, item.role.type ) }
             { renderTdTr( item.createdAt.value, 'createdAt', false ) }

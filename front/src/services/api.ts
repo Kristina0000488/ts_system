@@ -153,6 +153,11 @@ class WrapedApi
 
         return await this.post( `admin-panel/allUsersTable`, data, false, true );    
     }
+
+    async getCompaniesList() : Promise<any>
+    {
+        return await this.get( `companiesList`, true, [ 200, 304 ] );    
+    }
         
     async getInfoCompany(id: number) : Promise<types.TypeResponseGetInfoCompany>
     {
@@ -161,7 +166,7 @@ class WrapedApi
 
     async updateInfoCompany(id: number, data: object) : Promise<object>
     {
-        return await this.patch( `companies/${ id }`, data, true );    
+        return await this.put( `companies/${ id }`, data, true );    
     }
 
     async getContactsCompany(id: number) : Promise<types.TypeResponseGetContactsCompany>
@@ -171,7 +176,7 @@ class WrapedApi
 
     async updateContactsCompany(id: number, data: object) : Promise<object>
     {
-        return await this.patch( `contacts/${ id }`, data, true );    
+        return await this.put( `contacts/${ id }`, data, true );    
     }
 
     async deleteImageCompany(id: number, imageName: string) : Promise<object>

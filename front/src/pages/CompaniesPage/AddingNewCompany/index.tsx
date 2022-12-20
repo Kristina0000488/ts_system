@@ -99,7 +99,7 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
 
     const onRemoveImg = <T extends number>( imgId: T) : void => 
     { 
-        let newPhotos = [ ...newCompamyInfo.photos ];
+        let newPhotos = [] as any[];//[ ...newCompamyInfo.photos ];
         
         newPhotos.splice(imgId, 1);
 
@@ -111,14 +111,14 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
 
     const onAddImg = ( ) : void => 
     { 
-        setNewCompamy({ 
+        /*setNewCompamy({ 
             ...newCompamyInfo, 
             photos: [ ...newCompamyInfo.photos, {
                 filepath: `/images/0/1.jpg`,
                 name: "1.jpg",
                 thumbpath: `/images/0/1.jpg`,
             } ] 
-        });
+        });*/
     }
 
     const cards = getCardsCompanyInfo(newCompamyInfo, newContactsCompany);
@@ -197,7 +197,7 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                             /> 
                         ) }
                         { imgsCard && <div>
-                            { imgsCard.map( (imgField, id) => 
+                            { /* imgsCard.map( (imgField, id) => 
                                 <CardImg 
                                     key={ id }
                                     remove={ true } 
@@ -205,7 +205,7 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                                     title={ imgField.title }
                                     fields={ imgField.fields }
                                 />
-                            ) }
+                        ) */}
                         </div> }
                         { imgsCard && <UploadBtn 
                             handleChange={ (file: File) => onAddImg() }

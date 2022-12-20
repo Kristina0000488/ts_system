@@ -21,13 +21,13 @@ export default function Pagination(props: PaginationProps)
     //const [ rowsPerPage, setRowsPerPage ] = React.useState<number>(5);
 
     const { count=0, handleChange, step=5, page, rowsPerPage } = props;
-    /*useEffect(() => {
+    useEffect(() => {
       console.log(page);
     }, [page]);
 
     useEffect(() => {
       console.log(rowsPerPage);
-    }, [rowsPerPage]);*/
+    }, [rowsPerPage])
   //console.log(page, rowsPerPage)
    /* const onChangePage = async (
       event: React.MouseEvent<HTMLButtonElement> | null,

@@ -4,6 +4,7 @@ const authJwt = require('./plugins/authJwt');
 const development = require("./knexfile").development;
 const adminPanelRoutes = require('./routes/adminPanel');
 const generalRoutes = require('./routes/general');
+const companiesRoutes = require('./routes/companies');
 
 const verifyToken = (req, reply, done) => {
   const { token } = req.cookies;
@@ -39,6 +40,7 @@ fastify.decorate('verifyToken', verifyToken);
 fastify.register(authJwt);
 fastify.register(adminPanelRoutes);
 fastify.register(generalRoutes);
+fastify.register(companiesRoutes);
 
 function getToken() {
   let token = jwt.sign({ foo: 'bar' }, 'my_jwt_secret'); 
@@ -49,36 +51,7 @@ function getToken() {
 (async () => {
   try {
     const knex = require("knex")(development);
-    
-    /*fastify.addHook('onRequest', (request) =>   {
-      const self = this
-      self.verifyToken
-      //done() 
-    });//[fastify.verifyToken]*/
 
-    // REST
-    /*fastify.get('/verifycookie', async (req, reply) => {      
-      const { token } = req.cookies;
-
-      await fastify.verifyToken;
-
-      if ( token ) {
-        
-        //console.log('ok -  ', token );
-        const result = await knex("users")
-          .select("name", "id", "role", "createdat", "updatedat")
-          .where({ 'token': token });
-
-        reply
-          .code(200)
-          .send({ statusCode: 200, message: 'Valid token', result: result[0] });
-      } else {
-        reply
-          .code(404)
-          .send({ statusCode: 404, message: 'Invalid token' });
-      }     
-    })
-    */
     fastify.post("/login", async (req, res) => {
       let result = null;
       
@@ -92,7 +65,7 @@ function getToken() {
         if (result.length === 0) {
           res
             .code(404)
-            .send({ statusCode: 404, message: 'Invalid' });
+            .send({ statusCode: 404, message: 'Invalid user' });
 
           return fastify.log.error();
         } else {
@@ -134,7 +107,36 @@ function getToken() {
     process.exit(1);
   }
 })();
+    
+    /*fastify.addHook('onRequest', (request) =>   {
+      const self = this
+      self.verifyToken
+      //done() 
+    });//[fastify.verifyToken]*/
 
+    // REST
+    /*fastify.get('/verifycookie', async (req, reply) => {      
+      const { token } = req.cookies;
+
+      await fastify.verifyToken;
+
+      if ( token ) {
+        
+        //console.log('ok -  ', token );
+        const result = await knex("users")
+          .select("name", "id", "role", "createdat", "updatedat")
+          .where({ 'token': token });
+
+        reply
+          .code(200)
+          .send({ statusCode: 200, message: 'Valid token', result: result[0] });
+      } else {
+        reply
+          .code(404)
+          .send({ statusCode: 404, message: 'Invalid token' });
+      }     
+    })
+    */
 
       //const aCookieValue = req.cookies.cookieName;
       //const bCookie = req.unsignCookie(req.cookies.cookieSigned);

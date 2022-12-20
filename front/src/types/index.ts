@@ -50,11 +50,11 @@ export interface TypeResponseGetInfoCompany extends Object
     name: string,
     shortName: string,
     businessEntity: string,
-    contract: {
+    contract?: {
         no: string,
         issue_date: string,
     },    
-    photos: TypeImgs[],
+    photos?: TypeImgs[],
     type: string[],
     status: string,
     createdAt: string,

@@ -186,9 +186,9 @@ export function removeCompanyImg( idImg: number, id: string = '12' ) : Promise<t
 { 
     const newObject: types.TypeResponseGetInfoCompany = { ...companyInfo[id] };
 
-    newObject.photos = [ ...newObject.photos ].filter( (_, idx) => idx !== idImg );
+    //newObject.photos = [ ...newObject.photos ].filter( (_, idx) => idx !== idImg );
     
-    companyInfo[id] = newObject;
+    //companyInfo[id] = newObject;
 
     return getPromise(companyInfo[id]); 
 }
@@ -197,7 +197,7 @@ export function addCompanyImg(id: string = '12', img?: string ) : Promise<types.
 {
     let newObject: types.TypeResponseGetInfoCompany = { ...companyInfo[id] };
 
-    let newPhotos = [ ...newObject.photos ];
+    let newPhotos = [] as any [] //[ ...newObject.photos ];
 
     if ( newPhotos.length === 0 ) {
         newPhotos.push(

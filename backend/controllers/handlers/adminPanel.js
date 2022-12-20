@@ -19,15 +19,17 @@ const addUserHandler = async (req, reply) => {
 
 const updateUserHandler = async (req, reply) => {
     try {
-        const { name, password, role, createdat } = req.body;
+        const { name, role, updatedat } = req.body;
         const { id } = req.params;
-
+       
         await knex("users")
+          .where({'id': id})
           .update({
-            name, password, role, createdat
-          })
-          .where('id', id);
-        
+            name, 
+            role, 
+            updatedat: new Date().toDateString()
+          });
+        //console.log(updatedat, id)
         reply.send({ result: "success", statusCode: 200 });
     } catch (err) {
         fastify.log.error(err);
@@ -39,8 +41,8 @@ const updateUserHandler = async (req, reply) => {
 const deleteUserHandler = async (req, reply) => {    
     try {
         await knex("users")
-            .delete()
-            .whereIn("id", [ ...req.params.id ]);
+            .where("id", req.params.id)            
+            .del()
         
         reply.send({ result: "success", statusCode: 200 });
     } catch (err) {
@@ -53,8 +55,8 @@ const getAdminsHandler = async (req, reply) => {
 
     try {
         result = await knex("users")
-        .select("id", "name", "role", "createdat", "updatedat")
-        .where("role", "admin")
+            .select("id", "name", "role", "createdat", "updatedat")
+            .where("role", "admin")
 
         reply.send({ result, statusCode: 200 });
     } catch (err) {

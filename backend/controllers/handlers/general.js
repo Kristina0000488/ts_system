@@ -6,7 +6,7 @@ const knex = require("knex")(development);
 
 
 const verifyCookieHandler = async (req, reply) => {
-    try { console.log(req.body)
+    try { 
 
         const { token } = req.cookies;
 
@@ -15,6 +15,7 @@ const verifyCookieHandler = async (req, reply) => {
             .select("name", "id", "role", "createdat", "updatedat")
             .where({ 'token': token });
   
+        //console.log(result, '   toktok')
           reply
             .code(200)
             .send({ statusCode: 200, message: 'Valid token', result: result[0] });

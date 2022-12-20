@@ -132,8 +132,8 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
                                 onClickRemove={ ( idUser: number ) => dispatch( redux.removeUser({ id: idUser }) ) }
                                 itemsSelect={ RolesUsers as types.ItemsSelectRolesUsers[] }
                                 onClickTr={ ( user: types.BackendUser ) => {
-                                    setShowCardUser( true );
-                                    setCurrentUserToCard( user );
+                                    //setShowCardUser( true );
+                                    //setCurrentUserToCard( user );
                                 } }
                             />
                             <Pagination 

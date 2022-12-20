@@ -13,9 +13,15 @@ import { Paths }                 from '../../constants';
 export function* handleGetCompaniesList() 
 {
     try {
-      const response: types.CompaniesList[] = yield call( mocks.getCompaniesList );
-     
-      yield put( reducer.setCompaniesList( response ) );
+      //const response: types.CompaniesList[] = yield call( mocks.getCompaniesList );
+      const response: { result: types.CompaniesList[] } & types.ResponseStatusCode = yield call( 
+        client.getCompaniesList.bind( client )
+      );
+
+      if ( response.statusCode === 200 ) 
+      {     
+        yield put( reducer.setCompaniesList( response.result ) );
+      }
     } catch (e) {
       console.log(e);
     }
@@ -226,17 +232,25 @@ export function* handleGetUsersForTable(action: PayloadAction<types.PayloadUsers
     }
 }
 
-export function* handleUpdateUser(action: PayloadAction<types.Users>) 
-{
+export function* handleUpdateUser(action: PayloadAction<types.BackendUser>) 
+{ console.log(action.payload)
     try {  
       //const response: types.ResponseStatusCode = yield call( mocks.updateAllUsers, action.payload );
+      const response: types.ResponseStatusCode = yield call( 
+        client.updateUser.bind( client ), 
+        action.payload 
+      );
       
-      if ( response.statusCode === 204 ) {
+      if ( response.statusCode === 200 ) {
         yield put( reducer.setIsDone() );
 
-        const response: types.Users = yield call( mocks.getAllUsers );
+        const response: types.ResponseAllUsersTable = yield call( 
+          client.getAllUsersForTable.bind( client ), 
+          0, 
+          5
+        );
         
-        yield put( reducer.setAllUsers( response ) );
+        yield put( reducer.setAllUsers( response.result ) );
       } else { 
         yield put( reducer.setError(response) );
       }
@@ -289,11 +303,15 @@ export function* handleAddUser(action: PayloadAction<types.PayloadAddUser<string
         action.payload.role,
       );
 
-      const responseUsers: types.Users = yield call( mocks.getUsersForTable, 0, 5 );
+      if ( response.statusCode === 200 ) {
+        const response: types.ResponseAllUsersTable = yield call( 
+          client.getAllUsersForTable.bind( client ), 
+          0, 
+          5
+        );
         
-      yield put( reducer.setAllUsers( responseUsers ) );
-            
-      if ( response.statusCode !== 204 ) {
+        yield put( reducer.setAllUsers( response.result ) );
+      } else { 
         yield put( reducer.setError(response) );
       }
       
