@@ -11,7 +11,7 @@ exports.seed = async function(knex) {
       name: '"ООО Reebok gym"', 
       shortName: "Reebok gym", 
       createdat: "2020-11-21T08:03:00Z", 
-      contactId: "16", 
+      contactId: "1", 
       status: "active", 
       businessEntity: "ООО",
       type: [

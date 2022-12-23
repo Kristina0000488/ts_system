@@ -44,8 +44,8 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
 
     useEffect( () => {   
         dispatch( redux.clearCompanyAllData() );
-        dispatch( redux.getContactsCompany({ id }) );
-        dispatch( redux.getDataCompany({ id }) );
+        dispatch( redux.getDataCompany({ id }) );        
+        //dispatch( redux.getContactsCompany({ id }) );
     }, [] );
 
     const companyInfo      = useAppSelector(redux.selectCompany);
@@ -56,7 +56,7 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
     const { btnId }        = useAppSelector(redux.selectClickedBtnId);
     const isRemovedCompany = useAppSelector(redux.selectIsDone);
 
-    let showProgress: boolean    = companyInfo && cardsCompany && imgsCompany ? false : true;
+    let showProgress: boolean    = companyInfo && cardsCompany /*&& imgsCompany*/ ? false : true;
 
     const isEditingRole: boolean = role ? checkEditingRole(role) : false;
     
@@ -152,7 +152,7 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
         },
         2: () => dispatch( redux.removeCompany( { id } ) ),
     };
-
+    console.log(showProgress, cardsCompany)
     return (
         <div className='companyProfileContainer'>
             <ExtraSideMenu 

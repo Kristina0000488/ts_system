@@ -5,6 +5,7 @@ const development = require("./knexfile").development;
 const adminPanelRoutes = require('./routes/adminPanel');
 const generalRoutes = require('./routes/general');
 const companiesRoutes = require('./routes/companies');
+const companyContactsRoutes = require('./routes/companyContacts');
 
 const verifyToken = (req, reply, done) => {
   const { token } = req.cookies;
@@ -41,6 +42,8 @@ fastify.register(authJwt);
 fastify.register(adminPanelRoutes);
 fastify.register(generalRoutes);
 fastify.register(companiesRoutes);
+fastify.register(companyContactsRoutes);
+
 
 function getToken() {
   let token = jwt.sign({ foo: 'bar' }, 'my_jwt_secret'); 

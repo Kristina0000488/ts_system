@@ -64,7 +64,7 @@ function CardInfo(props: CardInfoProps)
                 </div> }
             </div> }
             { fields && fields.map( ({ label, items }, id) =>
-                <div key={ id } className='rowCardInfo'>
+                { return label && items && <div key={ id } className='rowCardInfo'>
                     <span className='titleRowCardInfo'>
                         { label }
                     </span>                   
@@ -82,7 +82,7 @@ function CardInfo(props: CardInfoProps)
                             }
                         </div> ) }
                     </div>                   
-                </div>
+                </div> }
             ) } </>
         </div>
     );

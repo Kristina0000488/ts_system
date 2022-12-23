@@ -27,13 +27,28 @@ export function* handleGetCompaniesList()
     }
 }
 
-export function* handleGetInfoCompany(action: PayloadAction<types.PayloadId<string>>) 
+export function* handleGetInfoCompany(action: PayloadAction<types.PayloadId<string>>) // for profile company
 {
     try {
       //const response: TypeResponseGetInfoCompany = yield call( client.getInfoCompany.bind( client ), 12 );
-      const response: types.TypeResponseGetInfoCompany = yield call( mocks.getCompanyInfo, action.payload.id );
+      //const response: types.TypeResponseGetInfoCompany = yield call( mocks.getCompanyInfo, action.payload.id );
+      const response: { result: types.TypeResponseGetInfoCompany } & types.ResponseStatusCode = yield call( 
+        client.getInfoCompany.bind( client ),
+        +action.payload.id 
+      );
 
-      yield put( reducer.setDataCompany( response ) );
+
+
+      if ( response.statusCode === 200 ) 
+      { 
+        const responseContacts: { result: types.TypeResponseGetContactsCompany } & types.ResponseStatusCode = yield call( 
+          client.getContactsCompany.bind( client ),
+          +response.result.contactId
+        );
+        
+        yield put( reducer.setDataCompany( response.result ) );
+        yield put( reducer.setContactsCompany( responseContacts.result ) );
+      }
     } catch (e) {
       console.log(e);
     }
@@ -55,9 +70,16 @@ export function* handleGetContactsCompany(action: PayloadAction<types.PayloadId<
 {
     try {
       // const response: TypeResponseGetContactsCompany = yield call( client.getContactsCompany.bind( client ), 16 );
-      const response: types.TypeResponseGetContactsCompany = yield call( mocks.getCompanyContacts, action.payload.id );
+      //const response: types.TypeResponseGetContactsCompany = yield call( mocks.getCompanyContacts, action.payload.id );
+      const response: { result: types.TypeResponseGetContactsCompany } & types.ResponseStatusCode = yield call( 
+        client.getInfoCompany.bind( client ),
+        +action.payload.id 
+      );
 
-      yield put( reducer.setContactsCompany( response ) );
+      if ( response.statusCode === 200 ) 
+      { 
+        yield put( reducer.setContactsCompany( response.result ) );
+      }
     } catch (e) {
       console.log(e);
     }

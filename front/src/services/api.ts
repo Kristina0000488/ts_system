@@ -160,13 +160,13 @@ class WrapedApi
     }
         
     async getInfoCompany(id: number) : Promise<types.TypeResponseGetInfoCompany>
-    {
+    { 
         return await this.get( `companies/${ id }`, true, [ 200, 304 ] );    
     }
 
     async updateInfoCompany(id: number, data: object) : Promise<object>
     {
-        return await this.put( `companies/${ id }`, data, true );    
+        return await this.put( `companies/edit/${ id }`, data, true );    
     }
 
     async getContactsCompany(id: number) : Promise<types.TypeResponseGetContactsCompany>
@@ -176,7 +176,7 @@ class WrapedApi
 
     async updateContactsCompany(id: number, data: object) : Promise<object>
     {
-        return await this.put( `contacts/${ id }`, data, true );    
+        return await this.put( `contacts/edit/${ id }`, data, true );    
     }
 
     async deleteImageCompany(id: number, imageName: string) : Promise<object>

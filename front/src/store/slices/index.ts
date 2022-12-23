@@ -216,7 +216,7 @@ export const {
 } = indexSlice.actions;
 
 
-export const selectErrors = (state: RootState) : types.TypeErrorState[] => {
+export const selectErrors: any = (state: RootState) : types.TypeErrorState[] => {
   return state.index.error;
 };
 export const selectUser = (state: RootState) : { role: types.RoleUser, user: string, noValid: boolean, id: number} | { role: types.RoleUser, noValid: boolean } => {
@@ -278,7 +278,7 @@ export const selectCompaniesList   = (state: RootState) => state.index.companies
 export const selectIsLoading       = (state: RootState) => state.index.isLoading;
 export const selectCompany         = (state: RootState) => state.index.company;
 export const selectContactsCompany = (state: RootState) => state.index.contacts;
-export const selectCardsCompany    = (state: RootState) => state.index.contacts && 
+export const selectCardsCompany    = (state: RootState) => state.index.contacts && state.index.contacts.id && 
   state.index.company && state.index.company.id ? 
   getCardsCompanyInfo({ ...state.index.company }, { ...state.index.contacts }) : null;
 /* [

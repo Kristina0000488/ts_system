@@ -207,11 +207,11 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                                 />
                         ) */}
                         </div> }
-                        { imgsCard && <UploadBtn 
+                        { /*imgsCard && <UploadBtn 
                             handleChange={ (file: File) => onAddImg() }
                             label_1={ 'Добавить изображение'.toUpperCase() } 
                             onlyFirst
-                        /> }
+                    />*/}
                     </main>
                     <BtnBase title="Сохранить" onClick={ () => onSave() }/>
                     <Footer /> 

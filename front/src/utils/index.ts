@@ -105,7 +105,8 @@ export function onChangeFormCompany(
 }
 
 export function getCardsCompanyInfo( companyData: types.TypeResponseGetInfoCompany, contacts: types.TypeResponseGetContactsCompany ) 
-{
+{// console.log( companyData, contacts );
+    //if ( companyData && contacts )
     return [
         {
             title: 'Общая информация',
@@ -113,11 +114,11 @@ export function getCardsCompanyInfo( companyData: types.TypeResponseGetInfoCompa
             edit: true,
             fields: [
                 { label: 'Полное название', items: [ { value: companyData.name, key: 'name' } ] },
-                { label: 'Договор', items: [ 
-                    { value: companyData['contract'] ? companyData['contract']['no'] : '', key: 'contract.no' },
+                companyData['contract'] && { label: 'Договор', items: [ 
+                    { value: companyData['contract']['no'], key: 'contract.no' },
                     { value: ' от ', extraTxt: true }, 
-                    { value: companyData['contract'] ? companyData['contract']['issue_date'] : '', key: 'contract.issue_date', type: 'date' } 
-                ] },
+                    { value: companyData['contract']['issue_date'], key: 'contract.issue_date', type: 'date' } 
+                ] } || { },
                 { label: 'Форма', items: [ { value: companyData.businessEntity, key: 'businessEntity'} ] },
                 { label: 'Тип', items: [ { value: companyData.type, key: 'type', type: 'array' } ] },
             ]

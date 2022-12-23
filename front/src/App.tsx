@@ -37,7 +37,7 @@ export const App: React.FC = () =>
             />
             <Router />
             <ErrorsList 
-                errors={ errors } 
+                errors={ errors as any } 
                 onClose={ ( id: number ) => dispatch( redux.removeError(id) ) }
             />
         </div>
