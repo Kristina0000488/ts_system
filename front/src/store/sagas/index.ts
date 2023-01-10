@@ -58,9 +58,22 @@ export function* handleUpdateInfoCompany(action: PayloadAction<{ id: string, dat
 { 
     try {
       //yield call( client.updateInfoCompany.bind( client ), 12, action.payload );
-      const response: types.TypeResponseGetInfoCompany = yield call( mocks.updateCompanyInfo, action.payload.data, action.payload.id );
-      
-      yield put( reducer.setDataCompany( response ) );
+      //const response: types.TypeResponseGetInfoCompany = yield call( mocks.updateCompanyInfo, action.payload.data, action.payload.id );
+      const response: types.ResponseStatusCode = yield call( 
+        client.updateInfoCompany.bind( client ),
+        +action.payload.id,
+        action.payload.data
+      );
+
+      if ( response.statusCode === 200 ) 
+      { 
+        const _response: { result: types.TypeResponseGetInfoCompany } & types.ResponseStatusCode = yield call( 
+          client.getInfoCompany.bind( client ),
+          +action.payload.id,
+        );
+
+        yield put( reducer.setDataCompany( _response.result ) );
+      }
     } catch (e) {
       console.log(e);
     }
@@ -89,10 +102,48 @@ export function* handleUpdateContactsCompany(action: PayloadAction<{ id: string,
 {
     try {
       //yield call( client.updateContactsCompany.bind( client ), 16, action.payload );
-      const response: types.TypeResponseGetContactsCompany = yield call( mocks.updateCompanyContacts, action.payload.data, action.payload.id );
+      //const response: types.TypeResponseGetContactsCompany = yield call( mocks.updateCompanyContacts, action.payload.data, action.payload.id );
+      const response: types.ResponseStatusCode = yield call( 
+        client.updateContactsCompany.bind( client ),
+        +action.payload.id,
+        action.payload.data
+      );
 
-      yield put( reducer.setContactsCompany( response ) );
+      if ( response.statusCode === 200 ) 
+      { 
+        const _response: { result: types.TypeResponseGetContactsCompany } & types.ResponseStatusCode = yield call( 
+          client.getContactsCompany.bind( client ),
+          +action.payload.id 
+        );
 
+        yield put( reducer.setContactsCompany( _response.result ) );
+      }
+    } catch (e) {
+      console.log(e);
+    }
+}
+
+export function* handleAddNewCompany(action: PayloadAction<{ contacts: types.TypeAddContactsCompany, info: types.TypeAddInfoCompany }>)
+{
+    try {
+      //yield call( client.updateContactsCompany.bind( client ), 16, action.payload );
+      //const response: types.TypeResponseGetContactsCompany = yield call( mocks.updateCompanyContacts, action.payload.data, action.payload.id );
+      const response: /*{ contactId?: number } & */types.ResponseStatusCode = yield call( 
+        client.addContactsCompany.bind( client ),
+        action.payload.contacts
+      );
+
+      if ( response.statusCode === 200 ) 
+      { 
+        const _response: types.ResponseStatusCode = yield call( 
+          client.addInfoCompany.bind( client ),
+          { ...action.payload.info/*, contactId: response.contactId*/ },
+        );
+
+        if ( _response.statusCode === 200 ) {
+          yield put( reducer.setIsDone() );
+        }
+      }
     } catch (e) {
       console.log(e);
     }
@@ -124,21 +175,37 @@ export function* handleAddImgCompany(action: PayloadAction<types.PayloadImgFile>
 export function* handleSearchCompany(action: PayloadAction<string>) 
 { 
     try {
-      //yield call( client.addImageCompany.bind( client ), 12, action.payload.img );      
-      const response: types.CompaniesList[] = yield call( mocks.searchCompany, action.payload );
-   
-      yield put( reducer.setCompaniesList( response ) );
+      //const response: types.CompaniesList[] = yield call( mocks.searchCompany, action.payload );
+      const response: { result: types.CompaniesList[] } & types.ResponseStatusCode = yield call( 
+        client.searchCompany.bind( client ), 
+        action.payload 
+      );
+
+      if ( response.statusCode === 200 ) {
+        yield put( reducer.setCompaniesList( response.result ) );
+      } else { 
+        yield put( reducer.setError(response) );
+      } 
     } catch (e) {
       console.log(e);
     }
 }
 
-export function* handleRemoveCompany(action: PayloadAction<types.PayloadId<string>>) 
+export function* handleRemoveCompany(action: PayloadAction<types.PayloadId<string> & { contactId: string }>) 
 {
     try {  
-      const response: types.ResponseStatusCode = yield call( mocks.removeCompany, action.payload.id );
-      
-      if ( response.statusCode === 204 ) {
+      //const response: types.ResponseStatusCode = yield call( mocks.removeCompany, action.payload.id );
+      const response: types.ResponseStatusCode = yield call( 
+        client.removeInfoCompany.bind( client ), 
+        +action.payload.id 
+      );
+
+      const _response: types.ResponseStatusCode = yield call( 
+        client.removeContactsCompany.bind( client ), 
+        +action.payload.contactId 
+      );
+
+      if ( response.statusCode === 200 && _response.statusCode === 200 ) {
         yield put( reducer.setIsDone() );
       } else { 
         yield put( reducer.setError(response) );
@@ -172,6 +239,31 @@ export function* handleLoginUser(action: PayloadAction<types.LoginUser>)
             createdAt: createdat, 
             updatedAt: updatedat 
           }
+        ) );
+        yield toNavigate(Paths.index);
+      } else { 
+        yield put( reducer.setError(response) );
+        yield toNavigate(Paths.login);
+      }
+
+    } catch (e) {
+      //yield put( reducer.setError(e) );
+      
+      console.log(e);
+    }
+}
+
+export function* handleLogoutUser() 
+{
+    try {  
+      //const response: types.ValidUser & types.ResponseStatusCode = yield call( mocks.authorizationUser, action.payload.userName, action.payload.password );
+      const response: types.ResponseStatusCode = yield call( 
+        client.logoutUser.bind( client )
+      );
+
+      if ( response.statusCode === 200 ) {
+        yield put( reducer.setUser(
+          { } as types.ValidUser
         ) );
         yield toNavigate(Paths.index);
       } else { 
@@ -356,10 +448,12 @@ export default function* watcherSaga()
     yield takeLatest(reducer.searchCompany.type,         handleSearchCompany        );
     yield takeLatest(reducer.removeCompany.type,         handleRemoveCompany        );
     yield takeLatest(reducer.loginUser.type,             handleLoginUser            );
+    yield takeLatest(reducer.logoutUser.type,            handleLogoutUser            );
     yield takeLatest(reducer.checkUser.type,             handleCheckUser            );
     yield takeLatest(reducer.getAllUsers.type,           handleGetAllUsers          );
     yield takeLatest(reducer.getUsersForTable.type,      handleGetUsersForTable     );
     yield takeLatest(reducer.updateUser.type,            handleUpdateUser           );
     yield takeLatest(reducer.removeUser.type,            handleRemoveUser           );
     yield takeLatest(reducer.addUser.type,               handleAddUser              );
+    yield takeLatest(reducer.addNewCompany.type,         handleAddNewCompany        );
 }

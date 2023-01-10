@@ -21,13 +21,17 @@ function ExtraSideMenu(props: ExtraSideNavProps)
     
     return ( <> 
         { content && <div className="extraSideNav">
-           <div className="header_extraSideNav">        
-                <p className="title_header_extraSideNav">
-                    { content.title.toUpperCase() }
-                </p>
-                <p className="subtitle_header_extraSideNav">
-                    { content.subtitle.toUpperCase() }
-                </p>
+           <div className="header_extraSideNav">    
+                { 
+                    content.title && <p className="title_header_extraSideNav">
+                        { content.title.toUpperCase() }
+                    </p> 
+                }    
+                { 
+                    content.subtitle && <p className="subtitle_header_extraSideNav">
+                        { content.subtitle.toUpperCase() }
+                    </p> 
+                }    
            </div>
             { content.menu && content.menu.map( ( { icon, path, title, id } ) => 
                 <BtnRect 

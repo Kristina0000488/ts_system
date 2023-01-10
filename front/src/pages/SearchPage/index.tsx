@@ -40,7 +40,7 @@ export const SearchPage: React.FC<types.CommonPropsPage> = () =>
                 <SearchInput 
                     value={ value } 
                     handleChange={ (value: string) => setValue(value) } 
-                    placeholder='Поиск организации' 
+                    placeholder='Search a company' 
                     handleClick={ () => {
                         if ( value.length > 0 )
                         {

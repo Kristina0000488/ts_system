@@ -46,7 +46,7 @@ export const FoundCompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role 
                     <TopNav 
                         iconBack 
                         onBack={ goBack } 
-                        title={ 'К СПИСКУ НАЙДЕННЫХ ЮРИДИЧЕСКИХ ЛИЦ'.toUpperCase() } 
+                        title={ 'To the list of companies'.toUpperCase() } 
                     />
                 </header> 
                 { !showProgress ? <> 

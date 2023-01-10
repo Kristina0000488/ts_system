@@ -4,6 +4,7 @@ import {
     TypeExtraSideNavPage, 
     TypeIconsTopNavRightSide, 
     ItemsSelectRolesUsers,
+    TypeComonElementSideNav
 } from '../types';
 
 
@@ -22,35 +23,61 @@ export const Paths = {
     another: '*'
 } 
 
-export const SideNavElems = {
+const home: TypeComonElementSideNav = {
+    path: Paths.index,
+    icon: 'home',    
+    title: 'main'
+}
+
+const companies: TypeComonElementSideNav = {
+    path: Paths.companies,                
+    icon: 'market',
+    title: 'Compamies'
+}
+
+const search: TypeComonElementSideNav = {
+    path: Paths.search,                
+    icon: 'search', 
+    title: 'Search'
+}
+
+const signOut: TypeComonElementSideNav = {
+    path: Paths.exit,                
+    icon: 'exit',       
+    title: 'Sign out'
+}
+
+const adminDashboard: TypeComonElementSideNav = {
+    path: Paths.settings,
+    icon: 'settings', 
+    title: 'Admib dashboard'
+}
+
+export const sideNavElems: TypeAllRolesSideNavElems = {
     user: [
         [
             {
                 id: 0, 
-                path: Paths.index,
-                icon: 'home',    
+                ...home
             },
             {        
                 id: 1,
-                path: Paths.companies,                
-                icon: 'market',
+                ...companies
             },
             { 
                 id: 2,
-                path: Paths.search,                
-                icon: 'search', 
+                ...search
             }
         ],
         [
-            {        
+         /*   {        
                 id: 4,
                 path: Paths.chat,                
                 icon: 'chat',
-            },
+            },*/
             { 
-                id: 5,
-                path: Paths.exit,                
-                icon: 'exit',       
+                id: 3,
+                ...signOut
             }
         ]
     ],
@@ -58,35 +85,30 @@ export const SideNavElems = {
         [
             {
                 id: 0, 
-                path: Paths.index,
-                icon: 'home',    
+                ...home 
             },
             {        
                 id: 1,
-                path: Paths.companies,                
-                icon: 'market',
+                ...companies
             },
             { 
                 id: 2,
-                path: Paths.search,                
-                icon: 'search', 
+                ...search
             }
         ],
         [
             {
                 id: 3, 
-                path: Paths.settings,
-                icon: 'settings', 
+                ...adminDashboard
             },
-            {        
+            /*{        
                 id: 4,
                 path: Paths.chat,                
                 icon: 'chat',
-            },
+            },*/
             { 
-                id: 5,
-                path: Paths.exit,                
-                icon: 'exit',       
+                id: 4,
+                ...signOut  
             }
         ]
     ],
@@ -94,31 +116,30 @@ export const SideNavElems = {
         [
             {
                 id: 0, 
-                path: Paths.index,
-                icon: 'home',    
+                ...home
             },
         ]
     ]  
-} as TypeAllRolesSideNavElems;
+};
 
-export const Roles = {
+export const roles = {
     Admin: 'admin',
     User: 'user'    
 } as { [ index : string ]: string }
 
 export const contentFooter: TypeFooterContent = [
-    { text: '© 1992 - 2020 Честный Агент © Все права защищены.' },
-    { text: '8 (495) 995-00-00'                                 },
+    { text: '2023 Company System' },
+    //{ text: '8 (495) 995-00-00'      },
 ]
 
 export const contentProcessesPage = {
-    title: 'ЧЕСТНЫЙ АГЕНТ'.toUpperCase(),
-    subtitle: 'МЕНЕДЖЕР ПРОЦЕССА'.toUpperCase(),
+    title: 'Company System'.toUpperCase(),
+    //subtitle: 'МЕНЕДЖЕР ПРОЦЕССА'.toUpperCase(),
     menu: [
         {
             id: 1.1,           
             icon: 'building',
-            title: 'Организации'
+            title: 'Companies'
         },
     ]
 } as TypeExtraSideNavPage;
@@ -138,7 +159,7 @@ export const iconsRightSide: TypeIconsTopNavRightSide[] = [
     }
 ];
 
-export const contentIndexTitle: string = 'Добро пожаловать в систему "ЧЕСТНЫЙ АГЕНТ"';
+export const contentIndexTitle: string = 'Welcome';
 
 export const RolesUsers = [ 
     { 

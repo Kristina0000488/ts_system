@@ -9,7 +9,6 @@ const companyContactsRoutes = require('./routes/companyContacts');
 
 const verifyToken = (req, reply, done) => {
   const { token } = req.cookies;
-  //console.log('token - ', token);
 
   if (!token) {
     reply
@@ -102,13 +101,48 @@ function getToken() {
       } catch (err) {
         fastify.log.error(err);
       }
-    });
+    }),
+    fastify.get("/logout", async (req, res) => {
+      let result = null;
+      
+      try {
+        const { token } = req.cookies;
+
+        result = await knex("users")
+          .select("token")
+          .where({ token });
+
+        if (result.length === 0) {
+          res
+            .code(404)
+            .send({ statusCode: 404, message: 'Invalid user' });
+
+          return fastify.log.error();
+        } else {
+          await knex("users")
+            .update({ token: '' })
+            .where({ token });
+
+          res
+            .setCookie('token', '', {
+              domain: '',
+              path: '/',
+              secure: true, // send cookie over HTTPS only
+              httpOnly: true,
+            })
+            .code(200)
+            .send({ statusCode: 200, message: 'Logout' })
+        }
+      } catch (err) {
+        fastify.log.error(err);
+      }
+    })
 
     await fastify.listen({ port: 3001 }, (err) => { if (err) throw err });
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
-  }
+  }  
 })();
     
     /*fastify.addHook('onRequest', (request) =>   {

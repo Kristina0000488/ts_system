@@ -40,39 +40,47 @@ import './AddingNewCompanyPage.css';
 
 export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) =>
 {
-    const [ newCompamyInfo,     setNewCompamy         ] = useState<types.TypeResponseGetInfoCompany>({
+    const [ newCompamyInfo,     setNewCompamy         ] = useState<types.TypeAddInfoCompany>({
         businessEntity: "",
-        contactId: "",
-        contract: {
+        //contactId: "",
+        /*contract: {
             no: "", 
             issue_date: getFullDate(""),
-        },
-        createdAt: "",
-        id: "",
+        },*/
+        //createdAt: "",
+        //id: "",
         name: "",
-        photos: [ ] as types.TypeImgs[],
+        //photos: [ ] as types.TypeImgs[],
         shortName: "",
         status: "",
         type: [ ],
-        updatedAt: "",
-    } as types.TypeResponseGetInfoCompany);
-    const [ newContactsCompany, setNewContactsCompany ] = useState<types.TypeResponseGetContactsCompany>({
-        createdAt: "",
+        //updatedAt: "",
+    } as types.TypeAddInfoCompany);
+    const [ newContactsCompany, setNewContactsCompany ] = useState<types.TypeAddContactsCompany>({
+        //createdAt: "",
         email: "",
         firstname: "",
-        id: "",
         lastname: "",
         patronymic: "",
         phone: "",
-        updatedAt: "",
-    } as types.TypeResponseGetContactsCompany);
+        //updatedAt: "",
+    } as types.TypeAddContactsCompany);
     //const [ newImgs, setNewImgs] = useState<types.TypeImgs[]>([] as types.TypeImgs[]);
     const [ file, setFile ] = useState<File>();
 
     const dispatch  = useAppDispatch();
     
-    const isLoading        = useAppSelector(redux.selectIsLoading);
-    const { btnId }        = useAppSelector(redux.selectClickedBtnId);
+    const isLoading = useAppSelector(redux.selectIsLoading);
+    const { btnId } = useAppSelector(redux.selectClickedBtnId);
+    const isAdded   = useAppSelector(redux.selectIsDone);
+
+    useEffect( () => { console.log(isAdded)
+        if ( !!isAdded )
+        {
+            goBack();
+            dispatch( redux.setIsDone() );
+        }
+    }, [ isAdded ] );
     
     const onChangeField = async ( 
         value: string, 
@@ -83,18 +91,18 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
     {
         if ( typeCard === 'company' )  {
             const newObject = onChangeFormCompany( value, newCompamyInfo, path, type );
-            console.log( newObject, 1 );
+
             setNewCompamy( newObject as types.TypeResponseGetInfoCompany );
         } else {
             const newObject = onChangeFormCompany( value, newContactsCompany, path, type );
-            console.log( newObject, 2 );
+
             setNewContactsCompany( newObject as types.TypeResponseGetContactsCompany );
         }        
     }
 
     const onSave = ( ) : void => 
     {
-        console.log( "onSave")
+        dispatch( redux.addNewCompany({ contacts: newContactsCompany, info: newCompamyInfo }) )
     }
 
     const onRemoveImg = <T extends number>( imgId: T) : void => 
@@ -105,7 +113,7 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
 
         setNewCompamy({ 
             ...newCompamyInfo, 
-            photos: newPhotos
+            //photos: newPhotos
         });
     }
 
@@ -121,45 +129,14 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
         });*/
     }
 
-    const cards = getCardsCompanyInfo(newCompamyInfo, newContactsCompany);
-    /* [
-        {
-            title: 'Общая информация',
-            type: 'company',
-            edit: true,
-            fields: [
-                { label: 'Полное название', items: [ { value: newCompamyInfo.name, key: 'name' } ] },
-                { label: 'Договор', items: [ 
-                    { value: newCompamyInfo['contract']['no'], key: 'contract.no' },
-                    { value: ' от ', extraTxt: true }, 
-                    { value: newCompamyInfo['contract']['issue_date'], key: 'contract.issue_date', type: 'date' } 
-                ] },
-                { label: 'Форма', items: [ { value: newCompamyInfo.businessEntity, key: 'businessEntity'} ] },
-                { label: 'Тип', items: [ { value: newCompamyInfo.type, key: 'type', type: 'array' } ] },
-            ]
-          },
-          {
-            title: 'Контактные данные',
-            type: 'contacts',
-            edit: true,
-            fields: [
-                { label: 'ФИО', items: [ 
-                  { value: newContactsCompany.lastname, key: 'lastname'     }, 
-                  { value: newContactsCompany.firstname, key: 'firstname'   },
-                  { value: newContactsCompany.patronymic, key: 'patronymic' }], 
-                },
-                { label: 'Телефон', items: [ { value: newContactsCompany.phone, key: 'phone' } ] },
-                { label: 'Эл. почта', items: [ { value: newContactsCompany.email, key: 'email' } ] },
-            ]
-          }, 
-    ];  */
+    const cards = getCardsCompanyInfo(newCompamyInfo, newContactsCompany);         
 
-    const imgsCard = [{
+    /*const imgsCard = [{
         title: 'Приложенные фото',
         type: 'photos',
         fields: newCompamyInfo.photos,
-    }];
-
+    }];*/
+    console.log(isLoading)
     return (
         <div className='addingNewCompanyContainer'>
             <ExtraSideMenu 
@@ -172,19 +149,19 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                     <TopNav 
                         iconBack 
                         onBack={ goBack } 
-                        title={ 'К СПИСКУ ЮРИДИЧЕСКИХ ЛИЦ'.toUpperCase() } 
+                        title={ 'To the list of companies'.toUpperCase() } 
                     />
                 </header> 
                 { !isLoading ? <> 
                     <main className="block_AddingNewCompany">
-                        Название компании: <BaseInput 
+                        Company name: <BaseInput 
                             value={ newCompamyInfo.shortName } 
                             handleChange={ ( value: string ) => onChangeField( value, 'company', 'shortName' ) } 
                         />
                         { cards && cards.map( ({ title, fields, type }, id) => 
                             <CardInfo 
                                 key={ id }
-                                showEdit={ true }
+                                showEdit
                                 iconName='edit' 
                                 title={ title } 
                                 fields={ fields as types.TypeElemCard[] } 
@@ -196,8 +173,8 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                                 ) }
                             /> 
                         ) }
-                        { imgsCard && <div>
-                            { /* imgsCard.map( (imgField, id) => 
+                        {/* imgsCard && <div>
+                            { imgsCard.map( (imgField, id) => 
                                 <CardImg 
                                     key={ id }
                                     remove={ true } 
@@ -205,15 +182,15 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                                     title={ imgField.title }
                                     fields={ imgField.fields }
                                 />
-                        ) */}
-                        </div> }
+                        ) }
+                        </div>*/ }
                         { /*imgsCard && <UploadBtn 
                             handleChange={ (file: File) => onAddImg() }
                             label_1={ 'Добавить изображение'.toUpperCase() } 
                             onlyFirst
                     />*/}
                     </main>
-                    <BtnBase title="Сохранить" onClick={ () => onSave() }/>
+                    <BtnBase title="Save" onClick={ () => onSave() }/>
                     <Footer /> 
                 </> : <div className='progress_AddingNewCompany'>
                     <Progress 

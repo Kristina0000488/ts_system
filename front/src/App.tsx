@@ -8,7 +8,7 @@ import {
 import { Router }       from './routes';
 import { toNavigate }   from './routes/methods';
 
-import { SideNavElems } from './constants';
+import { sideNavElems } from './constants';
 
 import SideNav          from './components/Navigation/SideNav';
 import ErrorsList       from './components/ErrorsList';
@@ -32,7 +32,7 @@ export const App: React.FC = () =>
         <div className="app">
             <SideNav 
                 clickedId={ masterBtnId } 
-                elems={ SideNavElems[ userRole ] } 
+                elems={ sideNavElems[ userRole ] } 
                 onClick={ (path) => toNavigate(path) } 
             />
             <Router />

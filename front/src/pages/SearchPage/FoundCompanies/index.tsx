@@ -25,7 +25,7 @@ export const FoundCompaniesPage: React.FC<types.CommonPropsPage> = () =>
     return ( <> { 
         !isLoading ? <div className='listCompanies_FoundCompaniesPage'>
             <ListCompanies 
-                title={ 'Список найденных юридических лиц'.toUpperCase() }
+                title={ 'List of founded companies'.toUpperCase() }
                 values={ companies } 
                 onClick={ (id: string) => toNavigate(`${ id }`, true) } 
             /> 

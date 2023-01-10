@@ -2,14 +2,14 @@ import React, { memo }      from 'react';
 
 import IconBtn              from '../../Buttons/IconBtn';
 
-import { TypeSideNavElems, TypeIcons } from '../../../types';
+import { TypesideNavElems, TypeIcons } from '../../../types';
 
 import './SideNav.css';
 
 
 interface SideNavProps 
 {
-    elems: TypeSideNavElems;
+    elems: TypesideNavElems;
     onClick: (path: string) => void;    
     clickedId: number;
 }
@@ -23,11 +23,12 @@ function SideNav(props: SideNavProps)
         <div className='sideNavContainer'>
             { elems && elems.map( (arr, id) => 
                 <div key={ id }>
-                    { arr.map( ({ icon, id, path='' }, idx) => 
+                    { arr.map( ({ icon, id, path='', title='' }, idx) => 
                         <IconBtn<TypeIcons> 
                             key={ id }
                             icon={ icon } 
                             path={ path }
+                            title={ title }
                             clickedBtn={ clickedId === id }
                             onClick={ () => {
                                 if (path) 

@@ -69,6 +69,10 @@ export const indexSlice = createSlice({
     {  
       state.isLoading = !state.isLoading;
     },
+    addNewCompany(state: SliceState, action: PayloadAction<{ contacts: types.TypeAddContactsCompany, info: types.TypeAddInfoCompany }>) 
+    {
+      state.isLoading = !state.isLoading;
+    },
     getDataCompany(state: SliceState, action: PayloadAction<types.PayloadId<string>>) 
     {       
       state.isLoading = !state.isLoading;
@@ -77,6 +81,11 @@ export const indexSlice = createSlice({
     {
       state.company   = action.payload;
       state.isLoading = false;
+    },    
+    addDataCompany(state: SliceState, action: PayloadAction<types.TypeAddInfoCompany>) 
+    {
+      state.isLoading = !state.isLoading;
+      state.isDone    = false;
     },
     removeImg(state: SliceState, action: PayloadAction<types.PayloadRemoveImg>) 
     {     
@@ -103,7 +112,7 @@ export const indexSlice = createSlice({
       state.company  = { } as types.TypeResponseGetInfoCompany;
       state.contacts = { } as types.TypeResponseGetContactsCompany;
     },
-    removeCompany(state: SliceState, action: PayloadAction<types.PayloadId<string>>) 
+    removeCompany(state: SliceState, action: PayloadAction<types.PayloadId<string> & { contactId: string }>) 
     {  
       state.isLoading = !state.isLoading;
       state.isDone    = false;
@@ -122,9 +131,9 @@ export const indexSlice = createSlice({
     {  
       state.isLoading = false;
 
-      const arr = [ ...state.error ] as types.TypeErrorState[];
+      let arr = [ ...state.error ] as types.TypeErrorState[];
 
-      arr.filter( item => item.id !== action.payload );
+      arr = arr.filter( item => item.id != action.payload );
 
       state.error = arr;
     },
@@ -145,10 +154,10 @@ export const indexSlice = createSlice({
     {  
       state.isLoading = true;
     },
-    exit(state: SliceState) 
+    logoutUser(state: SliceState) 
     {  
       state.isLoading = false;
-      state.user      = { } as types.CommonValidUser;
+      //state.user      = { } as types.CommonValidUser;
     },
     getAllUsers(state: SliceState) 
     {  
@@ -205,7 +214,7 @@ export const {
   loginUser,
   checkUser,
   setUser, 
-  exit,
+  logoutUser,
   getAllUsers,
   getUsersForTable,
   setAllUsers,
@@ -213,6 +222,7 @@ export const {
   updateUser,
   removeUser,
   addUser,
+  addNewCompany,
 } = indexSlice.actions;
 
 

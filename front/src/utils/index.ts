@@ -1,4 +1,4 @@
-import { Roles } from '../constants';
+import { roles } from '../constants';
 import * as types             from '../types';
 
 export function setStyleForMenu(widthMain: string, widthFooter: string = '0') : void 
@@ -51,7 +51,7 @@ export function copyObj <T extends Object>( obj: T ) : T
 
 export function checkEditingRole( role: string ) : boolean 
 {
-    if ( role.toLocaleLowerCase() === Roles.Admin ) {
+    if ( role.toLocaleLowerCase() === roles.Admin ) {
         return true;
     };
 
@@ -104,7 +104,7 @@ export function onChangeFormCompany(
     } 
 }
 
-export function getCardsCompanyInfo( companyData: types.TypeResponseGetInfoCompany, contacts: types.TypeResponseGetContactsCompany ) 
+export function getCardsCompanyInfo( companyData: types.TypeResponseGetInfoCompany | types.TypeAddInfoCompany, contacts: types.TypeResponseGetContactsCompany | types.TypeAddContactsCompany) 
 {// console.log( companyData, contacts );
     //if ( companyData && contacts )
     return [

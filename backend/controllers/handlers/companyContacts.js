@@ -18,6 +18,57 @@ const getCompanyContactsHandler = async (req, reply) => {
     }
 };
 
+const updateCompanyContactsHandler = async (req, reply) => {
+    try {
+        const { email, firstname, lastname, phone, patronymic } = req.body;
+        const { id } = req.params;
+
+        await knex("companyContacts")
+          .where({'id': id})
+          .update({
+            email,
+            firstname,
+            lastname,
+            patronymic,
+            phone,
+            updatedat: new Date().toDateString()
+          });
+        //console.log(req.body, id)
+        reply.send({ result: "success", statusCode: 200 });
+    } catch (err) {
+        fastify.log.error(err);
+    }
+
+    return reply.send('Post updated');
+};
+
+const deleteCompanyContactsHandler = async (req, reply) => {    
+    try {
+        await knex("companyContacts")
+            .where("id", req.params.id)            
+            .del()
+        
+        reply.send({ result: "success", statusCode: 200 });
+    } catch (err) {
+        fastify.log.error(err);
+    }
+}
+
+const addCompanyContactsHandler = async (req, reply) => {
+    try { 
+        const { email, firstname, lastname, patronymic, phone } = req.body;
+
+        await knex("companyContacts").insert({ email, firstname, lastname, patronymic, phone, createdat: new Date().toDateString() });
+        
+        reply.send({ result: "success", statusCode: 200 });
+    } catch (err) {
+        fastify.log.error(err);
+    }
+};
+
 module.exports = {
-    getCompanyContactsHandler
+    getCompanyContactsHandler,
+    updateCompanyContactsHandler,
+    deleteCompanyContactsHandler,
+    addCompanyContactsHandler
 };

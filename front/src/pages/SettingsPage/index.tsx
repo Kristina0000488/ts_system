@@ -68,13 +68,13 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
         required?: boolean,
     } [] = [
         {
-            state: 'userName', label: 'Имя пользователя', required: true
+            state: 'userName', label: 'User name', required: true
         },
         {
-            state: 'password', label: 'Пароль', password: true, required: true
+            state: 'password', label: 'Password', password: true, required: true
         },
         {
-            state: 'role', label: 'Роль пользователя *', type: 'choice', required: true 
+            state: 'role', label: 'User role', type: 'choice', required: true 
         },
     ];
 
@@ -93,11 +93,11 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
         for ( const [ key, value ] of Object.entries(objectUser) ) 
         {
             if ( key === 'role') {
-                arr.push( addingObjUserCard( value, 'Роль пользователя' )  );
+                arr.push( addingObjUserCard( value, 'User role' )  );
             } else if ( key === 'userName' ) {
-                arr.push( addingObjUserCard( value, 'Имя пользователя' ) );
+                arr.push( addingObjUserCard( value, 'User name' ) );
             } else if ( key === 'createdAt' ) {
-                arr.push( addingObjUserCard( value, 'Дата регистрации' ) );
+                arr.push( addingObjUserCard( value, 'Date of the registration' ) );
             }
         }
 
@@ -118,14 +118,14 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
         <div className="SettingsPage">
             { 
                 isLoading ? <Progress /> : <>
-                    <h2>Панель администратора</h2> 
+                    <h2>Admin dashboard</h2> 
                     { <>
                         <>
                             <div>
-                                <button onClick={ () => setShowFormAdd( true ) }>Добавить нового пользователя</button>
+                                <button onClick={ () => setShowFormAdd( true ) }>Add a new user</button>
                             </div>   
                             <Table 
-                                titles={[ 'ID', 'Имя пользователя', 'Роль', 'Дата создания', 'Дата изменения', 'Действия' ]} 
+                                titles={[ 'ID', 'User name', 'Role', 'Date of the creating', 'Date of the updating', 'Actions' ]} 
                                 items={ allUsers } 
                                 edit
                                 onSubmit={ ( value: types.BackendUser ) => onSubmitUser( value ) }
@@ -150,7 +150,7 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
                         >
                             <FormAddUser 
                                 elems={ elemsForm } 
-                                titleBtn='Отправить'                                 
+                                titleBtn='Submit'                                 
                                 values={ { password, userName, role } }
                                 itemsSelect={ RolesUsers as types.ItemsSelectRolesUsers[] }
                                 iconsChoice={ [ '' ] }

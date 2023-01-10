@@ -32,6 +32,8 @@ export type TypeElemSideNav = {
     title?: string,
 };
 
+export type TypeComonElementSideNav = Pick<TypeElemSideNav, 'icon' | 'title' | 'path' | 'icon'>;
+
 export interface TypeIconsTopNavRightSide extends Object
 {
     id: number, 
@@ -39,13 +41,13 @@ export interface TypeIconsTopNavRightSide extends Object
     icon: TypeIcons,
 };
 
-export type TypeSideNavElems = TypeElemSideNav[] [ ];
+export type TypesideNavElems = TypeElemSideNav[] [ ];
 
-export type TypeAllRolesSideNavElems = { [ index: string ]: TypeSideNavElems };
+export type TypeAllRolesSideNavElems = { [ index: string ]: TypesideNavElems };
 
 export interface TypeResponseGetInfoCompany extends Object
 {
-    id : string,
+    id: string,
     contactId: string,
     name: string,
     shortName: string,
@@ -61,6 +63,8 @@ export interface TypeResponseGetInfoCompany extends Object
     updatedAt: string
 };
 
+export type TypeAddInfoCompany = Pick<TypeResponseGetInfoCompany, "name" | "shortName" | "businessEntity" | "type" | "contract">;
+
 export interface TypeResponseGetContactsCompany extends Object 
 {
     id: string,
@@ -72,6 +76,8 @@ export interface TypeResponseGetContactsCompany extends Object
     createdAt: string,
     updatedAt: string,
 };
+
+export type TypeAddContactsCompany = Pick<TypeResponseGetContactsCompany, "lastname" | "firstname" | "patronymic" | "phone" | "email">;
 
 export interface TypeImgs extends Object
 {    

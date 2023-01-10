@@ -116,45 +116,45 @@ class WrapedApi
         } 
     }*/
 
-    async login(name: string, password: string) : Promise<any>//!
+    async login(name: string, password: string) : Promise<object>//!
     {
         const data = { name, password };
 
         return await this.post( `login`, data, false, true );    
     }
 
-    async checkUser() : Promise<any>//!
+    async checkUser() : Promise<object>//!
     {
         return await this.get( `verifycookie`, true, [ 200, 304 ] );    
     }
 
-    async addUser(name: string, password: string, role: types.RoleUser) : Promise<any>//!
+    async addUser(name: string, password: string, role: types.RoleUser) : Promise<object>//!
     {
         const data = { name, password, role };
 
         return await this.post( `admin-panel/users/new`, data, false, true );    
     }
 
-    async updateUser(user: types.BackendUser ) : Promise<any>//!
+    async updateUser(user: types.BackendUser ) : Promise<object>//!
     {
         const data = { ...user };
 
         return await this.put( `admin-panel/users/edit/${ data.id }`, data );    
     }
 
-    async removeUser(id: number) : Promise<any>//!
+    async removeUser(id: number) : Promise<object>//!
     {
         return await this.delete( `admin-panel/users/delete/${ id }` );    
     }
 
-    async getAllUsersForTable(page: number, rowAmount: number) : Promise<any> ///!
+    async getAllUsersForTable(page: number, rowAmount: number) : Promise<object> ///!
     {
         const data = { page, rowAmount };
 
         return await this.post( `admin-panel/allUsersTable`, data, false, true );    
     }
 
-    async getCompaniesList() : Promise<any>
+    async getCompaniesList() : Promise<object>
     {
         return await this.get( `companiesList`, true, [ 200, 304 ] );    
     }
@@ -169,6 +169,16 @@ class WrapedApi
         return await this.put( `companies/edit/${ id }`, data, true );    
     }
 
+    async addInfoCompany(data: object) : Promise<object>
+    {
+        return await this.post( `companies/new`, data, false, true );    
+    }
+
+    async removeInfoCompany(id: number) : Promise<object>//!
+    {
+        return await this.delete( `companies/delete/${ id }` );    
+    }
+
     async getContactsCompany(id: number) : Promise<types.TypeResponseGetContactsCompany>
     {
         return await this.get( `contacts/${ id }`, true, [ 200, 304 ] );    
@@ -177,6 +187,26 @@ class WrapedApi
     async updateContactsCompany(id: number, data: object) : Promise<object>
     {
         return await this.put( `contacts/edit/${ id }`, data, true );    
+    }
+
+    async addContactsCompany(data: object) : Promise<object>
+    {
+        return await this.post( `contacts/new`, data, false, true );    
+    }
+
+    async removeContactsCompany(id: number) : Promise<object>//!
+    {
+        return await this.delete( `contacts/delete/${ id }` );    
+    }
+
+    async searchCompany(name: string) : Promise<object>//!
+    { 
+        return await this.get( `search/${name}`, true, [ 200, 304 ] );    
+    }
+
+    async logoutUser( ) : Promise<object>//!
+    {
+        return await this.get( `logout`, true, [ 200, 304 ] );    
     }
 
     async deleteImageCompany(id: number, imageName: string) : Promise<object>

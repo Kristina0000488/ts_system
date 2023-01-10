@@ -14,7 +14,7 @@ interface ErrorsListProps
 function ErrorsList(props: ErrorsListProps) 
 {
     const { errors, onClose } = props;
-    
+    console.log(errors);
     return (
         <div className="errorsList">
             { errors && errors.map( error => <div key={ error.id } className="errorContainer">

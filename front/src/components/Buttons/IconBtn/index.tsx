@@ -11,6 +11,7 @@ interface IconBtnProps<T>
 {
     icon : T;
     path?: string;
+    title?: string;
     clickedBtn?: boolean;
     onClick?: () => void; 
     noPadding?: boolean; 
@@ -34,6 +35,7 @@ export default function IconBtn <T extends string | TypeIcons> ( props: IconBtnP
         noBackground=false,
         size='20px',
         sizeBtn='',
+        title='',
         iconFolder
     } = props;
     
@@ -47,7 +49,13 @@ export default function IconBtn <T extends string | TypeIcons> ( props: IconBtnP
             onClick={ onClick && onClick }
             style={{ width: sizeBtn }} 
         >
-            { icon && <Icon<T> iconName={ icon } noPadding={ noPadding } size={ size } iconFolder={ iconFolder } />}
+            { icon && <Icon<T> 
+                iconName={ icon } 
+                noPadding={ noPadding } 
+                size={ size } 
+                iconFolder={ iconFolder } 
+            /> }
+            { title && <span>{ title }</span> }
         </button>
     );
 }

@@ -39,14 +39,14 @@ export const CompaniesPage: React.FC<types.CommonPropsPage> = () =>
         />
         { !isLoading ? <div className="companiesPage">
             <ListCompanies 
-                title={ 'СПИСОК ЮРИДИЧЕСКИХ ЛИЦ'.toUpperCase() } 
+                title={ 'List of companies'.toUpperCase() } 
                 values={ companies } 
                 onClick={ (param) => toNavigate(param, true) }
             />
             <div className="btnAddingCompany">
                 <BtnBase 
                     icon='add' 
-                    title='Добавить нового пользователя' 
+                    title='Add a new user' 
                     onClick={ () => toNavigate( Paths.addingCompany) } 
                 />
             </div>

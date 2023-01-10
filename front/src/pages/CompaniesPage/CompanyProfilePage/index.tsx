@@ -56,7 +56,7 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
     const { btnId }        = useAppSelector(redux.selectClickedBtnId);
     const isRemovedCompany = useAppSelector(redux.selectIsDone);
 
-    let showProgress: boolean    = companyInfo && cardsCompany /*&& imgsCompany*/ ? false : true;
+    let showProgress: boolean = companyInfo && cardsCompany /*&& imgsCompany*/ ? false : true;
 
     const isEditingRole: boolean = role ? checkEditingRole(role) : false;
     
@@ -150,9 +150,9 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
             dispatch( redux.getContactsCompany( { id } ) );
             dispatch( redux.getDataCompany( { id } )     );
         },
-        2: () => dispatch( redux.removeCompany( { id } ) ),
+        2: () => dispatch( redux.removeCompany( { id, contactId: companyInfo.contactId } ) ),
     };
-    console.log(showProgress, cardsCompany)
+    //console.log(showProgress, isLoading, '8787' )
     return (
         <div className='companyProfileContainer'>
             <ExtraSideMenu 
@@ -165,7 +165,7 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
                     <TopNav 
                         iconBack 
                         onBack={ goBack } 
-                        title={ 'К СПИСКУ ЮРИДИЧЕСКИХ ЛИЦ'.toUpperCase() } 
+                        title={ 'To the list of companies'.toUpperCase() } 
                         iconsRightSide={ isEditingRole ? iconsRightSide : undefined } 
                         collectionOnClickIconsRight={ isEditingRole ? collectionOnClickIconsRight : undefined }
                     />
@@ -176,7 +176,7 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
                             bold 
                             item={ companyInfo.shortName } 
                             onSave={ (value) => onChangeTitle(value, 'shortName') }
-                            labelField='Название компании'
+                            labelField='Company name'
                         /> : <BaseTitle value={ companyInfo.shortName } />) }
                         { cardsCompany && cardsCompany.map( ({ title, fields, type }, id) => 
                             <CardInfo 
@@ -208,8 +208,8 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
                         { imgsCompany && isEditingRole && <UploadBtn 
                             handleChange={ (file: File) => setFile(file) }
                             handleUpload={ () => onAddImg() }
-                            label_1={ 'Добавить изображение'.toUpperCase() } 
-                            label_2={ 'отправить'.toUpperCase() } 
+                            label_1={ 'Add an image'.toUpperCase() } 
+                            label_2={ 'Submit'.toUpperCase() } 
                             loading={ isLoading }
                         /> }
                     </main>

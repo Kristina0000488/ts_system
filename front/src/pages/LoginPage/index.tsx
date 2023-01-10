@@ -30,11 +30,11 @@ export const LoginPage: React.FC<types.CommonPropsPage> = ({ idBtn=0 }) =>
 
     const inputs: { label: string, state: string }[] = [
         { 
-            label: 'Имя пользователя', 
+            label: 'User name', 
             state: 'userName'
         },
         { 
-            label: 'Пароль', 
+            label: 'Password', 
             state: 'password',
         },
     ];
@@ -46,7 +46,7 @@ export const LoginPage: React.FC<types.CommonPropsPage> = ({ idBtn=0 }) =>
 
     return (
         <div className="LoginPage">
-            <h2>Пожалуйста, авторизуйтесь</h2>
+            <h2>Please, sign in</h2>
             { 
                 inputs && inputs.map( ({ label, state }, id) => <div className='input_LoginPage' key={ id } >
                     <BaseInput 
@@ -58,7 +58,7 @@ export const LoginPage: React.FC<types.CommonPropsPage> = ({ idBtn=0 }) =>
                     />  
                 </div> )
             }
-            <BtnBase onClick={ onSubmit } title='Отправить' />
+            <BtnBase onClick={ onSubmit } title='Submit' />
         </div>
     );
 }

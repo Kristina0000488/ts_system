@@ -1,16 +1,13 @@
 .iconBtn {
   width: 100%;
   cursor: pointer;
-  background: #82B284;
+  background: inherit;
   border: none;
   outline: none;
   padding: 0;
 }
 .iconBtn:hover {
-  background: #A4C7A5;
-}
-.clickedIconBtn {
-  background: #A4C7A5;
+  background: #2222224a;
 }
 .noBackground {
   background: inherit;

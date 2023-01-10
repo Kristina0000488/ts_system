@@ -23,21 +23,21 @@ module.exports = async function (fastify) {
     onRequest: [fastify.verifyToken],
     //schema: addUserSchema,
     handler: addUserHandler,
-  },);
+  });
 
   // update an user
   fastify.put('/admin-panel/users/edit/:id', {
     onRequest: [fastify.verifyToken], 
     //schema: updateUserSchema,
     handler: updateUserHandler,
-  },);
+  });
 
   // delete an user
   fastify.delete('/admin-panel/users/delete/:id', {
     onRequest: [fastify.verifyToken],
     //schema: deleteUserSchema,
     handler: deleteUserHandler,
-  },);
+  });
 
   fastify.get("/admin-panel/admins", {
     onRequest: [fastify.verifyToken],
@@ -55,7 +55,7 @@ module.exports = async function (fastify) {
     onRequest: [fastify.verifyToken],
     //schema: getAllUsersTablerSchema,
     handler: getAllUsersTableHandler,
-  },);
+  });
 };;
 
 
