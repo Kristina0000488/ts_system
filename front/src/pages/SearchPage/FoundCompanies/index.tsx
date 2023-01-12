@@ -21,7 +21,7 @@ export const FoundCompaniesPage: React.FC<types.CommonPropsPage> = () =>
 {    
     const companies = useAppSelector(redux.selectCompaniesList);
     const isLoading = useAppSelector(redux.selectIsLoading    );
-  
+   
     return ( <> { 
         !isLoading ? <div className='listCompanies_FoundCompaniesPage'>
             <ListCompanies 

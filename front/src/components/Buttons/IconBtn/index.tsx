@@ -55,7 +55,7 @@ export default function IconBtn <T extends string | TypeIcons> ( props: IconBtnP
                 size={ size } 
                 iconFolder={ iconFolder } 
             /> }
-            { title && <span>{ title }</span> }
+            { title && <span className='titleIconBtn'>{ title }</span> }
         </button>
     );
 }

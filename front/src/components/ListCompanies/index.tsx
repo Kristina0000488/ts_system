@@ -21,14 +21,14 @@ export default function ListCompanies(props: ListCompaniesProps)
             { title && <span className='title_ListValues'>
                 { title.toUpperCase() }
             </span> }
-            { values.length > 0 && <ul className="list_ListValues">
+            { values.length > 0 ? <ul className="list_ListValues">
                 { values.map( ({ name, id }, idx) => <li 
                     key={ idx } 
                     onClick={ _ => onClick(id.toString()) }
                 >
                     { name }
                 </li> ) }
-            </ul> }
+            </ul> : <div className="text_listValues">No founded companies</div> }
         </div>
     );
 }

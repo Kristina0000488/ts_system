@@ -21,7 +21,14 @@
 
 .block_companyProfile {
     .paddingCommon();
-    .border-bottom();
+    //.border-bottom();
+    .CardInfo {
+        margin: 0;
+
+        &:not(:first-child) {
+            margin: 20px 0;
+        }
+    }
 }
 
 .progress_companyProfile {

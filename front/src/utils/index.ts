@@ -109,32 +109,32 @@ export function getCardsCompanyInfo( companyData: types.TypeResponseGetInfoCompa
     //if ( companyData && contacts )
     return [
         {
-            title: 'Общая информация',
+            title: 'General information',
             type: 'company',
             edit: true,
             fields: [
-                { label: 'Полное название', items: [ { value: companyData.name, key: 'name' } ] },
-                companyData['contract'] && { label: 'Договор', items: [ 
+                { label: 'Full name company:', items: [ { value: companyData.name, key: 'name' } ] },
+                companyData['contract'] && { label: 'Contract:', items: [ 
                     { value: companyData['contract']['no'], key: 'contract.no' },
-                    { value: ' от ', extraTxt: true }, 
+                    { value: ' from ', extraTxt: true }, 
                     { value: companyData['contract']['issue_date'], key: 'contract.issue_date', type: 'date' } 
                 ] } || { },
-                { label: 'Форма', items: [ { value: companyData.businessEntity, key: 'businessEntity'} ] },
-                { label: 'Тип', items: [ { value: companyData.type, key: 'type', type: 'array' } ] },
+                { label: 'Form:', items: [ { value: companyData.businessEntity, key: 'businessEntity'} ] },
+                { label: 'Type:', items: [ { value: companyData.type, key: 'type', type: 'array' } ] },
             ]
         },
         {
-            title: 'Контактные данные',
+            title: 'Contacts',
             type: 'contacts',
             edit: true,
             fields: [
-                { label: 'ФИО', items: [ 
+                { label: 'Full name of the founder:', items: [ 
                   { value: contacts.lastname, key: 'lastname'     }, 
                   { value: contacts.firstname, key: 'firstname'   },
                   { value: contacts.patronymic, key: 'patronymic' }], 
                 },
-                { label: 'Телефон', items: [ { value: contacts.phone, key: 'phone' } ] },
-                { label: 'Эл. почта', items: [ { value: contacts.email, key: 'email' } ] },
+                { label: 'Phone number:', items: [ { value: contacts.phone, key: 'phone' } ] },
+                { label: 'Email:', items: [ { value: contacts.email, key: 'email' } ] },
             ]
         }
     ]

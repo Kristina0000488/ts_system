@@ -120,10 +120,10 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
                 isLoading ? <Progress /> : <>
                     <h2>Admin dashboard</h2> 
                     { <>
-                        <>
-                            <div>
-                                <button onClick={ () => setShowFormAdd( true ) }>Add a new user</button>
-                            </div>   
+                        <div className="floatBtn">
+                            <button className='btnBtnBase' onClick={ () => setShowFormAdd( true ) }>Add a new user</button>
+                        </div>   
+                        <div className="table_SettingsPage">
                             <Table 
                                 titles={[ 'ID', 'User name', 'Role', 'Date of the creating', 'Date of the updating', 'Actions' ]} 
                                 items={ allUsers } 
@@ -143,7 +143,7 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
                                 rowsPerPage={ rowsPerPage }
                                 handleChange={ (page, rowsPerPage) => onChangePagination( page, rowsPerPage )  } 
                             />
-                        </>  
+                        </div>  
                         <Dialog 
                             open={ showFormAdd } 
                             onClose={ () => setShowFormAdd( !showFormAdd ) }

@@ -7,8 +7,9 @@
   align-items: center;
 }
 .listCompanies_FoundCompaniesPage {
-  padding: 26px 40px;
+  padding: 20px 40px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
 }

@@ -41,7 +41,7 @@ export default function SearchInput(props: SearchInputProps)
                 orientation="vertical" 
             />
             <IconButton 
-                style={{ color: '#82B284' }} 
+                style={{ color: '#18c3d0cf' }} 
                 sx={{ p: '10px' }} 
                 aria-label="search" 
                 onClick={ handleClick }

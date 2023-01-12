@@ -1,10 +1,10 @@
 .btnSecond {
   padding: 1%;
   background-color: inherit !important;
-  color: #82B284;
+  color: #002FD2;
   border: none;
   cursor: pointer;
 }
 .btnSecond:hover {
-  color: #98C88C;
+  color: #002ed290;
 }

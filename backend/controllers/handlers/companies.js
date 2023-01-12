@@ -105,7 +105,7 @@ const addInfoCompanyHandler = async (req, reply) => {
 const searchCompanyHandler = async (req, reply) => {
     try { 
         const { name } = req.params; 
-        const result = await knex("companies _-")
+        const result = await knex("companies")
             .select('id', 'name', 'shortName')
             .where(
                 knex.raw('LOWER("name") = ?', name)

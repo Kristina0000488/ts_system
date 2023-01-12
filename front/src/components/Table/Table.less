@@ -17,8 +17,24 @@ table {
         padding: 5px 0;
     }
 
+    th {
+        padding: 5px 0 15px 0;
+    }
+
     tr {
         border-bottom: 1px #0000001c solid;
+
+        td {
+            &:first-child {
+                border-bottom-left-radius: 10px;
+                border-top-left-radius: 10px;
+            }
+
+            &:last-child {
+                border-bottom-right-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+        }
     }
 
     tbody {    
@@ -26,6 +42,10 @@ table {
             &:hover {
                 background-color: #0000000f;
             }
+        }
+
+        td {
+            font-size: 14px;
         }
     }
 }

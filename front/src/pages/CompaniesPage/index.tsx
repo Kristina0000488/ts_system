@@ -32,21 +32,16 @@ export const CompaniesPage: React.FC<types.CommonPropsPage> = () =>
     const { btnId } = useAppSelector(redux.selectClickedBtnId);
     
     return ( <>
-        <ExtraSideMenu 
-            clickedId={ btnId } 
-            content={ contentProcessesPage } 
-            onClick={ toNavigate } 
-        />
         { !isLoading ? <div className="companiesPage">
             <ListCompanies 
                 title={ 'List of companies'.toUpperCase() } 
                 values={ companies } 
                 onClick={ (param) => toNavigate(param, true) }
             />
-            <div className="btnAddingCompany">
+            <div className="floatBtn">
                 <BtnBase 
-                    icon='add' 
-                    title='Add a new user' 
+                    //icon='add' 
+                    title='Add new company' 
                     onClick={ () => toNavigate( Paths.addingCompany) } 
                 />
             </div>
@@ -58,3 +53,10 @@ export const CompaniesPage: React.FC<types.CommonPropsPage> = () =>
         </div> }       
     </> );
 }
+/*
+        <ExtraSideMenu 
+            clickedId={ btnId } 
+            content={ contentProcessesPage } 
+            onClick={ toNavigate } 
+        />
+        */

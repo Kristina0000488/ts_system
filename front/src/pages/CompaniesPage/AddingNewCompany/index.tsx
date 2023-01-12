@@ -40,7 +40,7 @@ import './AddingNewCompanyPage.css';
 
 export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) =>
 {
-    const [ newCompamyInfo,     setNewCompamy         ] = useState<types.TypeAddInfoCompany>({
+    const [ newCompamyInfo, setNewCompamy ] = useState<types.TypeAddInfoCompany>({
         businessEntity: "",
         //contactId: "",
         /*contract: {
@@ -102,7 +102,12 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
 
     const onSave = ( ) : void => 
     {
-        dispatch( redux.addNewCompany({ contacts: newContactsCompany, info: newCompamyInfo }) )
+        if ( newCompamyInfo.name ) {
+            dispatch( redux.addNewCompany({ 
+                contacts: newContactsCompany, 
+                info: newCompamyInfo 
+            }) );
+        }
     }
 
     const onRemoveImg = <T extends number>( imgId: T) : void => 
@@ -136,28 +141,28 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
         type: 'photos',
         fields: newCompamyInfo.photos,
     }];*/
-    console.log(isLoading)
+   // console.log(isLoading)
     return (
         <div className='addingNewCompanyContainer'>
-            <ExtraSideMenu 
-                clickedId={ btnId } 
-                content={ contentProcessesPage } 
-                onClick={ (path) => toNavigate(path) } 
-            />
             <div className="addingNewCompany">
                 <header className="block_AddingNewCompany">
                     <TopNav 
                         iconBack 
                         onBack={ goBack } 
-                        title={ 'To the list of companies'.toUpperCase() } 
+                        title={ 'To the companies list'.toUpperCase() } 
                     />
                 </header> 
                 { !isLoading ? <> 
                     <main className="block_AddingNewCompany">
-                        Company name: <BaseInput 
-                            value={ newCompamyInfo.shortName } 
-                            handleChange={ ( value: string ) => onChangeField( value, 'company', 'shortName' ) } 
-                        />
+                        <div className="input_addingNewCompany">
+                            <span className="titleRowCardInfo">
+                                Short company name
+                            </span> 
+                            <BaseInput 
+                                value={ newCompamyInfo.shortName } 
+                                handleChange={ ( value: string ) => onChangeField( value, 'company', 'shortName' ) } 
+                            />
+                        </div>
                         { cards && cards.map( ({ title, fields, type }, id) => 
                             <CardInfo 
                                 key={ id }
@@ -190,8 +195,9 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                             onlyFirst
                     />*/}
                     </main>
-                    <BtnBase title="Save" onClick={ () => onSave() }/>
-                    <Footer /> 
+                    <div className='btn_addingNewCompany'>
+                        <BtnBase title="Submit" onClick={ () => onSave() }/>    
+                    </div> 
                 </> : <div className='progress_AddingNewCompany'>
                     <Progress 
                         size={ 25 }
@@ -202,3 +208,10 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
         </div>
     );
 } 
+/*
+            <ExtraSideMenu 
+                clickedId={ btnId } 
+                content={ contentProcessesPage } 
+                onClick={ (path) => toNavigate(path) } 
+            />
+            */

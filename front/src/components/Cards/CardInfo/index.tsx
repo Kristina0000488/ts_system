@@ -35,9 +35,7 @@ function CardInfo(props: CardInfoProps)
 
     useEffect( () => {
         if ( showEdit )
-        {
-            setShowEditMode( true );
-        }
+            setShowEditMode( true );        
     }, [ ] )
 
     const renderString = (value: string | number, color?: string) : React.ReactElement =>
@@ -59,7 +57,7 @@ function CardInfo(props: CardInfoProps)
                         onClick={ () => setShowEditMode( !showEditMode ) } 
                         onSave={ () => onSave() }
                         size='16px'
-                        textSecondBtn='Сохранить'
+                        textSecondBtn='Submit'
                     />
                 </div> }
             </div> }

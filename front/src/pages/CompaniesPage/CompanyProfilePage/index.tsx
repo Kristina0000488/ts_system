@@ -155,17 +155,12 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
     //console.log(showProgress, isLoading, '8787' )
     return (
         <div className='companyProfileContainer'>
-            <ExtraSideMenu 
-                clickedId={ btnId } 
-                content={ contentProcessesPage } 
-                onClick={ (path) => toNavigate(path) } 
-            />
             <div className="companyProfile">
                 <header className="block_companyProfile">
                     <TopNav 
                         iconBack 
                         onBack={ goBack } 
-                        title={ 'To the list of companies'.toUpperCase() } 
+                        title={ 'To the companies list'.toUpperCase() } 
                         iconsRightSide={ isEditingRole ? iconsRightSide : undefined } 
                         collectionOnClickIconsRight={ isEditingRole ? collectionOnClickIconsRight : undefined }
                     />
@@ -213,7 +208,6 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
                             loading={ isLoading }
                         /> }
                     </main>
-                    <Footer /> 
                 </> : <div className='progress_companyProfile'>
                     <Progress 
                         size={ 25 }
@@ -224,3 +218,10 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
         </div>
     );
 } 
+/*
+            <ExtraSideMenu 
+                clickedId={ btnId } 
+                content={ contentProcessesPage } 
+                onClick={ (path) => toNavigate(path) } 
+            />
+            */

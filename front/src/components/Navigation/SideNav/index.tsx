@@ -20,9 +20,9 @@ function SideNav(props: SideNavProps)
     const { elems, onClick, clickedId } = props;
     
     return (
-        <div className='sideNavContainer'>
+        <div className='sideNav'>
             { elems && elems.map( (arr, id) => 
-                <div key={ id }>
+                <div key={ id } className='sideNavContainer'>
                     { arr.map( ({ icon, id, path='', title='' }, idx) => 
                         <IconBtn<TypeIcons> 
                             key={ id }

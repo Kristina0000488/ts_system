@@ -7,6 +7,17 @@
     height: 100%;
     display: flex;
     flex-direction: row;
+
+    .btnBtnBase {
+        background-color: @color_green2;
+        color: @color_white;
+        padding: 10px 20px;
+        border-radius: 10px;
+
+        &:hover {
+            background-color: @color_green2_light;
+        }
+    }
 }
 
 .addingNewCompany {
@@ -19,9 +30,24 @@
     //.paddingCommon();
 }
 
+.input_addingNewCompany {
+    display: flex;
+    flex-direction: row;
+    //width: 100%;
+    //height: 100%;
+    //margin: 4px 0;
+    //padding: 5px 0;
+    margin: 0 0 25px 0;
+    align-items: center;
+}
+
 .block_AddingNewCompany {
     .paddingCommon();
-    .border-bottom();
+    //.border-bottom();
+
+    .blockTopNav {
+        color: @color_black2;
+    }
 }
 
 .progress_AddingNewCompany {
@@ -30,4 +56,8 @@
     align-items: center;
     flex-direction: column;
     height: 100%;
+}
+
+.btn_addingNewCompany {
+    padding: 0 40px 0 321px;
 }

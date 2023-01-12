@@ -12,6 +12,11 @@
   height: 100%;
 }
 .block_foundCompanyProfile {
-  padding: 26px 40px;
-  border-bottom: 1px solid #e5e5e59c;
+  padding: 20px 40px;
+}
+.block_foundCompanyProfile .CardInfo {
+  margin: 0;
+}
+.block_foundCompanyProfile .CardInfo:not(:first-child) {
+  margin: 20px 0;
 }

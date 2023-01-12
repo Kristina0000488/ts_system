@@ -37,7 +37,7 @@ export const FoundCompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role 
     const cardsCompany = useAppSelector(redux.selectCardsCompany);
     const imgsCompany  = useAppSelector(redux.selectImgsCompany );
 
-    const showProgress: boolean  = companyInfo && cardsCompany && imgsCompany ? false : true;
+    const showProgress: boolean  = companyInfo && cardsCompany /*&& imgsCompany */? false : true;
    
     return (
         <div className='foundCompanyProfileContainer'>
@@ -69,7 +69,6 @@ export const FoundCompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role 
                             ) }
                         </div> }                        
                     </main>
-                    <Footer /> 
                 </> : <div className='progress_companyProfile'>
                     <Progress 
                         size={ 25 }
