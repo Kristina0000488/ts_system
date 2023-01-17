@@ -21,7 +21,7 @@ interface FormEnterNewUserProps {
     onSubmit: () => void;
     titleBtn?: string;
     values:  {[ index: string ] : string };
-    itemsSelect?: types.ItemsSelectRolesUsers[];
+    itemsSelect?: types.ItemsSelectCommon[];
     iconsChoice?: types.IconsUser[];
     choicedIcon?: types.IconsUser;
 }
@@ -42,7 +42,7 @@ export default function FormEnterNewUser(props: FormEnterNewUserProps)
     } = props;
 
     return (
-        <>
+        <div className="FormEnterNewUser">
             <IconBtn<types.IconsUser>
                 icon={ choicedIcon } 
                 onClick={ () => setShowImagesChoice( true ) } 
@@ -95,6 +95,6 @@ export default function FormEnterNewUser(props: FormEnterNewUserProps)
                 </div> 
             } ) }
             <BtnBase onClick={ onSubmit } title={ titleBtn } />
-        </>
+        </div>
     );
 }

@@ -17,7 +17,7 @@ interface TrBodyProps {
     onClickRemove: ( ) => void,
     editMode: boolean,
     onChange: ( updated: types.BackendUser ) => void,
-    itemsSelect?: types.ItemsSelectRolesUsers[]
+    itemsSelect?: types.ItemsSelectCommon[]
     onClickTr?: ( ) => void,
 }
 
@@ -54,9 +54,9 @@ export default function TrBody(props: TrBodyProps)
                     items={ itemsSelect } 
                 />
             } else { 
-                htmlElem = <input 
-                    value={ value } 
-                    onChange={ (e) => onChangeValue( e.target.value, key as keyof types.BackendUser ) }
+                htmlElem = <BaseInput    
+                    value={ value as string } 
+                    handleChange={ (value: string) => onChangeValue( value, key as keyof types.BackendUser ) }
                 />                
             }
 

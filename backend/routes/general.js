@@ -4,6 +4,7 @@ const {
 
 const {
     verifyCookieHandler,
+    adminStatisticsHandler
 } = require('../controllers/handlers/general.js');
 
 
@@ -13,5 +14,11 @@ module.exports = async function (fastify) {
     onRequest: [fastify.verifyToken],
    // schema: verifyCookieSchema,
     handler: verifyCookieHandler,
+  });
+  // get statistics for admin dashboard
+  fastify.get('/adminstatistics', {
+    onRequest: [fastify.verifyToken],
+   // schema: verifyCookieSchema,
+    handler: adminStatisticsHandler,
   });
 }

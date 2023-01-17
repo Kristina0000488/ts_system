@@ -24,6 +24,7 @@ function BtnBase(props: BtnBtnBaseProps)
         <button 
             className={`btnBtnBase ${ clickedBtn && 'clickedBtnBtnBase' } `} 
             onClick={ onClick } 
+            type='submit'
         >
             { icon && <div className='iconContainer'>
                 <Icon<TypeIcons> 

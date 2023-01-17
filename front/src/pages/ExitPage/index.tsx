@@ -19,7 +19,7 @@ export const ExitPage: React.FC<types.CommonPropsPage> = () =>
     return (
         <div className="ExitPage">
             <h2>Are you sure you want to exit?</h2>
-            <div>
+            <div className="btns_ExitPage">
                 <BtnBase key="1" onClick={ () => dispatch( redux.logoutUser() ) } title='Yes' />
                 <BtnBase key="2" onClick={ () => goBack() } title='No' />
             </div>

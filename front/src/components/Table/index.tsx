@@ -5,6 +5,8 @@ import React, {
 
 import TrBody     from './TrBody';
 import Progress   from '../Progress';
+import Pagination       from './Pagination';
+
 
 import * as types from '../../types';
 
@@ -15,13 +17,18 @@ import { idText } from 'typescript';
 
 
 interface TableProps {
-    items: types.AllUsersForTable | null,
-    edit?: boolean,
-    titles?: Array<string>,
-    onSubmit?: ( value: types.BackendUser ) => void, //( values: types.AllUsersForTable ) => void,
-    onClickRemove?: ( id: number ) => void,
-    itemsSelect?: types.ItemsSelectRolesUsers[],
-    onClickTr?: ( user: types.BackendUser ) => void,
+    items: types.AllUsersForTable | null;
+    edit?: boolean;
+    titles?: Array<string>;
+    onSubmit?: ( value: types.BackendUser ) => void; //( values: types.AllUsersForTable ) => void,
+    onClickRemove?: ( id: number ) => void;
+    itemsSelect?: types.ItemsSelectCommon[];
+    onClickTr?: ( user: types.BackendUser ) => void;
+    pagination?: boolean;
+    usersCount?: number;
+    page?: number;
+    rowsPerPage?: number;
+    onChangePagination?: (page: number, rowsPerPage: number) => void;
 }
 
 
@@ -35,10 +42,15 @@ export default function Table(props: TableProps)
         items, 
         titles=[], 
         onSubmit=(() => null), 
-        edit=false, 
+        //edit=false, 
         onClickRemove=(() => null), 
+        onChangePagination=(() => null),
         itemsSelect=[], 
-        onClickTr 
+        onClickTr=(() => null), 
+        pagination=false,
+        usersCount=0,
+        page=0,
+        rowsPerPage=0
     } = props;
 
     useEffect( () => { 
@@ -57,7 +69,7 @@ export default function Table(props: TableProps)
         value.updatedAt = { type: 'date', value: getFullDate( newDate.toDateString() ) }; //! to set to array with idx of updated values
 
         newValues[ idx ] = value;
-        console.log( newValue );
+       // console.log( newValue );
         setValue( newValue ); //value
         setValues( newValues );
     }
@@ -85,11 +97,18 @@ export default function Table(props: TableProps)
                     }) : <td>Нет данных</td> }
                 </tbody>
             </table>
-            { editMode && <button onClick={ () => { 
+            { pagination && <Pagination 
+                count={ usersCount } 
+                step={ 5 }
+                page={ page }
+                rowsPerPage={ rowsPerPage }
+                handleChange={ (page, rowsPerPage) => onChangePagination( page, rowsPerPage )  } 
+            /> }
+            { editMode && <button className='btnBtnBase' onClick={ () => { 
                 setEditMode(false); 
                 onSubmit( value ) 
             } }>
-                Save
+                Submit
             </button> }
         </>
     );

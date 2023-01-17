@@ -21,6 +21,7 @@ interface SliceState
   user         : types.ValidUser,
   allUsers     : types.ValidUser[],
   usersCount   : number,
+  adminStatistics: types.AdminStatistics
 };
 
 
@@ -36,6 +37,7 @@ const initialState: SliceState =
   user: { } as types.CommonValidUser,
   allUsers: [ ] as types.ValidUser[],
   usersCount: 0 as number,
+  adminStatistics: [ ] as types.AdminStatistics
 }
 
 
@@ -189,6 +191,15 @@ export const indexSlice = createSlice({
     {  
       state.isLoading = !state.isLoading;
     },
+    getAdminStatistics(state: SliceState) 
+    {       
+      state.isLoading = !state.isLoading;
+    },
+    setAdminStatisctics(state: SliceState, action: PayloadAction<types.AdminStatistics>) 
+    {       
+      state.isLoading       = false;
+      state.adminStatistics = action.payload;      
+    },
   },
 })
 
@@ -223,6 +234,8 @@ export const {
   removeUser,
   addUser,
   addNewCompany,
+  getAdminStatistics,
+  setAdminStatisctics
 } = indexSlice.actions;
 
 
@@ -288,40 +301,10 @@ export const selectCompaniesList   = (state: RootState) => state.index.companies
 export const selectIsLoading       = (state: RootState) => state.index.isLoading;
 export const selectCompany         = (state: RootState) => state.index.company;
 export const selectContactsCompany = (state: RootState) => state.index.contacts;
+export const selectAdminStatistics = (state: RootState) => state.index.adminStatistics;
 export const selectCardsCompany    = (state: RootState) => state.index.contacts && state.index.contacts.id && 
   state.index.company && state.index.company.id ? 
   getCardsCompanyInfo({ ...state.index.company }, { ...state.index.contacts }) : null;
-/* [
-  {
-    title: 'Общая информация',
-    type: 'company',
-    edit: true,
-    fields: [
-        { label: 'Полное название', items: [ { value: state.index.company['name'], key: 'name' } ] },
-        { label: 'Договор', items: [ 
-            { value: state.index.company['contract']['no'], key: 'contract.no' },
-            { value: ' от ', extraTxt: true }, 
-            { value: getFullDate(state.index.company['contract']['issue_date']), key: 'contract.issue_date', type: 'date' } 
-        ] },
-        { label: 'Форма', items: [ { value: state.index.company['businessEntity'], key: 'businessEntity'} ] },
-        { label: 'Тип', items: [ { value: state.index.company['type'].join( ' ' ), key: 'type', type: 'array' } ] },
-    ]
-  },
-  {
-    title: 'Контактные данные',
-    type: 'contacts',
-    edit: true,
-    fields: [
-        { label: 'ФИО', items: [ 
-          { value: state.index.contacts['lastname'], key: 'lastname'     }, 
-          { value: state.index.contacts['firstname'], key: 'firstname'   },
-          { value: state.index.contacts['patronymic'], key: 'patronymic' }], 
-        },
-        { label: 'Телефон', items: [ { value: state.index.contacts['phone'], key: 'phone' } ] },
-        { label: 'Эл. почта', items: [ { value: state.index.contacts['email'], key: 'email', color: 'green' } ] },
-    ]
-  }, 
-]*/
 
 export const selectImgsCompany = (state: RootState) => state.index.company && state.index.company.photos ? [{  
   title: 'Приложенные фото',

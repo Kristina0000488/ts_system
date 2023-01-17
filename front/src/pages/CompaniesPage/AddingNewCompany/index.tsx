@@ -2,6 +2,9 @@ import React,
     { useEffect, useState }   from 'react';
 
 import { useParams }          from 'react-router-dom';
+import { FormControl } from '@mui/material';
+import Box from '@mui/material/Box';
+
 
 import * as redux             from '../../../store/slices';
 import { 
@@ -23,7 +26,8 @@ import * as types             from '../../../types';
 import { toNavigate, goBack } from '../../../routes/methods';
 import { 
     iconsRightSide, 
-    contentProcessesPage 
+    contentProcessesPage,
+    FormCompany     
 }                             from '../../../constants';
 
 import { 
@@ -152,7 +156,13 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                         title={ 'To the companies list'.toUpperCase() } 
                     />
                 </header> 
-                { !isLoading ? <> 
+                { !isLoading ? <Box
+                    component="form"
+                    sx={{
+                        '& > :not(style)': { m: 1 },
+                    }}
+                    autoComplete="off"
+                >
                     <main className="block_AddingNewCompany">
                         <div className="input_addingNewCompany">
                             <span className="titleRowCardInfo">
@@ -160,6 +170,7 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                             </span> 
                             <BaseInput 
                                 value={ newCompamyInfo.shortName } 
+                                required
                                 handleChange={ ( value: string ) => onChangeField( value, 'company', 'shortName' ) } 
                             />
                         </div>
@@ -176,6 +187,7 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                                     key, 
                                     typeField
                                 ) }
+                               // itemsSelect={ RolesUsers as types.ItemsSelectCommon[] }
                             /> 
                         ) }
                         {/* imgsCard && <div>
@@ -198,7 +210,7 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                     <div className='btn_addingNewCompany'>
                         <BtnBase title="Submit" onClick={ () => onSave() }/>    
                     </div> 
-                </> : <div className='progress_AddingNewCompany'>
+                </Box> : <div className='progress_AddingNewCompany'>
                     <Progress 
                         size={ 25 }
                         thickness={ 4 } 

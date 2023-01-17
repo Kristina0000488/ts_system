@@ -6,6 +6,15 @@
   justify-content: center;
   align-items: center;
 }
-.ExitPage .btnBtnBase {
-  width: auto;
+.ExitPage .btns_ExitPage {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.ExitPage .btns_ExitPage .btnBtnBase {
+  color: #111315;
+}
+.ExitPage .btns_ExitPage .btnBtnBase:hover {
+  background-color: #2cdeb59a;
 }

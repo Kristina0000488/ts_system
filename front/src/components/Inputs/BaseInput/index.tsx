@@ -1,6 +1,14 @@
 import React      from 'react';
 
+import InputLabel from '@mui/material/InputLabel';
+
 import TextField  from '@mui/material/TextField';
+import Input from '@mui/material/Input';
+import FilledInput from '@mui/material/FilledInput';
+import OutlinedInput from '@mui/material/OutlinedInput';
+
+
+
 import { styled } from '@mui/material/styles';
 
 
@@ -34,6 +42,7 @@ interface BaseInputProps {
     date?: boolean,
     password?: boolean,    
     required?: boolean;
+    placeholder?: string;
 }
 
 export default function BaseInput(props: BaseInputProps) 
@@ -45,17 +54,22 @@ export default function BaseInput(props: BaseInputProps)
         date=false,
         password=false,
         required=false,
+        placeholder=''
     } = props;
-    
-    return (
-        <CssTextField 
-            id="outlined-basic fullWidth" 
-            label={ label } 
-            variant="outlined" 
+    //console.log(placeholder)
+    return (<>
+
+        <OutlinedInput 
+            //id="outlined-basic fullWidth" 
+            placeholder={ placeholder } 
+           // variant="outlined" 
             value={ value }
             onChange={ (e: React.ChangeEvent<HTMLInputElement>) => handleChange(e.target.value) }
             type={ date ? 'date' : password ? 'password' : 'text' }
             required={ required }
+            color='primary'
+            //aria-describedby="my-helper-text" 
         /> 
+</> 
     );
 }

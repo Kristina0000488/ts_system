@@ -10,7 +10,19 @@
     justify-content: center;
     align-items: center;
 
-    .btnBtnBase {
-        width: auto;
+    .btns_ExitPage {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        .btnBtnBase {
+            //background-color: @color_green2;
+            color: @color_black;
+
+            &:hover {
+                background-color: @color_green2_light;
+            }
+        }
     }
 }

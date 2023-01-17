@@ -20,7 +20,7 @@ export default function Progress(props: ProgressProps)
     return (
         <CircularProgress 
             sx={{
-                color: (theme) => (theme.palette.mode === 'light' ? '#A4C7A5' : '#82B284'),
+                color: (theme) => (theme.palette.mode === 'light' ? '#002FD2' : '#002ed290'),
                 animationDuration,
             }}
             size={ size }

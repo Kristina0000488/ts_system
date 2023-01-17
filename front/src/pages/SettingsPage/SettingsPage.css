@@ -4,12 +4,51 @@
   flex-direction: column;
   padding: 20px 40px;
 }
-.SettingsPage .btnBtnBase {
-  width: auto;
-}
 .SettingsPage h2 {
-  margin: 0;
+  margin: 0 0 40px 0;
 }
 .SettingsPage .table_SettingsPage {
   margin: 20px 0 0 0;
+  margin: 0 auto;
+}
+.SettingsPage .table_SettingsPage .btnBtnBase {
+  background-color: #002FD2;
+  color: white;
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 12px 40px;
+}
+.SettingsPage .table_SettingsPage button {
+  text-align: center;
+}
+.FormEnterNewUser .input_container {
+  margin: 0 0 15px 0;
+}
+.FormEnterNewUser .btnBtnBase {
+  background-color: #002FD2;
+  color: white;
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 12px 40px;
+}
+.FormEnterNewUser button {
+  text-align: center;
+}
+.css-hz1bth-MuiDialog-container {
+  padding: 0 0 0 12% !important;
+}
+.css-ypiqx9-MuiDialogContent-root {
+  padding: 40px 80px;
+}
+.statistics_SettingsPage {
+  display: inline-flex;
+  padding: 20px;
+  margin: 0 0 20px 0;
+  width: min-content;
+  border: 1px solid #0000001a;
+  border-radius: 10px;
+  background-color: white;
+}
+.statistics_SettingsPage .CardStatistic:not(:last-child) {
+  margin: 0 25px 0 0;
 }

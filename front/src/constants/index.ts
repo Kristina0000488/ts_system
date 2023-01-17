@@ -3,7 +3,7 @@ import {
     TypeFooterContent, 
     TypeExtraSideNavPage, 
     TypeIconsTopNavRightSide, 
-    ItemsSelectRolesUsers,
+    ItemsSelectCommon,
     TypeComonElementSideNav
 } from '../types';
 
@@ -50,7 +50,7 @@ const signOut: TypeComonElementSideNav = {
 const adminDashboard: TypeComonElementSideNav = {
     path: Paths.settings,
     icon: 'settings', 
-    title: 'Admib dashboard'
+    title: 'Admin dashboard'
 }
 
 export const sideNavElems: TypeAllRolesSideNavElems = {
@@ -170,4 +170,26 @@ export const RolesUsers = [
         value: 'user',
         title: 'User'
     } 
-] as ItemsSelectRolesUsers[];
+] as ItemsSelectCommon[];
+
+export const FormCompany = [ 
+    { 
+        value: 'private', 
+        title: 'Private' 
+    }, 
+    { 
+        value: 'public',
+        title: 'Public'
+    } 
+] as ItemsSelectCommon[];
+
+export const TypeCompany = [ 
+    { 
+        value: 'agent', 
+        title: 'Agent' 
+    }, 
+    { 
+        value: 'contractor',
+        title: 'Contractor'
+    } 
+] as ItemsSelectCommon[];

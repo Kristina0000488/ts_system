@@ -115,11 +115,14 @@ export interface PayloadUsersForTable {
 export interface TypeElemCard {
     label: string, 
     items: { 
-        value: string, 
-        key?: string, 
-        extraTxt?: boolean, 
-        color?: string, 
-        type?: string,
+        value: string;
+        key?: string;
+        extraTxt?: boolean; 
+        color?: string;
+        type?: string;
+        required?: boolean;
+        placeholder?: string;
+        itemsSelect?: ItemsSelectCommon[];
     } [],
 };
 
@@ -215,7 +218,14 @@ export type IconsUser = 'womenUser' | ' menUser' | '';
 export type BackendUser = ExtendedUser<{ type: TypeUIElem, value: RoleUser }, { type: TypeUIElem, value: string }, IconsUser>;
 export type AllUsersForTable = BackendUser[];
 
-export interface ItemsSelectRolesUsers {
+export interface ItemsSelectCommon {
     value: string;
     title: string;
 };
+
+export type ColorsCardStatistics = 'blue' | 'green' | 'orange' | 'yellow' | 'gray' | 'red';
+export type AdminStatistics = {   
+    title: string; 
+    text: string | number;
+    color?: ColorsCardStatistics
+} [];

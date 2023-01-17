@@ -15,6 +15,8 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: row;
+  background-color: #fbf6f6;
+  margin: 0 auto;
 }
 * {
   box-sizing: border-box;

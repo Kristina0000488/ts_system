@@ -3,13 +3,14 @@
 
 
 table {
-    border: 1px #0000001c solid;
-    border-radius: 10px;
+    .border();
     padding: 15px;
     border-spacing: 0;
     table-layout: fixed;
     width: 100%;
     word-break: break-all;
+    background-color: white;
+
 
     td,
     th {
@@ -19,6 +20,7 @@ table {
 
     th {
         padding: 5px 0 15px 0;
+        font-size: 15px;
     }
 
     tr {
@@ -39,13 +41,27 @@ table {
 
     tbody {    
         tr {
+            z-index: 0;
+            position: relative;
+
             &:hover {
-                background-color: #0000000f;
+                background-color: @color_blue_light2;
+            }
+
+            .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+                padding: 5px 10px !important; 
+            }
+
+            .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+                padding: 5px 10px !important;
             }
         }
 
         td {
             font-size: 14px;
+            position: relative;
+            z-index: 1;
+            padding: 5px;
         }
     }
 }

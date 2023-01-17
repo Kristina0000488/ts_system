@@ -209,13 +209,18 @@ class WrapedApi
         return await this.get( `logout`, true, [ 200, 304 ] );    
     }
 
+    async getAdminStatistics() : Promise<object>
+    {
+        return await this.get( `adminstatistics`, true, [ 200, 304 ] );    
+    }
+
     async deleteImageCompany(id: number, imageName: string) : Promise<object>
     {
         return await this.delete( `companies/${ id }/image/${ imageName }` );    
     }
 
     async addImageCompany(id: number, img: File) : Promise<object>
-    { //console.log(img)
+    { 
         const formData = new FormData();
         await formData.append(
             "image",

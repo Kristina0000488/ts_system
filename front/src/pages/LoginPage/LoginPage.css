@@ -6,10 +6,14 @@
   text-align: center;
   justify-content: center;
   align-items: center;
-  color: #82B284;
+  color: #1A1D1F;
 }
 .LoginPage .btnBtnBase {
-  width: auto;
+  background-color: #002FD2;
+  color: #efefefcc;
+}
+.LoginPage .btnBtnBase:hover {
+  background-color: #002ed290;
 }
 .LoginPage .input_LoginPage {
   margin: 0 0 15px 0;

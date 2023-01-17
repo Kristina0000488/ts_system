@@ -13,10 +13,10 @@ import { RolesUsers }  from '../../constants';
 
 import Progress    from '../../components/Progress';
 import Table       from '../../components/Table';
-import Pagination       from '../../components/Table/Pagination';
 import FormAddUser from '../../components/Forms/FormEnterNewUser';
 import Dialog from '../../components/Dialog';
 import CardUser from '../../components/Cards/CardUser';
+import CardStatistic from '../../components/Cards/CardStatistic';
 
 import './SettingsPage.css';
 
@@ -40,10 +40,12 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
 
     useEffect( () => {    
         dispatch( redux.getUsersForTable({ page, rowAmount: rowsPerPage }) );
+        dispatch( redux.getAdminStatistics( ) );
     }, [] );
 
-    const isLoading  = useAppSelector(redux.selectIsLoading);
-    const usersData  = useAppSelector(redux.selectAllUsers);
+    const isLoading       = useAppSelector(redux.selectIsLoading);
+    const usersData       = useAppSelector(redux.selectAllUsers);
+    const adminStatistics = useAppSelector(redux.selectAdminStatistics);
 
     const allUsers   = usersData ? usersData.users : [];
     const usersCount = usersData ? usersData.count : 0;
@@ -86,9 +88,9 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
         dispatch( redux.getUsersForTable({ page, rowAmount: rowsPerPage }) );
     }
 
-    const setItemsForUserCard = ( objectUser: types.BackendUser ) : types.ItemsSelectRolesUsers[] => 
+    const setItemsForUserCard = ( objectUser: types.BackendUser ) : types.ItemsSelectCommon[] => 
     {
-        let arr = [] as types.ItemsSelectRolesUsers[];
+        let arr = [] as types.ItemsSelectCommon[];
         
         for ( const [ key, value ] of Object.entries(objectUser) ) 
         {
@@ -123,6 +125,16 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
                         <div className="floatBtn">
                             <button className='btnBtnBase' onClick={ () => setShowFormAdd( true ) }>Add a new user</button>
                         </div>   
+                        <div className='statistics_SettingsPage'>
+                            { adminStatistics && adminStatistics.map( ( { color='', title, text }, id ) => {
+                                return <CardStatistic 
+                                    key={ id } 
+                                    title={ title } 
+                                    text={ text } 
+                                    color={ color as types.ColorsCardStatistics }
+                                />
+                            } ) }
+                        </div>
                         <div className="table_SettingsPage">
                             <Table 
                                 titles={[ 'ID', 'User name', 'Role', 'Date of the creating', 'Date of the updating', 'Actions' ]} 
@@ -130,18 +142,16 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
                                 edit
                                 onSubmit={ ( value: types.BackendUser ) => onSubmitUser( value ) }
                                 onClickRemove={ ( idUser: number ) => dispatch( redux.removeUser({ id: idUser }) ) }
-                                itemsSelect={ RolesUsers as types.ItemsSelectRolesUsers[] }
+                                itemsSelect={ RolesUsers as types.ItemsSelectCommon[] }
                                 onClickTr={ ( user: types.BackendUser ) => {
                                     //setShowCardUser( true );
                                     //setCurrentUserToCard( user );
                                 } }
-                            />
-                            <Pagination 
-                                count={ usersCount } 
-                                step={ 5 }
+                                pagination
                                 page={ page }
                                 rowsPerPage={ rowsPerPage }
-                                handleChange={ (page, rowsPerPage) => onChangePagination( page, rowsPerPage )  } 
+                                usersCount={ usersCount }
+                                onChangePagination={ onChangePagination }
                             />
                         </div>  
                         <Dialog 
@@ -152,16 +162,16 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
                                 elems={ elemsForm } 
                                 titleBtn='Submit'                                 
                                 values={ { password, userName, role } }
-                                itemsSelect={ RolesUsers as types.ItemsSelectRolesUsers[] }
-                                iconsChoice={ [ '' ] }
-                                choicedIcon={ iconUser }
+                                itemsSelect={ RolesUsers as types.ItemsSelectCommon[] }
+                                //iconsChoice={ [ '' ] }
+                                //choicedIcon={ iconUser }
                                 onChange={ (value, state) => {
                                     if ( state === 'password') {
                                         setPassword( value );
                                     } else if ( state === 'role') {
                                         setRole( value as types.RoleUser );
                                     } else if ( state === 'image') {
-                                        setIconUser( value as types.IconsUser );
+                                        //setIconUser( value as types.IconsUser );
                                     }  else {
                                         setUserName( value );
                                     }
@@ -175,7 +185,7 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
                                         setPassword( '' );
                                         setUserName( '' );
                                         setRole( '' as types.RoleUser);
-                                        setIconUser( 'add' as types.IconsUser );
+                                        //setIconUser( 'add' as types.IconsUser );
                                     }
                                 } }
                             />  

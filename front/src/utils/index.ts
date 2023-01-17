@@ -1,4 +1,4 @@
-import { roles } from '../constants';
+import { roles, FormCompany, TypeCompany } from '../constants';
 import * as types             from '../types';
 
 export function setStyleForMenu(widthMain: string, widthFooter: string = '0') : void 
@@ -113,14 +113,14 @@ export function getCardsCompanyInfo( companyData: types.TypeResponseGetInfoCompa
             type: 'company',
             edit: true,
             fields: [
-                { label: 'Full name company:', items: [ { value: companyData.name, key: 'name' } ] },
+                { label: 'Full name company:', items: [ { value: companyData.name, key: 'name', required: true } ] },
                 companyData['contract'] && { label: 'Contract:', items: [ 
                     { value: companyData['contract']['no'], key: 'contract.no' },
                     { value: ' from ', extraTxt: true }, 
                     { value: companyData['contract']['issue_date'], key: 'contract.issue_date', type: 'date' } 
                 ] } || { },
-                { label: 'Form:', items: [ { value: companyData.businessEntity, key: 'businessEntity'} ] },
-                { label: 'Type:', items: [ { value: companyData.type, key: 'type', type: 'array' } ] },
+                { label: 'Form:', items: [ { value: companyData.businessEntity, key: 'businessEntity', type: 'choice', itemsSelect: FormCompany } ] },
+                { label: 'Type:', items: [ { value: companyData.type, key: 'type', type: 'choice', itemsSelect: TypeCompany } ] },
             ]
         },
         {
@@ -129,9 +129,9 @@ export function getCardsCompanyInfo( companyData: types.TypeResponseGetInfoCompa
             edit: true,
             fields: [
                 { label: 'Full name of the founder:', items: [ 
-                  { value: contacts.lastname, key: 'lastname'     }, 
-                  { value: contacts.firstname, key: 'firstname'   },
-                  { value: contacts.patronymic, key: 'patronymic' }], 
+                  { value: contacts.lastname, key: 'lastname', placeholder: 'Last name' }, 
+                  { value: contacts.firstname, key: 'firstname', placeholder: 'First name' },
+                  { value: contacts.patronymic, key: 'patronymic', placeholder: 'Patronymic' } ], 
                 },
                 { label: 'Phone number:', items: [ { value: contacts.phone, key: 'phone' } ] },
                 { label: 'Email:', items: [ { value: contacts.email, key: 'email' } ] },

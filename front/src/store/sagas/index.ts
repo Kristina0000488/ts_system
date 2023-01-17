@@ -363,7 +363,11 @@ export function* handleUpdateUser(action: PayloadAction<types.BackendUser>)
           0, 
           5
         );
-        
+        const response_statistics: { result: types.AdminStatistics } & types.ResponseStatusCode = yield call( 
+          client.getAdminStatistics.bind( client )
+        );
+  
+        yield put( reducer.setAdminStatisctics( response_statistics.result ) );        
         yield put( reducer.setAllUsers( response.result ) );
       } else { 
         yield put( reducer.setError(response) );
@@ -391,8 +395,12 @@ export function* handleRemoveUser(action: PayloadAction<types.PayloadId<number>>
           client.getAllUsersForTable.bind( client ), 
           0, 
           5
+        );        
+        const response_statistics: { result: types.AdminStatistics } & types.ResponseStatusCode = yield call( 
+          client.getAdminStatistics.bind( client )
         );
-        
+  
+        yield put( reducer.setAdminStatisctics( response_statistics.result ) );        
         yield put( reducer.setAllUsers( response.result ) );
       } else { 
         yield put( reducer.setError(response) );
@@ -423,7 +431,11 @@ export function* handleAddUser(action: PayloadAction<types.PayloadAddUser<string
           0, 
           5
         );
-        
+        const response_statistics: { result: types.AdminStatistics } & types.ResponseStatusCode = yield call( 
+          client.getAdminStatistics.bind( client )
+        );
+  
+        yield put( reducer.setAdminStatisctics( response_statistics.result ) );
         yield put( reducer.setAllUsers( response.result ) );
       } else { 
         yield put( reducer.setError(response) );
@@ -432,6 +444,23 @@ export function* handleAddUser(action: PayloadAction<types.PayloadAddUser<string
     } catch (e) {            
       //yield put( reducer.setError(e) );
 
+      console.log(e);
+    }
+}
+
+export function* handleGetAdminStatistics() 
+{
+    try {
+      //const response: types.CompaniesList[] = yield call( mocks.getCompaniesList );
+      const response: { result: types.AdminStatistics } & types.ResponseStatusCode = yield call( 
+        client.getAdminStatistics.bind( client )
+      );
+
+      if ( response.statusCode === 200 ) 
+      {     
+        yield put( reducer.setAdminStatisctics( response.result ) );
+      }
+    } catch (e) {
       console.log(e);
     }
 }
@@ -456,4 +485,5 @@ export default function* watcherSaga()
     yield takeLatest(reducer.removeUser.type,            handleRemoveUser           );
     yield takeLatest(reducer.addUser.type,               handleAddUser              );
     yield takeLatest(reducer.addNewCompany.type,         handleAddNewCompany        );
+    yield takeLatest(reducer.getAdminStatistics.type,   handleGetAdminStatistics   );
 }

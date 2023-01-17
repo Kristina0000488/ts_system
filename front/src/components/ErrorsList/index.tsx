@@ -22,7 +22,7 @@ function ErrorsList(props: ErrorsListProps)
                 { error.statusCode && <span>
                     Статус код: { error.statusCode }
                 </span> }
-                <button onClick={ () => onClose( error.id ) }>
+                <button className='BtnBase' onClick={ () => onClose( error.id ) }>
                     Close
                 </button>
             </div> ) }

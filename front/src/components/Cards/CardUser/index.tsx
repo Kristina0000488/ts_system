@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 import IconBtn           from '../../Buttons/IconBtn';
 import BaseInput           from '../../Inputs/BaseInput';
 
@@ -10,7 +9,7 @@ import './CardUser.css';
 
 
 interface CardUserProps {
-    items: types.ItemsSelectRolesUsers[],
+    items: types.ItemsSelectCommon[],
     avatarName?: types.IconsUser; 
     onChangeAvatar?: () => void;
 }
@@ -19,7 +18,7 @@ interface CardUserProps {
 export default function CardUser(props: CardUserProps): React.ReactElement<CardUserProps> 
 {    
     const { items, avatarName='', onChangeAvatar } = props;
-    console.log(items)
+   // console.log(items)
     return (
         <div className='cardUser'>
             <IconBtn<types.IconsUser> 
