@@ -22,9 +22,9 @@ const updateCompanyContactsHandler = async (req, reply) => {
     try {
         const { email, firstname, lastname, phone, patronymic } = req.body;
         const { id } = req.params;
-
+        console.log(req.body);
         await knex("companyContacts")
-          .where({'id': id})
+          .where({'id': +id})
           .update({
             email,
             firstname,
@@ -33,7 +33,11 @@ const updateCompanyContactsHandler = async (req, reply) => {
             phone,
             updatedat: new Date().toDateString()
           });
-        //console.log(req.body, id)
+
+          const select = await knex("companyContacts")
+          .select('*')
+          .where({'id': +id})
+        console.log(select, id)
         reply.send({ result: "success", statusCode: 200 });
     } catch (err) {
         fastify.log.error(err);
@@ -45,7 +49,7 @@ const updateCompanyContactsHandler = async (req, reply) => {
 const deleteCompanyContactsHandler = async (req, reply) => {    
     try {
         await knex("companyContacts")
-            .where("id", req.params.id)            
+            .where("id", +req.params.id)            
             .del()
         
         reply.send({ result: "success", statusCode: 200 });

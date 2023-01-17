@@ -68,6 +68,7 @@ export default function BaseInput(props: BaseInputProps)
             type={ date ? 'date' : password ? 'password' : 'text' }
             required={ required }
             color='primary'
+            size="small"
             //aria-describedby="my-helper-text" 
         /> 
 </> 

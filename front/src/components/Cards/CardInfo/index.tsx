@@ -60,6 +60,7 @@ function CardInfo(props: CardInfoProps)
                 onChange={ (val: string) => onChange(val, key, type) } 
                 //label={ label } 
                 required={ required }
+                width={ 230 }
             />  
         }
 

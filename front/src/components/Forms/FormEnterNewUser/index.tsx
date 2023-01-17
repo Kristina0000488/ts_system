@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { FormControl } from '@mui/material';
+
 import Select     from '../../Inputs/Select';
 import BaseInput  from '../../Inputs/BaseInput';
 import BtnBase    from '../../Buttons/BtnBase';
@@ -68,31 +70,37 @@ export default function FormEnterNewUser(props: FormEnterNewUserProps)
                     }) }
                 </div>
             </Dialog>                 
-            { elems && elems.map( ({ label, state, password, type='', required=false }, id) => {
+            { elems && elems.map( ({ label, state, password, type='', required=false }, id) =>  {
                 if ( type === 'choice' ) 
                 {
-                    return <div className='input_container' key={ id } >
-                        <Select 
-                            key={ id }
-                            items={ itemsSelect }
-                            value= { values[state] } 
-                            onChange={ (value: string) => onChange( value, state) } 
-                            label={ label } 
-                            required={ required }
-                        />  
-                    </div> 
+                    return <FormControl variant="standard" >
+                        <div className='input_container' key={ id } >
+                            <Select 
+                                key={ id }
+                                items={ itemsSelect }
+                                value= { values[state] } 
+                                onChange={ (value: string) => onChange( value, state) } 
+                                label={ label } 
+                                required={ required }
+                                width={ 230 }
+                            />
+                        </div>
+                    </FormControl>
                 }
 
-                return <div className='input_container' key={ id } >
-                    <BaseInput 
-                        key={ id }
-                        value= { values[state] } 
-                        handleChange={ (value: string) => onChange( value, state) } 
-                        label={ label } 
-                        password={ password }
-                        required={ required }
-                    />  
-                </div> 
+                return <FormControl variant="standard">
+                        <div className='input_container' key={ id } >
+                            <BaseInput 
+                                key={ id }
+                                value= { values[state] } 
+                                handleChange={ (value: string) => onChange( value, state) } 
+                                label={ label } 
+                                password={ password }
+                                required={ required }
+                            />
+                        </div>
+                    </FormControl>
+                
             } ) }
             <BtnBase onClick={ onSubmit } title={ titleBtn } />
         </div>

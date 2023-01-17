@@ -12,12 +12,13 @@ interface SelectProps {
     value: string;
     onChange: (value: string) => void;
     required?: boolean;
+    width?: number;
 }
 
 export default function BasicSelect(props: SelectProps) {
   //const [age, setAge] = React.useState('');
 
-  const { items=[], label='', value='', onChange, required=false } = props;
+  const { items=[], label='', value='', onChange, required=false, width=120 } = props;
 
   const handleChange = (event: SelectChangeEvent) => {
     onChange(event.target.value as string);
@@ -25,7 +26,7 @@ export default function BasicSelect(props: SelectProps) {
 
   return (
     <Box sx={{ minWidth: 90 }}>
-      <FormControl fullWidth>
+      <FormControl sx={{ m: 0, minWidth: width }} size="small">
         { label && <InputLabel id="demo-simple-select-label">{ label }</InputLabel>}
         <Select
           labelId="demo-simple-select-label"

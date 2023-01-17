@@ -24,6 +24,10 @@
 .FormEnterNewUser .input_container {
   margin: 0 0 15px 0;
 }
+.FormEnterNewUser {
+  display: flex;
+  flex-direction: column;
+}
 .FormEnterNewUser .btnBtnBase {
   background-color: #002FD2;
   color: white;
@@ -34,12 +38,15 @@
 .FormEnterNewUser button {
   text-align: center;
 }
+/*
 .css-hz1bth-MuiDialog-container {
-  padding: 0 0 0 12% !important;
+    padding: 0 0 0 12% !important;
 }
+
 .css-ypiqx9-MuiDialogContent-root {
-  padding: 40px 80px;
+    padding: 40px 80px;
 }
+*/
 .statistics_SettingsPage {
   display: inline-flex;
   padding: 20px;

@@ -1,6 +1,8 @@
 import React, 
     { useEffect, useState }  from 'react';
 
+import Box from '@mui/material/Box';
+
 import * as types  from '../../types';
 
 import * as redux  from '../../store/slices';
@@ -158,37 +160,45 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
                             open={ showFormAdd } 
                             onClose={ () => setShowFormAdd( !showFormAdd ) }
                         >
-                            <FormAddUser 
-                                elems={ elemsForm } 
-                                titleBtn='Submit'                                 
-                                values={ { password, userName, role } }
-                                itemsSelect={ RolesUsers as types.ItemsSelectCommon[] }
-                                //iconsChoice={ [ '' ] }
-                                //choicedIcon={ iconUser }
-                                onChange={ (value, state) => {
-                                    if ( state === 'password') {
-                                        setPassword( value );
-                                    } else if ( state === 'role') {
-                                        setRole( value as types.RoleUser );
-                                    } else if ( state === 'image') {
-                                        //setIconUser( value as types.IconsUser );
-                                    }  else {
-                                        setUserName( value );
-                                    }
-                                } }
-                                onSubmit={ () => {
-                                    if ( password && userName && role )
-                                    {
-                                        dispatch( redux.addUser({ password, userName, role, iconUser }));
-                                        
-                                        setShowFormAdd( false );
-                                        setPassword( '' );
-                                        setUserName( '' );
-                                        setRole( '' as types.RoleUser);
-                                        //setIconUser( 'add' as types.IconsUser );
-                                    }
-                                } }
-                            />  
+                            <Box
+                                component="form"
+                                sx={{
+                                    '& > :not(style)': { m: 0 },
+                                }}
+                                autoComplete="off"
+                            >
+                                <FormAddUser 
+                                    elems={ elemsForm } 
+                                    titleBtn='Submit'                                 
+                                    values={ { password, userName, role } }
+                                    itemsSelect={ RolesUsers as types.ItemsSelectCommon[] }
+                                    //iconsChoice={ [ '' ] }
+                                    //choicedIcon={ iconUser }
+                                    onChange={ (value, state) => {
+                                        if ( state === 'password') {
+                                            setPassword( value );
+                                        } else if ( state === 'role') {
+                                            setRole( value as types.RoleUser );
+                                        } else if ( state === 'image') {
+                                            //setIconUser( value as types.IconsUser );
+                                        }  else {
+                                            setUserName( value );
+                                        }
+                                    } }
+                                    onSubmit={ () => {
+                                        if ( password && userName && role )
+                                        {
+                                            dispatch( redux.addUser({ password, userName, role, iconUser }));
+                                            
+                                            setShowFormAdd( false );
+                                            setPassword( '' );
+                                            setUserName( '' );
+                                            setRole( '' as types.RoleUser);
+                                            //setIconUser( 'add' as types.IconsUser );
+                                        }
+                                    } }
+                                />  
+                            </Box>
                         </Dialog>
                         <Dialog 
                             open={ showCardUser } 
