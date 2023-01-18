@@ -94,7 +94,7 @@ export default function FormEnterNewUser(props: FormEnterNewUserProps)
                                 key={ id }
                                 value= { values[state] } 
                                 handleChange={ (value: string) => onChange( value, state) } 
-                                label={ label } 
+                                placeholder={ label } 
                                 password={ password }
                                 required={ required }
                             />

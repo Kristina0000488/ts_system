@@ -2,21 +2,23 @@ import { PayloadAction, Action } from '@reduxjs/toolkit';
 
 
 export type TypeIcons = 
-    'home'     | 
-    'market'   | 
-    'search'   | 
-    'settings' | 
-    'chat'     | 
-    'exit'     | 
-    'building' | 
-    'edit'     | 
-    'arrow'    | 
-    'delete'   | 
-    'add'      |
-    'remove'   | 
-    'linked'   | 
-    'addUser'  | 
+    'home'      | 
+    'market'    | 
+    'search'    | 
+    'settings'  | 
+    'chat'      | 
+    'exit'      | 
+    'building'  | 
+    'edit'      | 
+    'arrow'     | 
+    'delete'    | 
+    'add'       |
+    'remove'    | 
+    'linked'    | 
+    'addUser'   | 
     'editColor' |
+    'doubletick'|
+    'editblack' |
     'rotation';
 
 export type TypeExtraSideNavPage = {
@@ -224,8 +226,13 @@ export interface ItemsSelectCommon {
 };
 
 export type ColorsCardStatistics = 'blue' | 'green' | 'orange' | 'yellow' | 'gray' | 'red';
+
 export type AdminStatistics = {   
     title: string; 
     text: string | number;
     color?: ColorsCardStatistics
 } [];
+
+export type ChartData = {   
+    [ key: string ]: string | number,
+}[ ];

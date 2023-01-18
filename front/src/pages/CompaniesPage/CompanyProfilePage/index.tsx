@@ -17,7 +17,7 @@ import Progress               from '../../../components/Progress';
 import CardInfo               from '../../../components/Cards/CardInfo'
 import CardImg                from '../../../components/Cards/CardImg';
 import UploadBtn              from '../../../components/Buttons/UploadBtn';
-import Footer                 from '../../../components/Footer';
+import Chart                 from '../../../components/Chart';
 
 import * as types             from '../../../types';
 import { toNavigate, goBack } from '../../../routes/methods';
@@ -118,7 +118,7 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
         if ( typeCard === 'company' && companyInfo ) {            
             await dispatch( redux.updateDataCompany({ id, data: companyInfo }) );  
         } else if ( typeCard === 'contacts' && contactsCompany) {
-            await dispatch( redux.updateContactsCompany({ id, data: contactsCompany }) );  
+            await dispatch( redux.updateContactsCompany({ id: contactsCompany.id, data: contactsCompany }) );  
         }
     }
 
@@ -144,15 +144,21 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
     }
 
     const collectionOnClickIconsRight: types.CollectionOnClickIconsRight = {
-        0: () => console.log('linked'), 
-        1: () => {
+        //0: () => console.log('linked'), 
+        0: () => {
             dispatch( redux.clearCompanyAllData()        );
-            dispatch( redux.getContactsCompany( { id } ) );
+            dispatch( redux.getContactsCompany( { id: contactsCompany.id } ) );
             dispatch( redux.getDataCompany( { id } )     );
         },
-        2: () => dispatch( redux.removeCompany( { id, contactId: companyInfo.contactId } ) ),
+        1: () => dispatch( redux.removeCompany( { id, contactId: companyInfo.contactId } ) ),
     };
-    //console.log(showProgress, isLoading, '8787' )
+   // console.log(id, companyInfo, contactsCompany, '8787' )
+
+    const chartData: types.ChartData = [
+        { share: 'Stocks', area: 60 },
+        { share: 'Subscribed Capital', area: 40 }
+    ]
+
     return (
         <div className='companyProfileContainer'>
             <div className="companyProfile">
@@ -189,6 +195,7 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
                                 onSave={ () => onSave(type as types.TypeCards) }
                             /> 
                         ) }
+                        { chartData && <Chart chartData={ chartData } valueField='area' argumentField='share'  />  }
                         { imgsCompany && <div>
                             { imgsCompany.map( (imgField, id) => 
                                 <CardImg 

@@ -92,7 +92,7 @@ export default function TrBody(props: TrBodyProps)
                 noPadding 
                 noBackground 
                 sizeBtn='20px' 
-                icon='editColor' 
+                icon='editblack' 
                 onClick={ () => setEditMode( true ) }
             />
             { !editMode && <IconBtn<types.TypeIcons> 
@@ -102,7 +102,7 @@ export default function TrBody(props: TrBodyProps)
                 sizeBtn='20px' 
                 icon='delete' 
                 onClick={ () => onClickRemove( ) }
-            />}
+            /> }
         </div>
     }
     

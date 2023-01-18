@@ -42,16 +42,16 @@ function DoubleBtn(props: DoubleBtnProps)
                 setShow( !show );
                 onClick();
             } } 
-        /> : <button 
-            className="btnSecond"
+        /> : <IconBtn<TypeIcons> 
+            noPadding 
+            noBackground 
+            icon='doubletick' 
             onClick={ () => {
                 onClick();
                 setShow( !show );
                 onSave()
-            } }
-        >
-            { textSecondBtn }
-        </button> }
+            } }    
+        /> }
     </> );
 }
 

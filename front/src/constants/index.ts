@@ -147,14 +147,10 @@ export const contentProcessesPage = {
 export const iconsRightSide: TypeIconsTopNavRightSide[] = [ 
     {
         id: 0, 
-        icon: 'linked',
-    },
-    {
-        id: 1, 
         icon: 'rotation',
     },
     {
-        id: 2, 
+        id: 1, 
         icon: 'delete',
     }
 ];
