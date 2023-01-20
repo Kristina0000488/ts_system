@@ -27,3 +27,15 @@
   flex-direction: column;
   height: 100%;
 }
+.chart_companyProfile {
+  height: auto;
+  float: right;
+  margin: 2% 15% 0 0;
+}
+.chart_companyProfile canvas {
+  width: 310px !important;
+  height: 310px !important;
+}
+.leftBlock_companyProfile {
+  float: left;
+}

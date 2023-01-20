@@ -48,7 +48,7 @@ const getInfoCompanyHandler = async (req, reply) => {
 
 const updateInfoCompanyHandler = async (req, reply) => {
     try {
-        const { businessEntity, name, shortName, type } = req.body;
+        const { businessEntity, name, shortName, type, capital } = req.body;
         const { id } = req.params;
        
         await knex("companies")
@@ -58,6 +58,7 @@ const updateInfoCompanyHandler = async (req, reply) => {
             businessEntity,
             shortName, 
             type,
+            capital,
             updatedat: new Date().toDateString()
           });
 
@@ -83,7 +84,7 @@ const deleteInfoCompanyHandler = async (req, reply) => {
 
 const addInfoCompanyHandler = async (req, reply) => {
     try { 
-        const { name, shortName, businessEntity, type } = req.body;
+        const { name, shortName, businessEntity, type, capital } = req.body;
         const contactId = await knex.select('id')
             .from('companyContacts');
 
@@ -93,7 +94,8 @@ const addInfoCompanyHandler = async (req, reply) => {
             businessEntity,
             type, 
             contactId: contactId[contactId.length - 1].id, 
-            createdat: new Date().toDateString() 
+            createdat: new Date().toDateString(),
+            capital
         });
         
         reply.send({ result: "success", statusCode: 200 });

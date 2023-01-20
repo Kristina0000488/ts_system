@@ -70,13 +70,13 @@ export function prepareValue( type: string, value: string ) : string | Date | st
 }
 
 export function onChangeFormCompany( 
-    value: string, 
+    value: string |  { label: string, value: string } [], 
     updated: object,
     path?: string, 
     type?: string
 ) : object | void
-{      
-    let item = prepareValue( type || '', value );
+{ 
+    let item = typeof value === 'string' ? prepareValue( type || '', value ) : value;
 
     if ( path )
     {
@@ -121,6 +121,7 @@ export function getCardsCompanyInfo( companyData: types.TypeResponseGetInfoCompa
                 ] } || { },
                 { label: 'Form:', items: [ { value: companyData.businessEntity, key: 'businessEntity', type: 'choice', itemsSelect: FormCompany } ] },
                 { label: 'Type:', items: [ { value: companyData.type, key: 'type', type: 'choice', itemsSelect: TypeCompany } ] },
+                { label: 'Capital:', items: [ { value: companyData.capital, key: 'capital', type: 'multiple_input', required: true } ] },
             ]
         },
         {

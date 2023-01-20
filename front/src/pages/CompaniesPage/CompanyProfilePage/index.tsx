@@ -154,11 +154,25 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
     };
    // console.log(id, companyInfo, contactsCompany, '8787' )
 
-    const chartData: types.ChartData = [
-        { share: 'Stocks', area: 60 },
-        { share: 'Subscribed Capital', area: 40 }
-    ]
-
+    const chartData: types.ChartData = {
+        labels: [ 'Stocks', 'Capital' ],
+        datasets: [
+            {
+                label: '',
+                data: [ 60, 40 ],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                ],
+                borderWidth: 1,
+            },
+        ],
+    };
+          
     return (
         <div className='companyProfileContainer'>
             <div className="companyProfile">
@@ -173,29 +187,33 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
                 </header> 
                 { !showProgress ? <> 
                     <main className="block_companyProfile">
-                        { companyInfo.shortName && (isEditingRole ? <EditTitle 
-                            bold 
-                            item={ companyInfo.shortName } 
-                            onSave={ (value) => onChangeTitle(value, 'shortName') }
-                            labelField='Company name'
-                        /> : <BaseTitle value={ companyInfo.shortName } />) }
-                        { cardsCompany && cardsCompany.map( ({ title, fields, type }, id) => 
-                            <CardInfo 
-                                key={ id }
-                                edit={ isEditingRole } 
-                                iconName='edit' 
-                                title={ title } 
-                                fields={ fields as types.TypeElemCard[] } 
-                                onChange={ (value: string, key, typeField) => onChangeField(
-                                    value, 
-                                    type as types.TypeCards, 
-                                    key, 
-                                    typeField
-                                ) }
-                                onSave={ () => onSave(type as types.TypeCards) }
-                            /> 
-                        ) }
-                        { chartData && <Chart chartData={ chartData } valueField='area' argumentField='share'  />  }
+                        <div className="leftBlock_companyProfile">
+                            { companyInfo.shortName && (isEditingRole ? <EditTitle 
+                                bold 
+                                item={ companyInfo.shortName } 
+                                onSave={ (value) => onChangeTitle(value, 'shortName') }
+                                labelField='Company name'
+                            /> : <BaseTitle value={ companyInfo.shortName } />) }
+                            { cardsCompany && cardsCompany.map( ({ title, fields, type }, id) => 
+                                <CardInfo 
+                                    key={ id }
+                                    edit={ isEditingRole } 
+                                    iconName='edit' 
+                                    title={ title } 
+                                    fields={ fields as types.TypeElemCard[] } 
+                                    onChange={ (value, key, typeField) => onChangeField(
+                                        value as string, 
+                                        type as types.TypeCards, 
+                                        key, 
+                                        typeField
+                                    ) }
+                                    onSave={ () => onSave(type as types.TypeCards) }
+                                /> 
+                            ) }
+                        </div>
+                        { chartData && <div className="chart_companyProfile">
+                            <Chart chartData={ chartData } /> 
+                        </div> }
                         { imgsCompany && <div>
                             { imgsCompany.map( (imgField, id) => 
                                 <CardImg 

@@ -5,7 +5,7 @@ import { PayloadAction }         from '@reduxjs/toolkit';
 import * as reducer              from '../slices';
 import { client }                from '../../services/api';
 import * as types                from '../../types';
-import * as mocks                from '../../services/mocks';
+//import * as mocks                from '../../services/mocks';
 import { toNavigate }            from '../../routes/methods';
 import { Paths }                 from '../../constants';
 
@@ -152,9 +152,9 @@ export function* handleAddNewCompany(action: PayloadAction<{ contacts: types.Typ
 export function* handleRemoveImgCompany(action: PayloadAction<{ imgId: number, id: string }>) //PayloadId
 {
     try {
-        const response: types.TypeResponseGetInfoCompany = yield call( mocks.removeCompanyImg, action.payload.imgId, action.payload.id );
+        //const response: types.TypeResponseGetInfoCompany = yield call( mocks.removeCompanyImg, action.payload.imgId, action.payload.id );
      
-        yield put( reducer.setDataCompany( response ) );
+       // yield put( reducer.setDataCompany( response ) );
     } catch (e) {
       console.log(e);
     }
@@ -164,9 +164,9 @@ export function* handleAddImgCompany(action: PayloadAction<types.PayloadImgFile>
 { 
     try {
       //yield call( client.addImageCompany.bind( client ), 12, action.payload.img );      
-      const response: types.TypeResponseGetInfoCompany = yield call( mocks.addCompanyImg, action.payload.id );
+      //const response: types.TypeResponseGetInfoCompany = yield call( mocks.addCompanyImg, action.payload.id );
    
-      yield put( reducer.setDataCompany( response ) );
+      //yield put( reducer.setDataCompany( response ) );
     } catch (e) {
       console.log(e);
     }
@@ -313,9 +313,9 @@ export function* handleCheckUser()
 export function* handleGetAllUsers() 
 {
     try {  
-      const response: types.Users = yield call( mocks.getAllUsers );
+      //const response: types.Users = yield call( mocks.getAllUsers );
       
-      yield put( reducer.setAllUsers( response ) );
+     // yield put( reducer.setAllUsers( response ) );
 
     } catch (e) {
       //yield put( reducer.setError(e) );

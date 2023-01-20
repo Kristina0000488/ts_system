@@ -1,7 +1,7 @@
 import * as types       from '../../types';
 import { getRandomInt, copyObj } from '../../utils';
 
-
+/*
 export let companyInfo: { [ index : string ] : types.TypeResponseGetInfoCompany } = {
     '12': {
         businessEntity: "ООО",
@@ -368,4 +368,4 @@ function getPromise <T extends Object>( object: T, time: number = 1000, isError:
             resolve( object );            
         }, time );
     } );
-}
+}*/

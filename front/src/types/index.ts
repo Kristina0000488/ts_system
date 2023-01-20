@@ -62,10 +62,14 @@ export interface TypeResponseGetInfoCompany extends Object
     type: string[],
     status: string,
     createdAt: string,
-    updatedAt: string
+    updatedAt: string,
+    capital: { 
+        label: string, 
+        value: number 
+    }[], 
 };
 
-export type TypeAddInfoCompany = Pick<TypeResponseGetInfoCompany, "name" | "shortName" | "businessEntity" | "type" | "contract">;
+export type TypeAddInfoCompany = Pick<TypeResponseGetInfoCompany, "name" | "shortName" | "businessEntity" | "type" | "contract" | "capital">;
 
 export interface TypeResponseGetContactsCompany extends Object 
 {
@@ -234,5 +238,12 @@ export type AdminStatistics = {
 } [];
 
 export type ChartData = {   
-    [ key: string ]: string | number,
-}[ ];
+    labels: string[], 
+    datasets: { 
+        label: string,
+        data: number[],
+        backgroundColor: string[],
+        borderColor: string[],
+        borderWidth: number
+    }[],
+};

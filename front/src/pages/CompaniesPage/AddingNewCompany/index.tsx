@@ -58,6 +58,7 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
         shortName: "",
         status: "",
         type: [ ],
+        capital: [ ]
         //updatedAt: "",
     } as types.TypeAddInfoCompany);
     const [ newContactsCompany, setNewContactsCompany ] = useState<types.TypeAddContactsCompany>({
