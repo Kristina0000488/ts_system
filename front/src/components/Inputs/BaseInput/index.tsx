@@ -42,6 +42,7 @@ interface BaseInputProps {
     date?: boolean,
     password?: boolean,    
     required?: boolean;
+    numbers?: boolean;
     placeholder?: string;
 }
 
@@ -53,6 +54,7 @@ export default function BaseInput(props: BaseInputProps)
         label='', 
         date=false,
         password=false,
+        numbers=false,
         required=false,
         placeholder=''
     } = props;
@@ -65,7 +67,7 @@ export default function BaseInput(props: BaseInputProps)
            // variant="outlined" 
             value={ value }
             onChange={ (e: React.ChangeEvent<HTMLInputElement>) => handleChange(e.target.value) }
-            type={ date ? 'date' : password ? 'password' : 'text' }
+            type={ date ? 'date' : password ? 'password' : numbers ? 'number' : 'text' }
             required={ required }
             color='primary'
             size="small"

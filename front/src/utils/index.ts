@@ -70,7 +70,7 @@ export function prepareValue( type: string, value: string ) : string | Date | st
 }
 
 export function onChangeFormCompany( 
-    value: string |  { label: string, value: string } [], 
+    value: string | types.TypeElemCard[] | types.ElemForm [], 
     updated: object,
     path?: string, 
     type?: string
@@ -105,7 +105,7 @@ export function onChangeFormCompany(
 }
 
 export function getCardsCompanyInfo( companyData: types.TypeResponseGetInfoCompany | types.TypeAddInfoCompany, contacts: types.TypeResponseGetContactsCompany | types.TypeAddContactsCompany) 
-{// console.log( companyData, contacts );
+{ console.log( companyData );
     //if ( companyData && contacts )
     return [
         {

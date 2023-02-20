@@ -34,7 +34,7 @@ export type TypeElemSideNav = {
     title?: string,
 };
 
-export type TypeComonElementSideNav = Pick<TypeElemSideNav, 'icon' | 'title' | 'path' | 'icon'>;
+export type TypeComonElementSideNav = Pick<TypeElemSideNav, 'icon' | 'title' | 'path'>;
 
 export interface TypeIconsTopNavRightSide extends Object
 {
@@ -125,7 +125,7 @@ export interface TypeElemCard {
         key?: string;
         extraTxt?: boolean; 
         color?: string;
-        type?: string;
+        type?: TypeUIElem;
         required?: boolean;
         placeholder?: string;
         itemsSelect?: ItemsSelectCommon[];
@@ -191,7 +191,7 @@ export interface LoginUser {
 export interface ResponseLoginUser extends LoginUser, ResponseStatusCode { };
 
 export type RoleUser   = 'user' | 'admin' | 'guest' | 'moderator';
-export type TypeUIElem = 'choice' | 'date' | 'choiceImages';
+export type TypeUIElem = 'choice' | 'date' | 'multiple_input' | 'choiceImages' | '';
 
 export interface ExtendedUser<Role, TimeStamp, Icon> extends LoginUser
 {
@@ -246,4 +246,9 @@ export type ChartData = {
         borderColor: string[],
         borderWidth: number
     }[],
+};
+
+export type ElemForm = {   
+    label: string; 
+    value: string;
 };

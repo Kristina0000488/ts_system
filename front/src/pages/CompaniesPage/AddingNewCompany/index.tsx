@@ -58,7 +58,12 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
         shortName: "",
         status: "",
         type: [ ],
-        capital: [ ]
+        capital: [
+           /* {
+                label: '',
+                value: 0
+            }*/
+        ]
         //updatedAt: "",
     } as types.TypeAddInfoCompany);
     const [ newContactsCompany, setNewContactsCompany ] = useState<types.TypeAddContactsCompany>({
@@ -70,8 +75,6 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
         phone: "",
         //updatedAt: "",
     } as types.TypeAddContactsCompany);
-    //const [ newImgs, setNewImgs] = useState<types.TypeImgs[]>([] as types.TypeImgs[]);
-    const [ file, setFile ] = useState<File>();
 
     const dispatch  = useAppDispatch();
     
@@ -88,18 +91,24 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
     }, [ isAdded ] );
     
     const onChangeField = async ( 
-        value: string, 
+        value: string | types.TypeElemCard[] | types.ElemForm[], 
         typeCard: types.TypeCards, 
         path?: string, 
-        type?: string 
+        type?: types.TypeUIElem 
     ) : Promise<void> => 
     {
         if ( typeCard === 'company' )  {
-            const newObject = onChangeFormCompany( value, newCompamyInfo, path, type );
+            const newObject = onChangeFormCompany( value as string, newCompamyInfo, path, type );
 
             setNewCompamy( newObject as types.TypeResponseGetInfoCompany );
+            
+            if (  type === 'multiple_input' ) {
+                const newObject = onChangeFormCompany( value as types.ElemForm[], newCompamyInfo, path, type );
+                console.log( newObject );
+                setNewCompamy( newObject as types.TypeResponseGetInfoCompany );
+            }
         } else {
-            const newObject = onChangeFormCompany( value, newContactsCompany, path, type );
+            const newObject = onChangeFormCompany( value as types.TypeElemCard[], newContactsCompany, path, type );
 
             setNewContactsCompany( newObject as types.TypeResponseGetContactsCompany );
         }        
@@ -115,38 +124,9 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
         }
     }
 
-    const onRemoveImg = <T extends number>( imgId: T) : void => 
-    { 
-        let newPhotos = [] as any[];//[ ...newCompamyInfo.photos ];
-        
-        newPhotos.splice(imgId, 1);
-
-        setNewCompamy({ 
-            ...newCompamyInfo, 
-            //photos: newPhotos
-        });
-    }
-
-    const onAddImg = ( ) : void => 
-    { 
-        /*setNewCompamy({ 
-            ...newCompamyInfo, 
-            photos: [ ...newCompamyInfo.photos, {
-                filepath: `/images/0/1.jpg`,
-                name: "1.jpg",
-                thumbpath: `/images/0/1.jpg`,
-            } ] 
-        });*/
-    }
-
     const cards = getCardsCompanyInfo(newCompamyInfo, newContactsCompany);         
 
-    /*const imgsCard = [{
-        title: 'Приложенные фото',
-        type: 'photos',
-        fields: newCompamyInfo.photos,
-    }];*/
-   // console.log(isLoading)
+    console.log(cards, newCompamyInfo)
     return (
         <div className='addingNewCompanyContainer'>
             <div className="addingNewCompany">
@@ -182,11 +162,11 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                                 iconName='edit' 
                                 title={ title } 
                                 fields={ fields as types.TypeElemCard[] } 
-                                onChange={ (value: string, key, typeField) => onChangeField(
+                                onChange={ (value: string |  types.TypeElemCard[], key, typeField: types.TypeUIElem = '' ) => onChangeField(
                                     value, 
                                     type as types.TypeCards, 
                                     key, 
-                                    typeField
+                                    typeField as types.TypeUIElem 
                                 ) }
                                // itemsSelect={ RolesUsers as types.ItemsSelectCommon[] }
                             /> 
