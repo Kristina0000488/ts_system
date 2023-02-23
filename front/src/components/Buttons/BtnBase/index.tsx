@@ -12,19 +12,20 @@ interface BtnBtnBaseProps
     icon?: TypeIcons;
     title?: string;
     onClick: () => void; 
-    clickedBtn?: boolean;    
+    clickedBtn?: boolean;  
+    noSubmit?: boolean;  
 }
 
 
 function BtnBase(props: BtnBtnBaseProps) 
 {
-    const { icon, onClick, title='', clickedBtn } = props;
+    const { icon, onClick, title='', clickedBtn, noSubmit=false } = props;
     
     return (
         <button 
             className={`btnBtnBase ${ clickedBtn && 'clickedBtnBtnBase' } `} 
             onClick={ onClick } 
-            type='submit'
+            type={`${ noSubmit ? 'button' : 'submit' }`}
         >
             { icon && <div className='iconContainer'>
                 <Icon<TypeIcons> 

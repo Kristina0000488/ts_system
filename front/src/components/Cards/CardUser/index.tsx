@@ -9,32 +9,34 @@ import './CardUser.css';
 
 
 interface CardUserProps {
-    items: types.ItemsSelectCommon[],
-    avatarName?: types.IconsUser; 
-    onChangeAvatar?: () => void;
+    user: types.ValidUser;
 }
 
 
 export default function CardUser(props: CardUserProps): React.ReactElement<CardUserProps> 
-{    
-    const { items, avatarName='', onChangeAvatar } = props;
-   // console.log(items)
+{
+    const [ showData, setShowData ] = useState<boolean>(false);
+
+    const { user } = props;
+  
+    const renderUser = (user: types.ValidUser): React.ReactElement => {
+        console.log(user)
+        return <>{ Object.entries( user ).forEach( ( [ key, value ], id ) => {
+            <div key={ id }>{ `${key} ${value}` }</div>
+        }) }</>  
+    }
+
     return (
         <div className='cardUser'>
-            <IconBtn<types.IconsUser> 
-                icon={ avatarName } 
-                onClick={ onChangeAvatar && onChangeAvatar } 
+            <IconBtn<types.TypeIcons> 
+                icon={ 'home' } 
+                onClick={ () => setShowData(true) } 
                 noPadding 
-                noBackground 
+                //noBackground 
             />
-            <>
-                { items && items.map( ({ value, title }, id) => {
-                    return <div key={ id }> 
-                        <label>{ title }</label> 
-                        <p>{ value }</p>
-                    </div>
-                }) }
-            </>
+            { showData && <div className='container_cardUser'>
+                { user ? renderUser( user ) : <></> }
+            </div> }            
         </div>
     );
 }

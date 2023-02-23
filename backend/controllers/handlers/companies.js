@@ -39,8 +39,11 @@ const getInfoCompanyHandler = async (req, reply) => {
             .select()
             .where({'companies.id': id})
             .andWhere({'companyContacts.id': id})
-        */
-        reply.send({ result: result[0], statusCode: 200 });
+        */ 
+        let updatedResult     = { ...result[0] };
+        updatedResult.capital = JSON.parse( updatedResult.capital );
+
+        reply.send({ result: updatedResult, statusCode: 200 });
     } catch (err) {
       fastify.log.error(err);
     }
@@ -58,7 +61,7 @@ const updateInfoCompanyHandler = async (req, reply) => {
             businessEntity,
             shortName, 
             type,
-            capital,
+            capital: JSON.stringify(capital),
             updatedat: new Date().toDateString()
           });
 
@@ -95,7 +98,7 @@ const addInfoCompanyHandler = async (req, reply) => {
             type, 
             contactId: contactId[contactId.length - 1].id, 
             createdat: new Date().toDateString(),
-            capital
+            capital: JSON.stringify(capital)
         });
         
         reply.send({ result: "success", statusCode: 200 });

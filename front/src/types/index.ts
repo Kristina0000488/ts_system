@@ -65,7 +65,7 @@ export interface TypeResponseGetInfoCompany extends Object
     updatedAt: string,
     capital: { 
         label: string, 
-        value: number 
+        value: string 
     }[], 
 };
 
@@ -191,7 +191,7 @@ export interface LoginUser {
 export interface ResponseLoginUser extends LoginUser, ResponseStatusCode { };
 
 export type RoleUser   = 'user' | 'admin' | 'guest' | 'moderator';
-export type TypeUIElem = 'choice' | 'date' | 'multiple_input' | 'choiceImages' | '';
+export type TypeUIElem = 'choice' | 'date' | 'multiple_input' | 'choiceImages' | 'array' | '';
 
 export interface ExtendedUser<Role, TimeStamp, Icon> extends LoginUser
 {

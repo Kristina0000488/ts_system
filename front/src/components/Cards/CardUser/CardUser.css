@@ -1,45 +1,8 @@
-.marginBtn {
-  margin-left: 15px;
-}
 .CardInfo {
   width: 100%;
-  margin: 32px 0;
-}
-.itemRowCardInfo,
-.titleRowCardInfo,
-.titleCardInfo {
-  flex-direction: row;
-  display: flex;
-  align-items: center;
-  color: #1A1D1F;
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 20px;
-  margin: 0 0 1% 0;
-}
-.rowCardInfo {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
   height: 100%;
-  margin: 4px 0;
-  align-items: center;
 }
-.showEdit_rowCardInfo {
-  display: flex;
-  flex-direction: column;
-}
-.titleRowCardInfo {
-  width: 150px;
-  font-size: 14px;
-  letter-spacing: 0em;
-  margin: 0;
-}
-.itemRowCardInfo {
-  font-size: 14px;
-  font-weight: 400;
-  margin: 0;
-}
-.green {
-  color: #18c3d0cf;
+.container_cardUser {
+  width: 100px;
+  height: 100px;
 }

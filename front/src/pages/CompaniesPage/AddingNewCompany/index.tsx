@@ -54,7 +54,6 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
         //createdAt: "",
         //id: "",
         name: "",
-        //photos: [ ] as types.TypeImgs[],
         shortName: "",
         status: "",
         type: [ ],
@@ -79,10 +78,10 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
     const dispatch  = useAppDispatch();
     
     const isLoading = useAppSelector(redux.selectIsLoading);
-    const { btnId } = useAppSelector(redux.selectClickedBtnId);
+    //const { btnId } = useAppSelector(redux.selectClickedBtnId);
     const isAdded   = useAppSelector(redux.selectIsDone);
 
-    useEffect( () => { console.log(isAdded)
+    useEffect( () => { //console.log(isAdded)
         if ( !!isAdded )
         {
             goBack();
@@ -96,7 +95,7 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
         path?: string, 
         type?: types.TypeUIElem 
     ) : Promise<void> => 
-    {
+    { console.log( value );
         if ( typeCard === 'company' )  {
             const newObject = onChangeFormCompany( value as string, newCompamyInfo, path, type );
 
@@ -104,7 +103,7 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
             
             if (  type === 'multiple_input' ) {
                 const newObject = onChangeFormCompany( value as types.ElemForm[], newCompamyInfo, path, type );
-                console.log( newObject );
+               
                 setNewCompamy( newObject as types.TypeResponseGetInfoCompany );
             }
         } else {
@@ -126,7 +125,9 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
 
     const cards = getCardsCompanyInfo(newCompamyInfo, newContactsCompany);         
 
-    console.log(cards, newCompamyInfo)
+  //  console.log('  ----create')
+
+   // console.log(cards, newCompamyInfo, '  ----see')
     return (
         <div className='addingNewCompanyContainer'>
             <div className="addingNewCompany">
@@ -162,7 +163,7 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                                 iconName='edit' 
                                 title={ title } 
                                 fields={ fields as types.TypeElemCard[] } 
-                                onChange={ (value: string |  types.TypeElemCard[], key, typeField: types.TypeUIElem = '' ) => onChangeField(
+                                onChange={ (value: string | types.TypeElemCard[] | types.ElemForm[], key, typeField: types.TypeUIElem = '' ) => onChangeField(
                                     value, 
                                     type as types.TypeCards, 
                                     key, 
@@ -171,22 +172,6 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                                // itemsSelect={ RolesUsers as types.ItemsSelectCommon[] }
                             /> 
                         ) }
-                        {/* imgsCard && <div>
-                            { imgsCard.map( (imgField, id) => 
-                                <CardImg 
-                                    key={ id }
-                                    remove={ true } 
-                                    onRemove={ ( id: number ) => onRemoveImg( id ) }
-                                    title={ imgField.title }
-                                    fields={ imgField.fields }
-                                />
-                        ) }
-                        </div>*/ }
-                        { /*imgsCard && <UploadBtn 
-                            handleChange={ (file: File) => onAddImg() }
-                            label_1={ 'Добавить изображение'.toUpperCase() } 
-                            onlyFirst
-                    />*/}
                     </main>
                     <div className='btn_addingNewCompany'>
                         <BtnBase title="Submit" onClick={ () => onSave() }/>    
@@ -201,10 +186,3 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
         </div>
     );
 } 
-/*
-            <ExtraSideMenu 
-                clickedId={ btnId } 
-                content={ contentProcessesPage } 
-                onClick={ (path) => toNavigate(path) } 
-            />
-            */

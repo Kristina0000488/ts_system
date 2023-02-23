@@ -17,7 +17,7 @@ import './CardInfo.css';
 
 interface CardInfoProps {
    iconName?: types.TypeIcons; 
-   onChange?: (value: string | any[], key?: string, type?: types.TypeUIElem ) => void; 
+   onChange?: (value: string | types.ElemForm[] | types.TypeElemCard[], key?: string, type?: types.TypeUIElem ) => void; 
    title: string; 
    fields: types.TypeElemCard[];
    onSave?: ( ) => void;
@@ -44,29 +44,43 @@ function CardInfo(props: CardInfoProps)
            setShowEditMode( true );        
     }, [ ] )
 
-    const renderString = (value: string | number | any, color?: string) : React.ReactElement =>
-    { console.log(fields, '02225')
-        return <span className={`itemRowCardInfo ${ color }`}>
-            &nbsp;{ value }&nbsp;
-        </span>  
+    const renderString = (value: string | number | types.ElemForm[], color?: string) : React.ReactElement =>
+    { //console.log(fields, '02225')
+        if ( Array.isArray(value) ) {
+            return <>
+                { value && value.map( (val, id) => <div key={ id } className='itemRowCardInfo'>
+                    <span>
+                        { val.label }
+                    </span>
+                    <span>
+                        { val.value }
+                        { val.value && '%' }
+                    </span> 
+                </div> ) }
+            </> 
+        } else {                    
+            return <div className={`itemRowCardInfo ${ color }`}>
+                &nbsp;{ value }&nbsp;
+            </div>
+        }
     }
 
     const renderElem = ( 
-        value: string | types.ElemForm []='', 
+        value: string | types.ElemForm [], 
         key: string, 
         type: types.TypeUIElem = '', 
         required: boolean=false, 
         placeholder: string='', 
         itemsSelect: types.ItemsSelectCommon[]=[] 
     ) => {
-        let elem = null;  console.log(showEdit, value)
+        let elem = null;  
 
         if ( type === 'choice' ) 
         {
             elem = <Select 
                 items={ itemsSelect }
                 value= { value as string } 
-                onChange={ (val: string) => onChange(val, key, type) } 
+                onChange={ (val: string) => { onChange(val, key, type); console.log( val, '   ----valllll') } } 
                 required={ required }
                 width={ 230 }
             />  
@@ -75,12 +89,12 @@ function CardInfo(props: CardInfoProps)
             elem = <FormMultipleEnter 
                 value={ value as types.ElemForm [] } 
                 required={ required } 
-                onChange={ (val) => onChange(val, key, type) } 
-                onSubmit={ () => console.log('ok') }
+                onChange={ (val) => onChange(val, key, type) }  
+                //onSubmit={ () => setShowEditMode(false) }
             />
         } else {
             elem = <BaseInput 
-                handleChange={ (val) => onChange(val, key, type as types.TypeUIElem ) } 
+                handleChange={ (val) => { onChange(val, key, type as types.TypeUIElem ); console.log( val, '   ----valllll') }} 
                 value={ value as string }
                 date={ type === 'date' }
                 required={ required }
@@ -116,7 +130,7 @@ function CardInfo(props: CardInfoProps)
                     </span>                   
                     <div className={ showEditMode ? 'showEdit_rowCardInfo' : 'rowCardInfo' }>
                         { items.map( ({ 
-                            value='', 
+                            value, 
                             color='', 
                             extraTxt=false, 
                             key='', 
@@ -124,12 +138,12 @@ function CardInfo(props: CardInfoProps)
                             required=false, 
                             placeholder='', 
                             itemsSelect=[] 
-                        }, id: number) => <div key={ id } >
+                        }, id: number) => <span key={ id } >
                             { !extraTxt ? !showEditMode ?                                
                             renderString(value, color) :
                             renderElem( value, key, type, required, placeholder, itemsSelect ) :                                
                             extraTxt && renderString(value, color) }
-                        </div> ) }
+                        </span> ) }
                     </div>                   
                 </div> }
             ) }

@@ -200,6 +200,13 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
                                 />  
                             </Box>
                         </Dialog>
+                    </> }
+                </> 
+            }
+        </div>
+    );
+}
+/*
                         <Dialog 
                             open={ showCardUser } 
                             onClose={ () => {
@@ -212,9 +219,4 @@ export const SettingsPage: React.FC<types.CommonPropsPage> = () =>
                                 onChangeAvatar={ () => console.log('avatar') } 
                             /> }
                         </Dialog>
-                    </> }
-                </> 
-            }
-        </div>
-    );
-}
+                        */

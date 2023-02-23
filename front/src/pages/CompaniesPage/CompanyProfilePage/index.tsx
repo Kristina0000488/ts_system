@@ -29,7 +29,8 @@ import {
 import { 
     copyObj, 
     checkEditingRole,
-    prepareValue
+    prepareValue,
+    getChartDataCompany
 }                             from '../../../utils';
 
 import './CompanyProfilePage.css';
@@ -39,7 +40,7 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
 {
     const [ file, setFile ] = useState<File>();
     
-    const dispatch  = useAppDispatch();
+    const dispatch: any  = useAppDispatch();
     const { id='' } = useParams();  
 
     useEffect( () => {   
@@ -51,15 +52,14 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
     const companyInfo      = useAppSelector(redux.selectCompany);
     const contactsCompany  = useAppSelector(redux.selectContactsCompany);
     const cardsCompany     = useAppSelector(redux.selectCardsCompany);
-    const imgsCompany      = useAppSelector(redux.selectImgsCompany);
     const isLoading        = useAppSelector(redux.selectIsLoading);
     const { btnId }        = useAppSelector(redux.selectClickedBtnId);
     const isRemovedCompany = useAppSelector(redux.selectIsDone);
 
-    let showProgress: boolean = companyInfo && cardsCompany /*&& imgsCompany*/ ? false : true;
+    let showProgress: boolean = companyInfo && cardsCompany ? false : true;
 
     const isEditingRole: boolean = role ? checkEditingRole(role) : false;
-    
+
     useEffect( () => { 
         if ( !!isRemovedCompany )
         {
@@ -69,17 +69,17 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
     }, [ isRemovedCompany ] );
     
     const onChangeField = async ( 
-        value: string, 
+        value: string | types.ElemForm[], 
         typeCard: types.TypeCards, 
         path?: string, 
-        type?: string 
+        type?: types.TypeUIElem 
     ) : Promise<void> => 
-    {  
+    {          
         let contacts = copyObj( contactsCompany as types.TypeResponseGetContactsCompany );
         let info     = copyObj( companyInfo     as types.TypeResponseGetInfoCompany     );
         
         let item = prepareValue( type || '', value );
-
+        console.log(item, '  ---- value');
         if ( path )
         {
             const [ master, child ] = path.split( "." );
@@ -94,7 +94,7 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
 
                     if ( subObject instanceof Object )
                     {
-                        updated = { ...updated, [ master ]: { ...(subObject as Object), [child]: item } as typeof subObject };
+                        updated = { ...updated, [ master ]: { ...(subObject as Object), [ child ]: item } as typeof subObject };
                     } else {
                         console.warn( `object not support property ${master} with field ${child}` );
                     }
@@ -144,7 +144,6 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
     }
 
     const collectionOnClickIconsRight: types.CollectionOnClickIconsRight = {
-        //0: () => console.log('linked'), 
         0: () => {
             dispatch( redux.clearCompanyAllData()        );
             dispatch( redux.getContactsCompany( { id: contactsCompany.id } ) );
@@ -154,24 +153,7 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
     };
    // console.log(id, companyInfo, contactsCompany, '8787' )
 
-    const chartData: types.ChartData = {
-        labels: [ 'Stocks', 'Capital' ],
-        datasets: [
-            {
-                label: '',
-                data: [ 60, 40 ],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                ],
-                borderWidth: 1,
-            },
-        ],
-    };
+    const chartData: types.ChartData = getChartDataCompany(companyInfo.capital);
           
     return (
         <div className='companyProfileContainer'>
@@ -202,7 +184,7 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
                                     title={ title } 
                                     fields={ fields as types.TypeElemCard[] } 
                                     onChange={ (value, key, typeField) => onChangeField(
-                                        value as string, 
+                                        value as any, 
                                         type as types.TypeCards, 
                                         key, 
                                         typeField
@@ -211,27 +193,9 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
                                 /> 
                             ) }
                         </div>
-                        { chartData && <div className="chart_companyProfile">
+                        { chartData.labels.length > 0 && <div className="chart_companyProfile">
                             <Chart chartData={ chartData } /> 
                         </div> }
-                        { imgsCompany && <div>
-                            { imgsCompany.map( (imgField, id) => 
-                                <CardImg 
-                                    key={ id }
-                                    remove={ isEditingRole } 
-                                    onRemove={ ( id: number ) => onRemoveImg( id ) }
-                                    title={ imgField.title }
-                                    fields={ imgField.fields }
-                                />
-                            ) }
-                        </div> }
-                        { imgsCompany && isEditingRole && <UploadBtn 
-                            handleChange={ (file: File) => setFile(file) }
-                            handleUpload={ () => onAddImg() }
-                            label_1={ 'Add an image'.toUpperCase() } 
-                            label_2={ 'Submit'.toUpperCase() } 
-                            loading={ isLoading }
-                        /> }
                     </main>
                 </> : <div className='progress_companyProfile'>
                     <Progress 
@@ -243,10 +207,3 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
         </div>
     );
 } 
-/*
-            <ExtraSideMenu 
-                clickedId={ btnId } 
-                content={ contentProcessesPage } 
-                onClick={ (path) => toNavigate(path) } 
-            />
-            */

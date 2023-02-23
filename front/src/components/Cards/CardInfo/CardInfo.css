@@ -38,10 +38,15 @@
   letter-spacing: 0em;
   margin: 0;
 }
-.itemRowCardInfo {
+.itemRowCardInfo,
+.itemRowCardInfo > span {
   font-size: 14px;
   font-weight: 400;
   margin: 0;
+}
+.itemRowCardInfo span:not(:last-child),
+.itemRowCardInfo > span span:not(:last-child) {
+  margin: 0 15px 0;
 }
 .green {
   color: #18c3d0cf;

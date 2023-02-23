@@ -4,15 +4,6 @@
   display: flex;
   flex-direction: row;
 }
-.addingNewCompanyContainer .btnBtnBase {
-  background-color: #2CDEB4;
-  color: #fbf6f6;
-  padding: 10px 20px;
-  border-radius: 10px;
-}
-.addingNewCompanyContainer .btnBtnBase:hover {
-  background-color: #2cdeb59a;
-}
 .addingNewCompany {
   width: 100%;
   display: flex;

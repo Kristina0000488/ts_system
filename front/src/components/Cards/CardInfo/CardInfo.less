@@ -44,10 +44,15 @@
     //font-weight: 600;
 }
 
-.itemRowCardInfo {
+.itemRowCardInfo, 
+.itemRowCardInfo>span {
     font-size: 14px;
     font-weight: 400;
     margin: 0;
+
+    span:not(:last-child) {
+        margin: 0 15px 0;
+    }
 }
 
 .green {

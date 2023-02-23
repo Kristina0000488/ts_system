@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react';
 
 import { FormControl } from '@mui/material';
 
-import BaseInput  from '../../Inputs/BaseInput';
+import BaseInput from '../../Inputs/BaseInput';
+import BtnBase   from '../../Buttons/BtnBase';
 
 import * as types from '../../../types';
+import { copyObj } from '../../../utils';
+
+import './FormMultipleEnter.css';
 
 
 interface FormMultipleEnterProps {
     value: types.ElemForm[];
     required: boolean;
     onChange: ( fields: types.ElemForm[] ) => void;
-    onSubmit: () => void;
 }
 
 export default function FormMultipleEnter(props: FormMultipleEnterProps) 
@@ -22,33 +25,33 @@ export default function FormMultipleEnter(props: FormMultipleEnterProps)
     const { 
         value=[], 
         onChange, 
-        onSubmit, 
         //key='', 
         //type='', 
         required=false
     } = props;
 
     useEffect( () => {
-       // if (value.length > 0) setFields( value );
+        //console.log(value);
+        if (value.length > 0) setFields( [ ...value ] );
     }, [  ] )
 
-    const onChangeState = async (value: string, key: string, id: number) => {
-        const updatedFields = [ ...fields ];
+    const onChangeState = async (value: string, key: keyof types.ElemForm, id: number) => {
+        const updatedFields = copyObj(fields);
 
-        updatedFields[ id ][ key as keyof types.ElemForm ] = value;
+        updatedFields[ id ][ key ] = value;
         
-        console.log(key, value, id, updatedFields)
+        //console.log(updatedFields)
 
         await setFields( updatedFields );
-        //onChange( updatedFields );
+        onChange( updatedFields );
     }
     
-    console.log(fields, value)
+   // console.log(fields, value)
 
     return (
         <>
             { fields.length > 0 && fields.map( (val, id) => {
-                return <div key={ id }>                    
+                return <div key={ id } className='FormMultipleEnter'>                    
                     <FormControl variant="standard">
                         <BaseInput 
                             handleChange={ (val) => onChangeState(val, 'label', id) } 
@@ -63,22 +66,40 @@ export default function FormMultipleEnter(props: FormMultipleEnterProps)
                             value={ val.value }
                             required={ required }
                             numbers
-                            placeholder={ 'Value' }
+                            placeholder={ 'Value in %' }                            
                         /> 
                     </FormControl>
+                    <BtnBase                 
+                        title='Remove'
+                        onClick={ async () => { 
+                            const updatedFields = copyObj(fields).filter( (_, idx) => idx !== id );
+
+                            await setFields( updatedFields ) ; 
+                            onChange( updatedFields )
+                        } } 
+                    />
                 </div>
             } ) }
-            <button onClick={ async () => { 
-                const updatedFields = [ ...fields ];
+            <div className='btns_FormMultipleEnter'>
+                <BtnBase                 
+                    title='Add'
+                    onClick={ async () => { 
+                        const updatedFields = [ ...fields ];
 
-                await updatedFields.push( { label: '', value: '' } );
+                        await updatedFields.push( { label: '', value: '' } );
 
-                await setFields( updatedFields );
-                onChange( fields )
-            } }>
-                Add
-            </button>
-            { <button onClick={ () => onSubmit() }>Done</button> }
+                        await setFields( updatedFields );
+                        onChange( updatedFields )
+                    } } 
+                    noSubmit
+                />
+            </div>
         </>
     );
 }
+/*
+                <BtnBase 
+                    title='Done' 
+                    onClick={ () => onSubmit() } 
+                />
+                */

@@ -18,7 +18,7 @@ interface SelectProps {
 export default function BasicSelect(props: SelectProps) {
   //const [age, setAge] = React.useState('');
 
-  const { items=[], label='', value='', onChange, required=false, width=120 } = props;
+  const { items=[], label, value, onChange, required=false, width=120 } = props;
 
   const handleChange = (event: SelectChangeEvent) => {
     onChange(event.target.value as string);

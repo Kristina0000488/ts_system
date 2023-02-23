@@ -58,25 +58,31 @@ export function checkEditingRole( role: string ) : boolean
     return false;
 }
 
-export function prepareValue( type: string, value: string ) : string | Date | string[] 
+export function prepareValue( type: types.TypeUIElem, value: string | types.ElemForm[] | types.TypeElemCard[] ) : string | Date | string[] | types.ElemForm[] | types.TypeElemCard[]/*| undefined | types.TypeElemCard[]*/
 {
-    if ( type === 'array' ) {
-        return value.split(' ');
-    } else if ( type === 'date' ) { 
-        return new Date(value).toString();
-    } else {
-        return value;
-    }
+    if ( typeof value === 'string') {
+        if ( type === 'array' ) {
+            return value.split(' ');
+        } else if ( type === 'date' ) { 
+            return new Date(value).toString();
+        }
+    } else if ( type === 'multiple_input' ) {
+        const newValue = [ ...value ].filter( (val: any ) => val.label.length > 0 && val.value.length > 0  );
+
+        return newValue as types.ElemForm[];
+    } 
+    
+    return value;
 }
 
 export function onChangeFormCompany( 
-    value: string | types.TypeElemCard[] | types.ElemForm [], 
+    value: string | types.ElemForm [] | types.TypeElemCard[], 
     updated: object,
     path?: string, 
-    type?: string
+    type?: types.TypeUIElem
 ) : object | void
 { 
-    let item = typeof value === 'string' ? prepareValue( type || '', value ) : value;
+    let item = prepareValue( type || '', value );
 
     if ( path )
     {
@@ -105,7 +111,7 @@ export function onChangeFormCompany(
 }
 
 export function getCardsCompanyInfo( companyData: types.TypeResponseGetInfoCompany | types.TypeAddInfoCompany, contacts: types.TypeResponseGetContactsCompany | types.TypeAddContactsCompany) 
-{ console.log( companyData );
+{ //console.log( companyData , ' ----companyData');
     //if ( companyData && contacts )
     return [
         {
@@ -121,7 +127,7 @@ export function getCardsCompanyInfo( companyData: types.TypeResponseGetInfoCompa
                 ] } || { },
                 { label: 'Form:', items: [ { value: companyData.businessEntity, key: 'businessEntity', type: 'choice', itemsSelect: FormCompany } ] },
                 { label: 'Type:', items: [ { value: companyData.type, key: 'type', type: 'choice', itemsSelect: TypeCompany } ] },
-                { label: 'Capital:', items: [ { value: companyData.capital, key: 'capital', type: 'multiple_input', required: true } ] },
+                { label: 'Capital:', items: [ { value: companyData.capital || [], key: 'capital', type: 'multiple_input', required: true } ] },
             ]
         },
         {
@@ -139,4 +145,38 @@ export function getCardsCompanyInfo( companyData: types.TypeResponseGetInfoCompa
             ]
         }
     ]
+}
+
+export function getChartDataCompany( values: types.ElemForm[] ) : types.ChartData
+{
+    if ( values ) {
+        let labels: string[] = [];
+        let data: number[]   = [];
+
+        values.map( ( value: types.ElemForm ) => {
+            labels.push(value.label);
+            data.push(+value.value);
+        });
+        
+        return {
+            labels,
+            datasets: [
+                {
+                    label: '',
+                    data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)', //! add colors
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    borderWidth: 1,
+                },
+            ],
+        };
+    }
+
+    return { } as types.ChartData;
 }

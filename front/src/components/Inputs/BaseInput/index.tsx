@@ -58,7 +58,7 @@ export default function BaseInput(props: BaseInputProps)
         required=false,
         placeholder=''
     } = props;
-    //console.log(placeholder)
+    console.log(value, ' ---- input')
     return (<>
 
         <OutlinedInput 

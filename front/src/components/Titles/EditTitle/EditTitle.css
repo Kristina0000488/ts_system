@@ -1,5 +1,6 @@
 .editTitle {
   display: flex;
+  align-items: center;
 }
 .marginBtn {
   margin-left: 15px;

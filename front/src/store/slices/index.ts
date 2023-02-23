@@ -297,6 +297,7 @@ export const selectAllUsers = (state: RootState) => {
   return null;
 }
 export const selectIsDone          = (state: RootState) => state.index.isDone;
+export const selectUserAllData     = (state: RootState) => state.index.user;
 export const selectCompaniesList   = (state: RootState) => state.index.companiesList;
 export const selectIsLoading       = (state: RootState) => state.index.isLoading;
 export const selectCompany         = (state: RootState) => state.index.company;
@@ -304,7 +305,8 @@ export const selectContactsCompany = (state: RootState) => state.index.contacts;
 export const selectAdminStatistics = (state: RootState) => state.index.adminStatistics;
 export const selectCardsCompany    = (state: RootState) => state.index.contacts && state.index.contacts.id && 
   state.index.company && state.index.company.id ? 
-  getCardsCompanyInfo({ ...state.index.company }, { ...state.index.contacts }) : null;
+  getCardsCompanyInfo( { ...state.index.company }, { ...state.index.contacts } ) : 
+  null;
 
 export const selectImgsCompany = (state: RootState) => state.index.company && state.index.company.photos ? [{  
   title: 'Приложенные фото',
