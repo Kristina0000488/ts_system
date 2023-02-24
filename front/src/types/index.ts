@@ -16,6 +16,7 @@ export type TypeIcons =
     'remove'    | 
     'linked'    | 
     'addUser'   | 
+    'user'      |
     'editColor' |
     'doubletick'|
     'editblack' |
