@@ -15,7 +15,7 @@ interface CardUserProps {
 
 export default function CardUser(props: CardUserProps): React.ReactElement<CardUserProps> 
 {
-    const [ showData, setShowData ] = useState<boolean>(true);
+    const [ showData, setShowData ] = useState<boolean>(false);
     const { user } = props;
   
     const renderUser = (user: types.ValidUser): React.ReactElement => {
@@ -25,11 +25,11 @@ export default function CardUser(props: CardUserProps): React.ReactElement<CardU
     }
 
     return (
-        <div className='cardUser' onBlur={ () => setShowData(true) }>            
+        <div className='cardUser' onBlur={ () => setShowData(false) }>            
             <div className='btn_cardUser'>
                 <IconBtn<types.TypeIcons> 
                     icon={ 'user' } 
-                    onClick={ () => setShowData(true) } 
+                    onClick={ () => setShowData( !showData ) } 
                     noPadding 
                     noBackground 
                 />
