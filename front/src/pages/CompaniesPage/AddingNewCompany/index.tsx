@@ -176,12 +176,10 @@ export const AddingNewCompanyPage: React.FC<types.CommonPropsPage> = ({ role }) 
                     <div className='btn_addingNewCompany'>
                         <BtnBase title="Submit" onClick={ () => onSave() }/>    
                     </div> 
-                </Box> : <div className='progress_AddingNewCompany'>
-                    <Progress 
-                        size={ 25 }
-                        thickness={ 4 } 
-                    /> 
-                </div> }
+                </Box> : <Progress 
+                    size={ 25 }
+                    thickness={ 4 } 
+                /> }
             </div>
         </div>
     );

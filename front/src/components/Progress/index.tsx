@@ -2,6 +2,8 @@ import React            from 'react';
 
 import CircularProgress from '@mui/material/CircularProgress';
 
+import './Progress.css';
+
 
 interface ProgressProps {
     size?: number;
@@ -18,13 +20,15 @@ export default function Progress(props: ProgressProps)
     } = props;
 
     return (
-        <CircularProgress 
-            sx={{
-                color: (theme) => (theme.palette.mode === 'light' ? '#002FD2' : '#002ed290'),
-                animationDuration,
-            }}
-            size={ size }
-            thickness={ thickness } 
-        />
+        <div className='progress'>
+            <CircularProgress 
+                sx={{
+                    color: (theme) => (theme.palette.mode === 'light' ? '#002FD2' : '#002ed290'),
+                    animationDuration,
+                }}
+                size={ size }
+                thickness={ thickness } 
+            />
+        </div>
     );
 }

@@ -197,12 +197,10 @@ export const CompanyProfilePage: React.FC<types.CommonPropsPage> = ({ role }) =>
                             <Chart chartData={ chartData } /> 
                         </div> }
                     </main>
-                </> : <div className='progress_companyProfile'>
-                    <Progress 
-                        size={ 25 }
-                        thickness={ 4 } 
-                    /> 
-                </div> }
+                </> : <Progress 
+                    size={ 25 }
+                    thickness={ 4 } 
+                /> }
             </div>
         </div>
     );

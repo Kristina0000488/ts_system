@@ -45,12 +45,10 @@ export const CompaniesPage: React.FC<types.CommonPropsPage> = () =>
                     onClick={ () => toNavigate( Paths.addingCompany) } 
                 />
             </div>
-        </div> : <div className='progress_companiesPage'>
-            <Progress 
-                size={ 25 }
-                thickness={ 4 } 
-            /> 
-        </div> }       
+        </div> : <Progress 
+            size={ 25 }
+            thickness={ 4 } 
+        /> }       
     </> );
 }
 /*

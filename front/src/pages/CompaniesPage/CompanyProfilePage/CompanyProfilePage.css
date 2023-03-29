@@ -20,13 +20,14 @@
 .block_companyProfile .CardInfo:not(:first-child) {
   margin: 20px 0;
 }
+/*
 .progress_companyProfile {
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  height: 100%;
-}
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}*/
 .chart_companyProfile {
   height: auto;
   float: right;
